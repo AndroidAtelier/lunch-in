@@ -5,7 +5,7 @@ android {
   buildToolsVersion "22.0.1"
 
   defaultConfig {
-    applicationId "com.github.androidatelier.lunchin"
+    applicationId "com.github.androidatelier.lunchin.notification_playground"
     minSdkVersion 16
     targetSdkVersion 22
     versionCode 1

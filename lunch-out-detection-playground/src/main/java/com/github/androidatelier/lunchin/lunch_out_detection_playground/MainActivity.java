@@ -4,9 +4,17 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+<<<<<<< HEAD
 import com.github.androidatelier.lunchin.LunchOutDetectionListener;
 import com.github.androidatelier.lunchin.LunchOutDetectionService;
 
+=======
+
+import com.github.androidatelier.lunchin.LunchOutDetectionListener;
+import com.github.androidatelier.lunchin.LunchOutDetectionService;
+
+
+>>>>>>> 4baa3787f8bebfdb625af60108f33d48d89cea79
 public class MainActivity extends Activity implements LunchOutDetectionListener {
 
     @Override

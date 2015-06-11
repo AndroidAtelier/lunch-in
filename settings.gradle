@@ -1,1 +1,3 @@
-include ':app', ':notification-playground', ':notification-lib', ':lunch-out-detection-lib'
+include ':app', ':notification-playground', ':notification-lib'
+include ':lunch-out-detection-playground', ':lunch-out-detection-lib'
+

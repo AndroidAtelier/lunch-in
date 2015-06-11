@@ -1,15 +1,15 @@
 package com.github.androidatelier.lunchin.lunch_out_detection_playground;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 
 import com.github.androidatelier.lunchin.LunchOutDetectionListener;
 import com.github.androidatelier.lunchin.LunchOutDetectionService;
 
 
-public class MainActivity extends ActionBarActivity implements LunchOutDetectionListener {
+public class MainActivity extends Activity implements LunchOutDetectionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class MainActivity extends ActionBarActivity implements LunchOutDetection
         askAboutLunchPlans();
 
         // Pass my interface implementation to the library
-        LunchOutDetectionService newService = new LunchOutDetectionService(this);
+        LunchOutDetectionService newService = new LunchOutDetectionService(this, this);
 
     }
 

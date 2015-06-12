@@ -1,3 +1,8 @@
+Include this receiver in your app manifest:
+    <receiver
+        android:name="com.github.androidatelier.lunchin.notification.NotificationReceiver"
+        android:exported="false"/>
+
 To trigger a notification:
 
     NotificationUtil.showLunchOutNotification(context, actionActivityClass);

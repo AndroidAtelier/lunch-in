@@ -14,5 +14,8 @@
       </intent-filter>
     </activity>
     <activity android:name=".NotificationActivity"/>
+    <receiver
+        android:name="com.github.androidatelier.lunchin.notification.NotificationReceiver"
+        android:exported="false"/>
   </application>
 </manifest>

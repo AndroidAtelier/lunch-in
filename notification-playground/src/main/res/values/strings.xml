@@ -1,4 +1,5 @@
 <resources>
   <string name="app_name">Notification Playground</string>
-  <string name="hello_world">Hello world!</string>
+  <string name="lunch_out">Lunch out</string>
+  <string name="lunch_in">Lunch in</string>
 </resources>

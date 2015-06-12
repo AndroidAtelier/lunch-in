@@ -15,4 +15,5 @@ android {
 
 dependencies {
   compile project(':notification-lib')
+  compile project(':lunch-out-detection-lib')
 }

@@ -19,7 +19,7 @@ public class MainActivity extends Activity implements LunchOutDetectionListener 
 
         // Pass my interface implementation to the library
 
-        LunchOutDetectionService newService = new LunchOutDetectionService(this, this, "iWork", 0, 1);
+        LunchOutDetectionService newService = new LunchOutDetectionService(this, this, "PATRIOT", "20:00", "22:00");
         newService.start();
     }
 

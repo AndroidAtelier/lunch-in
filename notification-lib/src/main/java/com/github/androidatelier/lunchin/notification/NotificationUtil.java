@@ -16,8 +16,8 @@ public abstract class NotificationUtil  {
       = "com.github.androidatelier.lunchin.notification.ACTION_LUNCH_IN";
 
   public static void showLunchOutNotification(
-      Context context, Class<?> yesActivityClass) {
-    Notification notification = getLunchNotification(context, yesActivityClass, ACTION_LUNCH_OUT)
+      Context context, Class<?> actionActivityClass) {
+    Notification notification = getLunchNotification(context, actionActivityClass, ACTION_LUNCH_OUT)
         .setContentText(context.getString(R.string.notification_text_lunch_out))
         .setSmallIcon(R.drawable.ic_notification_lunch_out)
         .build();
@@ -25,8 +25,8 @@ public abstract class NotificationUtil  {
   }
 
   public static void showLunchInNotification(
-      Context context, Class<?> yesActivityClass) {
-    Notification notification = getLunchNotification(context, yesActivityClass, ACTION_LUNCH_IN)
+      Context context, Class<?> actionActivityClass) {
+    Notification notification = getLunchNotification(context, actionActivityClass, ACTION_LUNCH_IN)
         .setContentText(context.getString(R.string.notification_text_lunch_in))
         .setSmallIcon(R.drawable.ic_notification_lunch_in)
         .build();
@@ -40,16 +40,27 @@ public abstract class NotificationUtil  {
   }
 
   private static Notification.Builder getLunchNotification(
-      Context context, Class<?> yesActivityClass, String action) {
-    Intent intent = new Intent(context, yesActivityClass);
-    intent.setAction(action);
-    PendingIntent yesIntent = PendingIntent.getActivity(context, 0, intent, 0);
+      Context context, Class<?> actionActivityClass, String action) {
+    // Answering "yes" starts the action activity
+    Intent yesIntent = new Intent(context, actionActivityClass);
+    yesIntent.setAction(action);
+    PendingIntent yesPendingIntent = PendingIntent.getActivity(context, 0, yesIntent, 0);
+
+    // By default, the no action is disabled
+    PendingIntent noPendingIntent = null;
+    // We asked if the user stayed in for lunch after lunch time is over. If they answer no, they
+    // went out for lunch, so we start the action activity with ACTION_LUNCH_OUT.
+    if (ACTION_LUNCH_IN.equals(action)) {
+      Intent noIntent = new Intent(context, actionActivityClass);
+      noIntent.setAction(ACTION_LUNCH_OUT);
+      noPendingIntent = PendingIntent.getActivity(context, 0, noIntent, 0);
+    }
 
     return new Notification.Builder(context)
         .setContentTitle(context.getString(R.string.notification_title))
         .addAction(
-            R.drawable.ic_action_yes, context.getString(R.string.action_yes), yesIntent)
-        .addAction(R.drawable.ic_action_no, context.getString(R.string.action_no), null);
+            R.drawable.ic_action_yes, context.getString(R.string.action_yes), yesPendingIntent)
+        .addAction(R.drawable.ic_action_no, context.getString(R.string.action_no), noPendingIntent);
   }
 
   private static void notify(Context context, int notificationId, Notification notification) {

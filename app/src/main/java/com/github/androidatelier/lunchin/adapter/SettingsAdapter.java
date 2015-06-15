@@ -61,11 +61,22 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
 
         @Override
         public void onClick(View v) {
-            if (title.getText().equals(Setting.TITLE_WIFI_WORK) || title.getText().equals(Setting.TITLE_WIFI_HOME)) {
-                if (v.getContext()instanceof SettingsActivity) {
-                    ((SettingsActivity)title.getContext()).doWifiScan();
+            if (v.getContext()instanceof SettingsActivity) {
+                final SettingsActivity activity = (SettingsActivity) v.getContext();
+                final CharSequence titleText = title.getText();
+                if (titleText.equals(Setting.TITLE_WIFI_WORK) || titleText.equals(Setting.TITLE_WIFI_HOME)) {
+                    activity.doWifiScan();
+                }
+
+                else if (titleText.equals(Setting.TITLE_LUNCH_TIME) || titleText.equals(Setting.TITLE_DINNER_TIME)) {
+                    activity.displayTimePickerDialog(title.getText().toString());
+                }
+
+                else if (titleText.equals(Setting.TITLE_LUNCH_DURATION) || titleText.equals(Setting.TITLE_DINNER_DURATION)) {
+                    activity.displayNumberPickerDialog(titleText.toString());
                 }
             }
+
             Toast.makeText(v.getContext(), title.getText(), Toast.LENGTH_SHORT).show();
         }
     }

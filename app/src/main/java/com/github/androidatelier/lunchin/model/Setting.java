@@ -17,6 +17,8 @@ public class Setting {
     public static final String TITLE_NOTIFICATIONS = "Notifications";
     public static final String TITLE_LUNCH_TIME = "Lunch Meal Time";
     public static final String TITLE_DINNER_TIME= "Dinner Meal Time";
+    public static final String TITLE_LUNCH_DURATION = "Lunch Duration";
+    public static final String TITLE_DINNER_DURATION = "Dinner Duration";
     public static final String TITLE_LUNCH_AVG_COST = "Average Lunch Cost";
     public static final String TITLE_DINNER_AVG_COST= "Average Dinner Cost";
     public static final String TITLE_MY_GOAL= "My Goal";

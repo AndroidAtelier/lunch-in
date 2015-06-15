@@ -1,4 +1,14 @@
 <resources>
-  <string name="app_name">Lunch In</string>
+  <string name="app_name">Lunch-in</string>
   <string name="hello_world">Hello world!</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+
+
+    <!-- begin content descriptions -->
+        <string name ="cd_row_setting_icon">setting item icon</string>
+        <string name ="cd_row_setting_title">setting item title</string>
+        <string name ="cd_row_setting_description">setting item description</string>
+    <!-- /end content descriptions -->
 </resources>

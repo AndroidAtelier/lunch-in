@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
 
+
 public class MainActivity extends Activity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {

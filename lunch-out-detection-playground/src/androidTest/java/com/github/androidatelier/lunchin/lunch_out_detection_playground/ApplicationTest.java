@@ -1,4 +1,4 @@
-package com.github.androidatelier.lunchin.lunch_out_detection_playground;
+package com.github.androidatelier.lunch_out_detection.lunch_out_detection_playground;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

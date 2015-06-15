@@ -1,17 +1,39 @@
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.androidatelier.lunchin">
-  <application
-      android:label="@string/app_name"
-      android:theme="@style/AppTheme"
-      android:allowBackup="true">
-    <activity
-        android:name=".MainActivity"
-        android:label="@string/app_name">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-    </activity>
-  </application>
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.github.androidatelier.lunchin" >
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.github.androidatelier.lunchin.activity.SettingsActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+
+        <!--
+        <activity
+            android:name=".app.activity.SettingsActivity"
+            android:label="@string/title_activity_settings_activity"
+            android:parentActivityName=".app.activity.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".app.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".app.activity.MainActivity"
+            android:label="@string/title_activity_main" >
+        </activity>-->
+    </application>
+
 </manifest>

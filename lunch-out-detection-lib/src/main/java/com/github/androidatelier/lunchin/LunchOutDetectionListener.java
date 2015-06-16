@@ -1,4 +1,4 @@
-package com.github.androidatelier.lunch_out_detection;
+package com.github.androidatelier.lunchin;
 
 /**
  * Created by A596969 on 6/11/15.

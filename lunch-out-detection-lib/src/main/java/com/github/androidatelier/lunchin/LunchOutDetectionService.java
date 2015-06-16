@@ -1,4 +1,4 @@
-package com.github.androidatelier.lunch_out_detection;
+package com.github.androidatelier.lunchin;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,6 +9,7 @@ import android.net.wifi.WifiManager;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
 import org.joda.time.DateTimeComparator;
 
 import java.text.ParseException;

@@ -4,8 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import com.github.androidatelier.lunch_out_detection.LunchOutDetectionListener;
-import com.github.androidatelier.lunch_out_detection.LunchOutDetectionService;
+
+import com.github.androidatelier.lunchin.LunchOutDetectionListener;
+import com.github.androidatelier.lunchin.LunchOutDetectionService;
 
 public class MainActivity extends Activity implements LunchOutDetectionListener {
 

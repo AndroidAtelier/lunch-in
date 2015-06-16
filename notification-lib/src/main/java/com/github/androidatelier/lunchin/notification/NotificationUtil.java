@@ -54,7 +54,7 @@ public abstract class NotificationUtil  {
     PendingIntent yesPendingIntent = PendingIntent.getActivity(context, 0, yesIntent, 0);
 
     // By default, the no action dismisses the notification
-    Intent noIntent = new Intent(context, NotificationReceiver.class);
+    Intent noIntent = new Intent(context, com.github.androidatelier.lunchin.notification.NotificationReceiver.class);
     noIntent.setAction(ACTION_DISMISS);
     noIntent.putExtra(KEY_NOTIFICATION_ID, notificationId);
     PendingIntent noPendingIntent = PendingIntent.getBroadcast(context, 0, noIntent, 0);

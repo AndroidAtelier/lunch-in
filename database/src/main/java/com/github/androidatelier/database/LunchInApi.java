@@ -32,4 +32,14 @@ public class LunchInApi {
     {
 
     }
+
+    public void InitializeDatabase()
+    {
+
+    }
+
+    public void UpgradeDatabase()
+    {
+        
+    }
 }

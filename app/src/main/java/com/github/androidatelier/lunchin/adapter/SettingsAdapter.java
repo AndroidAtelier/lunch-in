@@ -52,6 +52,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
         SettingViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
+            // add cardview? maybe.
             title = (TextView)itemView.findViewById(R.id.row_setting_title);
             description = (TextView)itemView.findViewById(R.id.row_setting_description);
             icon = (ImageView)itemView.findViewById(R.id.row_setting_icon);
@@ -73,6 +74,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
 
                 else if (titleText.equals(Setting.TITLE_LUNCH_DURATION)) {
                     activity.displayNumberPickerDialog(titleText.toString());
+                }
+
+                else if (titleText.equals(Setting.TITLE_MY_GOAL)) {
+                    activity.displayGoalSetterDialog(titleText.toString());
                 }
             }
 

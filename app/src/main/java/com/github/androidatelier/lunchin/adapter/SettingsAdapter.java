@@ -69,11 +69,15 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
                 }
 
                 else if (titleText.equals(Setting.TITLE_LUNCH_TIME) || titleText.equals(Setting.TITLE_DINNER_TIME)) {
-                    activity.displayTimePickerDialog(title.getText().toString());
+                    activity.displayTimePickerDialog(titleText.toString());
                 }
 
                 else if (titleText.equals(Setting.TITLE_LUNCH_DURATION) || titleText.equals(Setting.TITLE_DINNER_DURATION)) {
                     activity.displayNumberPickerDialog(titleText.toString());
+                }
+
+                else if (titleText.equals(Setting.TITLE_MY_GOAL)) {
+                    activity.displayGoalSetterDialog(titleText.toString());
                 }
             }
 

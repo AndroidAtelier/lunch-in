@@ -154,4 +154,12 @@ public class SettingsActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    public void displayGoalSetterDialog(String title) {
+        final AppCompatDialog dialog = new AppCompatDialog(this);
+        dialog.setContentView(R.layout.dialog_goal);
+        dialog.setTitle(title);
+
+        dialog.show();
+    }
+
 }

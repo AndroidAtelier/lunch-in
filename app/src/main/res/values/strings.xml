@@ -8,6 +8,8 @@
     <string name="button_ok">OK</string>
     <string name="button_cancel">CANCEL</string>
 
+    <string name="goal_name">Goal Name</string>
+    <string name="goal_cost">Goal Cost</string>
     <!-- begin content descriptions -->
         <string name ="cd_row_setting_icon">setting item icon</string>
         <string name ="cd_row_setting_title">setting item title</string>

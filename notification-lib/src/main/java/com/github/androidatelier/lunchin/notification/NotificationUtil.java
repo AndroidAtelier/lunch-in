@@ -20,6 +20,7 @@ public abstract class NotificationUtil  {
   public static final String ACTION_DISMISS
       = "com.github.androidatelier.lunchin.notification.ACTION_DISMISS";
 
+
   public static void showLunchOutNotification(
       Context context, Class<?> actionActivityClass) {
     Notification notification

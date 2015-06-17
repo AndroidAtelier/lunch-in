@@ -52,7 +52,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
         SettingViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            // add cardview? maybe.
             title = (TextView)itemView.findViewById(R.id.row_setting_title);
             description = (TextView)itemView.findViewById(R.id.row_setting_description);
             icon = (ImageView)itemView.findViewById(R.id.row_setting_icon);
@@ -64,15 +63,15 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
             if (v.getContext()instanceof SettingsActivity) {
                 final SettingsActivity activity = (SettingsActivity) v.getContext();
                 final CharSequence titleText = title.getText();
-                if (titleText.equals(Setting.TITLE_WIFI_WORK) || titleText.equals(Setting.TITLE_WIFI_HOME)) {
+                if (titleText.equals(Setting.TITLE_WIFI_WORK)) {
                     activity.doWifiScan();
                 }
 
-                else if (titleText.equals(Setting.TITLE_LUNCH_TIME) || titleText.equals(Setting.TITLE_DINNER_TIME)) {
+                else if (titleText.equals(Setting.TITLE_LUNCH_TIME)) {
                     activity.displayTimePickerDialog(title.getText().toString());
                 }
 
-                else if (titleText.equals(Setting.TITLE_LUNCH_DURATION) || titleText.equals(Setting.TITLE_DINNER_DURATION)) {
+                else if (titleText.equals(Setting.TITLE_LUNCH_DURATION)) {
                     activity.displayNumberPickerDialog(titleText.toString());
                 }
             }

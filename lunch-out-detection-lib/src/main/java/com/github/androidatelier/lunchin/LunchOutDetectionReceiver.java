@@ -22,7 +22,7 @@ import java.util.Date;
  * TODO: Come back and deal with possibility of setting which days of week person works, or allow person to turn off notifications for x days
  * TODO: Normalize multiple SSID change receipts so only one call back to app
  */
-public class LunchOutDetectionService extends android.app.Service {
+public class LunchOutDetectionReceiver extends android.app.Service {
 
     String mWorkSSID;
     String mStartTimeString; //HH:mm
@@ -32,11 +32,11 @@ public class LunchOutDetectionService extends android.app.Service {
     String mLastSSID = "";
     String mCurrentSSID = "";
 
-    public LunchOutDetectionService() {
+    public LunchOutDetectionReceiver() {
 
     }
 
-    public LunchOutDetectionService(Context context, LunchOutDetectionListener listener, String ssid, String start, String end) {
+    public LunchOutDetectionReceiver(Context context, LunchOutDetectionListener listener, String ssid, String start, String end) {
 
         mWorkSSID = ssid;
         mStartTimeString = start;

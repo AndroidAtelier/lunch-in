@@ -17,6 +17,7 @@ android {
 dependencies {
     compile project(':notification-lib')
     compile project(':lunch-out-detection-lib')
+    compile 'com.android.support:support-v4:22+'
     compile 'com.android.support:appcompat-v7:22+'
     compile 'com.android.support:support-annotations:22+'
     compile 'com.android.support:recyclerview-v7:22+'

@@ -5,10 +5,11 @@ import android.content.Context;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,50 +26,64 @@ import android.widget.Toast;
 
 
 import com.github.androidatelier.lunchin.R;
-import com.github.androidatelier.lunchin.adapter.SettingsAdapter;
-import com.github.androidatelier.lunchin.model.Setting;
+import com.github.androidatelier.lunchin.adapter.ViewPagerAdapter;
+import com.github.androidatelier.lunchin.fragment.MyGoalFragment;
+import com.github.androidatelier.lunchin.fragment.SettingsFragment;
+import com.github.androidatelier.lunchin.fragment.StatsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingsActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private WifiManager mWifiManager;
-    private RecyclerView mRecyclerView;
-    private List<Setting> mSettings;
+    private TabLayout mTabLayout;
+    ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_main);
 
-        mRecyclerView = (RecyclerView)findViewById(R.id.activity_settings_recyclerview);
-        mRecyclerView.setHasFixedSize(true);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(layoutManager);
-
-        initializeSettings();
-        RecyclerView.Adapter adapter = new SettingsAdapter(mSettings);
-        mRecyclerView.setAdapter(adapter);
-
+        setupToolbar();
+        initViewPager();
+        setupViewPager(mViewPager);
+        setupTablayout();
     }
 
-    private void initializeSettings() {
-        mSettings = new ArrayList<Setting>();
 
-        // app settings
-        mSettings.add(new Setting(Setting.GROUP_APP_SETTINGS, Setting.TITLE_WIFI_WORK, "Select your work network", 0));
 
-        // lunch settings
-        mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES, Setting.TITLE_LUNCH_TIME, "Lunch start time", 0));
-        mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES, Setting.TITLE_LUNCH_DURATION, "Length of lunch period", 0));
-        mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES, Setting.TITLE_LUNCH_AVG_COST, "The average cost of lunch if you ate out", 0));
-
-        // goal settings
-        mSettings.add(new Setting(Setting.GROUP_GOAL_SETTINGS, Setting.TITLE_MY_GOAL, "Select a savings goal", 0));
+    private void setupToolbar(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
+    private void initViewPager() {
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(mViewPager);
+    }
+
+    private void setupTablayout() {
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new MyGoalFragment(), "My Goal");
+        adapter.addFrag(new StatsFragment(), "Statistics");
+        adapter.addFrag(new SettingsFragment(), "Settings");
+        viewPager.setAdapter(adapter);
+    }
+
+
+    public void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+
+    // settings dialogs
     public void doWifiScan() {
         mWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
         mWifiManager.startScan();
@@ -87,7 +102,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void displayWifiNetworksDialog(List<String> networks) {
-        final AppCompatDialog dialog = new AppCompatDialog(this);
+        final AppCompatDialog dialog = new AppCompatDialog(this, R.style.GlobalDialog);
         dialog.setTitle("Select your network");
         dialog.setContentView(R.layout.dialog_wifi_list);
         ListView lv = (ListView)dialog.findViewById(R.id.dialog_wifi_list_listview);
@@ -180,5 +195,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         dialog.show();
     }
-
 }
+
+

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="scheme_tab_primary">#00B7FC</color>
+    <color name="scheme_tab_primary_dark">#0B97F8</color>
+    <color name="scheme_tab_selector">#0073FC</color>
+    <color name="scheme_tab_light">#B3E5FC</color>
+    <color name="scheme_tab_accent">#01FCDC</color>
+    <color name="scheme_tab_primary_text">#FFFFFF</color>
+    <color name="scheme_tab_secondary_text">#FFFFFF</color>
+    <color name="scheme_tab_icons">#FFFFFF</color>
+    <color name="scheme_tab_divider">#B6B6B6</color>
+
+    <color name="window_background">#FFFFFF</color>
+
+
+    <color name="app_default_text">#464440</color>
+    <color name="app_default_secondary_text">#393835</color>
+
+    <color name="dark_pumpkin">#C5520E</color>
+    <color name="dark_green">#0F462B</color>
+    <color name="fuschia">#811189</color>
+    <color name="purple">#6E0CA0</color>
+    <color name="bright_purple">#8D47ED</color>
+    <color name="persian_indigo">#410B96</color>
+    <color name="cerulean">#5086ED</color>
+</resources>

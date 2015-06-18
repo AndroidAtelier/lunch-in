@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -97,9 +98,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayWifiNetworksDialog(List<String> networks) {
-        final AppCompatDialog dialog = new AppCompatDialog(this, R.style.GlobalDialog);
-        dialog.setTitle("Select your network");
+        final AppCompatDialog dialog = new AppCompatDialog(this);
         dialog.setContentView(R.layout.dialog_wifi_list);
+        TextView dialogTitle = (TextView)dialog.findViewById(R.id.dialog_wifi_list_title);
+        dialogTitle.setText("Select Your Wifi Network");
         ListView lv = (ListView)dialog.findViewById(R.id.dialog_wifi_list_listview);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, networks);
         lv.setAdapter(listAdapter);
@@ -132,7 +134,8 @@ public class MainActivity extends AppCompatActivity {
     public void displayNumberPickerDialog(String title) {
         final AppCompatDialog dialog = new AppCompatDialog(this);
         dialog.setContentView(R.layout.dialog_number_picker);
-        dialog.setTitle(title);
+        TextView dialogTitle = (TextView)dialog.findViewById(R.id.dialog_number_picker_title);
+        dialogTitle.setText(title);
 
         Button positive = (Button) dialog.findViewById(R.id.dialog_number_picker_btn_ok);
         positive.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +166,8 @@ public class MainActivity extends AppCompatActivity {
     public void displayGoalSetterDialog(String title) {
         final AppCompatDialog dialog = new AppCompatDialog(this);
         dialog.setContentView(R.layout.dialog_goal);
-        dialog.setTitle(title);
+        TextView dialogTitle = (TextView)dialog.findViewById(R.id.dialog_goal_title);
+        dialogTitle.setText(title);
 
         dialog.show();
     }

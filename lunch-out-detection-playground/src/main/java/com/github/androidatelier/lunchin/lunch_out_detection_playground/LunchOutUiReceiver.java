@@ -2,7 +2,7 @@ package com.github.androidatelier.lunchin.lunch_out_detection_playground;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.github.androidatelier.lunchin.LunchOutDetectionReceiver;
 
@@ -20,7 +20,7 @@ public class LunchOutUiReceiver extends LunchOutDetectionReceiver {
     }
 
     @Override
-    public void sendNotification() {
-        Toast.makeText(mContext, "NOTIFICATION", Toast.LENGTH_SHORT).show();
+    public void onPossibleLunchOut() {
+        Log.d("KIO", "Inside playground onPossibleLunchOut of LunchOutUiReceiver");
     }
 }

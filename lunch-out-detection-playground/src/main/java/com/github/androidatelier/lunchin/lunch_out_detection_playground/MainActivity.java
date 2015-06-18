@@ -7,10 +7,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.github.androidatelier.lunchin.LunchOutDetectionListener;
 import com.github.androidatelier.lunchin.LunchOutDetectionReceiver;
 
-public class MainActivity extends Activity implements LunchOutDetectionListener {
+public class MainActivity extends Activity {
 
     private TextView mUserWifiText;
     private TextView mStartTimeText;
@@ -66,8 +65,4 @@ public class MainActivity extends Activity implements LunchOutDetectionListener 
         alertDialog.show();
     }
 
-    @Override
-    public void possibleLunchOutDetected(){
-        askAboutLunchPlans();
-    }
 }

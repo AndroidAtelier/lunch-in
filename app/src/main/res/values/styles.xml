@@ -1,6 +1,43 @@
 <resources>
-  <style name="AppThemeBase" parent="Theme.AppCompat.Light.DarkActionBar">
-  </style>
-  <style name="AppTheme" parent="AppThemeBase">
-  </style>
+
+    <style name="Base.Theme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/scheme_tab_primary</item>
+
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="colorPrimaryDark">@color/scheme_tab_primary_dark</item>
+
+        <item name="colorAccent">@color/scheme_tab_accent</item>
+
+        <item name="android:textColorPrimary">@color/app_default_text</item>
+
+        <item name="android:textColorSecondary">@color/app_default_secondary_text</item>
+
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+
+    <!--
+       Base application theme, dependent on API level. This theme is replaced
+       by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+   -->
+    <style name="AppBaseTheme" parent="Base.Theme">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:dialogLayout">@style/GlobalDialog</item>
+    </style>
+
+    <style name="GlobalDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/scheme_tab_primary</item>
+        <item name="android:textColor">@color/scheme_tab_accent</item>
+        <item name="android:textColorPrimary">@color/scheme_tab_primary_dark</item>
+    </style>
+
 </resources>

@@ -43,7 +43,7 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
 
         updateUserSettings(context);
 
-        if( mWorkSSID!= null && mStartTimeString != null && mEndTimeString!= null) {
+        if( mWorkSSID!= null && mStartTimeString != "" && mEndTimeString!= "") {
 
             WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
             WifiInfo info = wifiManager.getConnectionInfo();

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.github.androidatelier.lunchin.LunchOutDetectionReceiver;
+import com.github.androidatelier.lunchin.activity.MainActivity;
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
 
 /**
@@ -20,6 +21,6 @@ public class LunchOutUiReceiver extends LunchOutDetectionReceiver {
     @Override
     public void onPossibleLunchOut(Context context) {
         Log.d("KIO", "app: sendNotification");
-        NotificationUtil.showLunchOutNotification(context, LunchOutUiReceiver.class);
+        NotificationUtil.showLunchOutNotification(context, MainActivity.class);
     }
 }

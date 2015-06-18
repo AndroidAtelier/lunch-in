@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -158,7 +159,10 @@ public class SettingsActivity extends AppCompatActivity {
         goal_name.setOnEditorActionListener(new TextView.OnEditorActionListener() {
              @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                return false;
+                 if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    return true;
+                 }
+                 return false;
             }
         });
 
@@ -167,6 +171,9 @@ public class SettingsActivity extends AppCompatActivity {
         goal_cost.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    return true;
+                }
                 return false;
             }
         });

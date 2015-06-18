@@ -21,7 +21,7 @@ public class LunchOutUiReceiver extends LunchOutDetectionReceiver {
     }
 
     @Override
-    public void sendNotification() {
+    public void onPossibleLunchOut() {
         Log.d("KIO", "app: sendNotification");
         NotificationUtil.showLunchOutNotification(mContext, LunchOutUiReceiver.class);
     }

@@ -20,7 +20,7 @@ import java.util.Date;
  * TODO: Come back and deal with possibility of setting which days of week person works, or allow person to turn off notifications for x days
  * TODO: Normalize multiple SSID change receipts so only one call back to app
  */
-public class LunchOutDetectionReceiver extends BroadcastReceiver {
+public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
 
     public static final String PREFS= "com.github.androidatelier.lunchin.lunch_out_detection.prefs";
     public static final String WORK_WIFI= "com.github.androidatelier.lunchin.lunch_out_detection.work_wifi";
@@ -118,8 +118,6 @@ public class LunchOutDetectionReceiver extends BroadcastReceiver {
         }
     }
 
-    public void onPossibleLunchOut() {
-        // Does nothing until UI implements it
-    }
+    public abstract void onPossibleLunchOut();
 
 }

@@ -11,11 +11,9 @@ import com.github.androidatelier.lunchin.LunchOutDetectionReceiver;
  */
 public class LunchOutUiReceiver extends LunchOutDetectionReceiver {
 
-    private Context mContext;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        mContext = context;
         super.onReceive(context,intent);
     }
 

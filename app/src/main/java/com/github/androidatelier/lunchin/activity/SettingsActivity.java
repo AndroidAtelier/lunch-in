@@ -10,14 +10,18 @@ import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
 
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.adapter.SettingsAdapter;
@@ -149,6 +153,23 @@ public class SettingsActivity extends AppCompatActivity {
         final AppCompatDialog dialog = new AppCompatDialog(this);
         dialog.setContentView(R.layout.dialog_goal);
         dialog.setTitle(title);
+        EditText goal_name = (EditText)dialog.findViewById(R.id.dialog_goal_name);
+
+        goal_name.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+             @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                return false;
+            }
+        });
+
+        EditText goal_cost = (EditText)dialog.findViewById(R.id.dialog_goal_cost);
+
+        goal_cost.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                return false;
+            }
+        });
 
         dialog.show();
     }

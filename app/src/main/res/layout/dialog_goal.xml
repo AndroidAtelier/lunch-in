@@ -22,10 +22,12 @@
             android:text="@string/goal_name"
             />
         <EditText
+            android:id="@+id/dialog_goal_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="textNoSuggestions"
+            android:imeOptions="actionSend"
             />
     </LinearLayout>
 
@@ -41,10 +43,12 @@
             />
 
         <EditText
+            android:id="@+id/dialog_goal_cost"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:layout_weight="1"
+            android:imeOptions="actionSend"
             />
 
     </LinearLayout>

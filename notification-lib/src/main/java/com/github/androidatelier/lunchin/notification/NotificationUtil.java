@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 
 public abstract class NotificationUtil  {
   public static final int NOTIFICATION_ID_LUNCH_OUT = 10000;
@@ -26,6 +27,9 @@ public abstract class NotificationUtil  {
         context, actionActivityClass, ACTION_LUNCH_OUT, NOTIFICATION_ID_LUNCH_OUT)
         .setContentText(context.getString(R.string.notification_text_lunch_out))
         .setSmallIcon(R.drawable.ic_notification_lunch_out)
+        .setSound(Uri.parse("android.resource://"
+            + context.getPackageName() + "/"
+            + R.raw.sad_trombone))
         .build();
     notify(context, NOTIFICATION_ID_LUNCH_OUT, notification);
   }
@@ -36,6 +40,9 @@ public abstract class NotificationUtil  {
         context, actionActivityClass, ACTION_LUNCH_IN,  NOTIFICATION_ID_LUNCH_IN)
         .setContentText(context.getString(R.string.notification_text_lunch_in))
         .setSmallIcon(R.drawable.ic_notification_lunch_in)
+        .setSound(Uri.parse("android.resource://"
+            + context.getPackageName() + "/"
+            + R.raw.cash_register))
         .build();
     notify(context, NOTIFICATION_ID_LUNCH_IN, notification);
   }
@@ -70,6 +77,7 @@ public abstract class NotificationUtil  {
 
     return new Notification.Builder(context)
         .setContentTitle(context.getString(R.string.notification_title))
+        .setDefaults(Notification.DEFAULT_LIGHTS)
         .addAction(
             R.drawable.ic_action_yes, context.getString(R.string.action_yes), yesPendingIntent)
         .addAction(R.drawable.ic_action_no, context.getString(R.string.action_no), noPendingIntent);

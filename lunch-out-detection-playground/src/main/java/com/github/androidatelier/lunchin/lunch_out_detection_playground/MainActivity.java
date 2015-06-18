@@ -3,25 +3,48 @@ package com.github.androidatelier.lunchin.lunch_out_detection_playground;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.github.androidatelier.lunchin.LunchOutDetectionListener;
-import com.github.androidatelier.lunchin.LunchOutDetectionService;
+import com.github.androidatelier.lunchin.LunchOutDetectionReceiver;
 
 public class MainActivity extends Activity implements LunchOutDetectionListener {
+
+    private TextView mUserWifiText;
+    private TextView mStartTimeText;
+    private TextView mEndTimeText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Dummy Alert Dialog. Will be hooked up to lib eventually
-//        askAboutLunchPlans();
+        setupUserPrefs();
 
-        // Pass my interface implementation to the library
+        mUserWifiText = (TextView) findViewById(R.id.text_user_wifi_value);
+        mStartTimeText = (TextView) findViewById(R.id.text_lunch_start_value);
+        mEndTimeText = (TextView) findViewById(R.id.text_lunch_end_value);
 
-        LunchOutDetectionService newService = new LunchOutDetectionService(this, this, "PATRIOT", "20:00", "22:00");
-        newService.start();
+        displayCurrentUserPrefs();
+    }
+
+    private void setupUserPrefs(){
+        SharedPreferences.Editor editor = getSharedPreferences(
+                LunchOutDetectionReceiver.PREFS, MODE_PRIVATE).edit();
+        editor.putString(LunchOutDetectionReceiver.WORK_WIFI, "iWork");
+        editor.putString(LunchOutDetectionReceiver.START_TIME, "20:00");
+        editor.putString(LunchOutDetectionReceiver.END_TIME, "22:00");
+        editor.apply();
+    }
+
+    private void displayCurrentUserPrefs(){
+        SharedPreferences prefs = getSharedPreferences(LunchOutDetectionReceiver.PREFS, MODE_PRIVATE);
+
+        mUserWifiText.setText(prefs.getString(LunchOutDetectionReceiver.WORK_WIFI, ""));
+        mStartTimeText.setText(prefs.getString(LunchOutDetectionReceiver.START_TIME, ""));
+        mEndTimeText.setText(prefs.getString(LunchOutDetectionReceiver.END_TIME, ""));
     }
 
     private void askAboutLunchPlans(){

@@ -50,32 +50,22 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void initializeSettings() {
-        mSettings = new ArrayList<>();
+        mSettings = new ArrayList<Setting>();
 
         // app settings
         mSettings.add(new Setting(Setting.GROUP_APP_SETTINGS, Setting.TITLE_WIFI_WORK, "Select your work network", 0));
-        mSettings.add(new Setting(Setting.GROUP_APP_SETTINGS, Setting.TITLE_WIFI_HOME, "Select your home network", 0));
-        mSettings.add(new Setting(Setting.GROUP_APP_SETTINGS, Setting.TITLE_NOTIFICATIONS, "Notification Preferences", 0));
 
         // lunch settings
         mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES, Setting.TITLE_LUNCH_TIME, "Lunch start time", 0));
         mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES, Setting.TITLE_LUNCH_DURATION, "Length of lunch period", 0));
         mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES, Setting.TITLE_LUNCH_AVG_COST, "The average cost of lunch if you ate out", 0));
 
-        // dinner settings
-        mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES, Setting.TITLE_DINNER_TIME, "Dinner start time", 0));
-        mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES, Setting.TITLE_LUNCH_DURATION, "Length of dinner period", 0));
-        mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES, Setting.TITLE_DINNER_AVG_COST, "The average cost of dinner if you ate out", 0));
-
         // goal settings
         mSettings.add(new Setting(Setting.GROUP_GOAL_SETTINGS, Setting.TITLE_MY_GOAL, "Select a savings goal", 0));
-        //mSettings.add(new Setting(Setting.SETTING_GROUP_GOAL_SETTINGS, "Annual income", "Optional - So that we can calculate some cool stats for you, your info is kept private", 0));
-        // do we still want this ^^ ?
     }
 
     public void doWifiScan() {
         mWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
-
         mWifiManager.startScan();
 
         List<ScanResult> availableNetworks = mWifiManager.getScanResults();
@@ -150,6 +140,7 @@ public class SettingsActivity extends AppCompatActivity {
         picker.setMinValue(0);
         // set to display whatever value they set it to, otherwise default to 60 mins
         picker.setValue(60);
+
 
         dialog.show();
     }

@@ -64,15 +64,15 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
             if (v.getContext()instanceof SettingsActivity) {
                 final SettingsActivity activity = (SettingsActivity) v.getContext();
                 final CharSequence titleText = title.getText();
-                if (titleText.equals(Setting.TITLE_WIFI_WORK) || titleText.equals(Setting.TITLE_WIFI_HOME)) {
+                if (titleText.equals(Setting.TITLE_WIFI_WORK)) {
                     activity.doWifiScan();
                 }
 
-                else if (titleText.equals(Setting.TITLE_LUNCH_TIME) || titleText.equals(Setting.TITLE_DINNER_TIME)) {
-                    activity.displayTimePickerDialog(titleText.toString());
+                else if (titleText.equals(Setting.TITLE_LUNCH_TIME)) {
+                    activity.displayTimePickerDialog(title.getText().toString());
                 }
 
-                else if (titleText.equals(Setting.TITLE_LUNCH_DURATION) || titleText.equals(Setting.TITLE_DINNER_DURATION)) {
+                else if (titleText.equals(Setting.TITLE_LUNCH_DURATION)) {
                     activity.displayNumberPickerDialog(titleText.toString());
                 }
 

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp">
+
+
+        <TextView
+            android:id="@+id/fragment_stats_streak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="You are on a 10 day streak! "
+            android:textColor="@color/bright_purple"
+            android:textSize="28sp"
+            />
+
+            <TextView
+                android:id="@+id/fragment_stats_tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="1.45"
+                android:textColor="@color/dark_pumpkin"
+                android:textSize="24sp"
+                />
+
+            <TextView
+                android:id="@+id/fragment_stats_tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="is the number of hours you'd have to work to buy lunch at $14.00, based on the US National median wage per person of $26,695 annually"
+                />
+
+            <!-- formula used is imprecise based on:
+                national median wage per person = 26,695
+                dailyEarnings = 52 weeks in a year x 5 days = 260 working days (no sick and vacay accounted for)
+                dailyEarnings/8 hours = hourlyEarnings
+                postTaxHourlyEarnings = hourlyEarnings x .75 to account for taxes
+                averageLunchCost/postTaxHourlyEarnings = approximate hours you must work to buy that lunch
+
+                if averageLunchCost = $14 then approximate hours you must work to by that lunch = 1.45 at a
+                postTaxHourlyEarning rate o $9.63
+             -->
+
+        <TextView
+            android:id="@+id/fragment_stats_tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Lunched-in n days this month"
+            />
+        <TextView
+            android:id="@+id/fragment_stats_tv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Lunched-out n days this month"
+            />
+        <TextView
+            android:id="@+id/fragment_stats_tv5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Lunched-out n days this year since [day they first lunched-in/out]"
+            />
+        <TextView
+            android:id="@+id/fragment_stats_tv6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Lunched-out n days this year since [day they first lunched-in/out]"
+            />
+    </LinearLayout>
+</ScrollView>

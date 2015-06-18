@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.androidatelier.lunchin.R;
-import com.github.androidatelier.lunchin.activity.SettingsActivity;
+import com.github.androidatelier.lunchin.activity.MainActivity;
 import com.github.androidatelier.lunchin.model.Setting;
 
 import java.util.List;
@@ -61,8 +61,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
 
         @Override
         public void onClick(View v) {
-            if (v.getContext()instanceof SettingsActivity) {
-                final SettingsActivity activity = (SettingsActivity) v.getContext();
+            if (v.getContext()instanceof MainActivity) {
+                final MainActivity activity = (MainActivity) v.getContext();
                 final CharSequence titleText = title.getText();
                 if (titleText.equals(Setting.TITLE_WIFI_WORK)) {
                     activity.doWifiScan();

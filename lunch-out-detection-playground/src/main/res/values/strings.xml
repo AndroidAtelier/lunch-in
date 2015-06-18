@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">lunch-out-detection-playground</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="user_wifi">USER WIFI:</string>
+    <string name="lunch_start">LUNCH START TIME:</string>
+    <string name="lunch_end">LUNCH END TIME:</string>
 </resources>

@@ -3,14 +3,16 @@ Include these permission in your app manifest:
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-Include this service in your app manifest:
+Create your own receiver class that extends from LunchOutDetectionReceiver and override onPossibleLunchOut() with your custom implementation.
 
-       <service
-                android:name="com.github.androidatelier.lunchin.LunchOutDetectionService"
-                android:exported="false"/>
+Include this receiver in your app manifest:
 
-Your activity needs to implement LunchOutDetectionListener and override possibleLunchOutDetected()
+       <receiver android:name=".receiver.nameOfYourReceiver" >
+                   <intent-filter>
+                       <action android:name="android.net.wifi.WIFI_STATE_CHANGED" >
+                       </action>
+                   </intent-filter>
+               </receiver>
 
-In your activity you need to start the service, see the playground sample app for example.  When starting pass in work SSID and lunch start and end time as shown.
 
 Questions?  Ask Mark or Kelly

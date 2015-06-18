@@ -3,11 +3,9 @@ package com.github.androidatelier.lunchin;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.joda.time.DateTimeComparator;
@@ -17,72 +15,56 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by A596969 on 6/11/15.
+ * Created by Mark S on 6/11/15.
  *
  * TODO: Come back and deal with possibility of setting which days of week person works, or allow person to turn off notifications for x days
  * TODO: Normalize multiple SSID change receipts so only one call back to app
  */
-public class LunchOutDetectionService extends android.app.Service {
+public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
 
-    String mWorkSSID;
-    String mStartTimeString; //HH:mm
-    String mEndTimeString; //HH:mm
-    LunchOutDetectionListener mListener;
-    Context mContext;
-    String mLastSSID = "";
-    String mCurrentSSID = "";
+    public static final String PREFS= "com.github.androidatelier.lunchin.lunch_out_detection.prefs";
+    public static final String WORK_WIFI= "com.github.androidatelier.lunchin.lunch_out_detection.work_wifi";
+    public static final String START_TIME= "com.github.androidatelier.lunchin.lunch_out_detection.start_time";
+    public static final String END_TIME= "com.github.androidatelier.lunchin.lunch_out_detection.end_time";
 
-    public LunchOutDetectionService() {
+    private String mWorkSSID;
+    private String mStartTimeString; //HH:mm
+    private String mEndTimeString; //HH:mm
+    private String mLastSSID = "";
+    private String mCurrentSSID = "";
 
-    }
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        Log.d("KIO", "LunchOutDetectionReceiver::onReceive()");
 
-    public LunchOutDetectionService(Context context, LunchOutDetectionListener listener, String ssid, String start, String end) {
+        // TODO: Remove this call once we have real data from shared prefs. Until now, send notification
+        //    on any wifi state change
+        onPossibleLunchOut();
 
-        mWorkSSID = ssid;
-        mStartTimeString = start;
-        mEndTimeString = end;
-        mListener = listener;
-        mContext = context;
+        updateUserSettings(context);
 
-    }
+        if( mWorkSSID!= null && mStartTimeString != "" && mEndTimeString!= "") {
 
-    public void start() {
+            WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            WifiInfo info = wifiManager.getConnectionInfo();
+            String ssid = info.getSSID().replace("\"", ""); //remove surrounding quotes
 
-        Log.d("MARK", "service is starting");
+            if (mCurrentSSID != null) {
+                mLastSSID = mCurrentSSID;
+            }
+            mCurrentSSID = ssid;
 
-        BroadcastReceiver myReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                //TODO: Put logic block here to test wifi name and times
-                WifiManager wifiManager = (WifiManager) context.getSystemService (Context.WIFI_SERVICE);
-                WifiInfo info = wifiManager.getConnectionInfo ();
-                String ssid = info.getSSID().replace("\"", ""); //remove surrounding quotes
+            Log.d("MARK", ssid);
 
-                if(mCurrentSSID != null) {
-                    mLastSSID = mCurrentSSID;
-                }
-                mCurrentSSID = ssid;
-
-                Log.d("MARK", ssid);
-
-                if(isNowLunchTime(mStartTimeString, mEndTimeString)) {
-                    if(isSSIDAway()) {
-
-                        mListener.possibleLunchOutDetected();
-
-                    }
+            if (isNowLunchTime(mStartTimeString, mEndTimeString)) {
+                if (isSSIDAway()) {
+                    Log.d("KIO", "sendNotification is called");
+                    onPossibleLunchOut();
                 }
             }
-        };
-
-        final IntentFilter filters = new IntentFilter();
-        filters.addAction("android.net.wifi.WIFI_STATE_CHANGED");
-        filters.addAction("android.net.wifi.STATE_CHANGE");
-        mContext.registerReceiver(myReceiver, filters);
-
-//        return super.startService(service);
-
+        }
     }
+
 
     /**
      * note that HH means hours in military time, eg 5PM = 17
@@ -114,6 +96,15 @@ public class LunchOutDetectionService extends android.app.Service {
         return false;
     }
 
+    void updateUserSettings(Context context){
+        SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+
+        mWorkSSID = prefs.getString(WORK_WIFI, "");
+        mStartTimeString = prefs.getString(START_TIME, "");
+        mEndTimeString = prefs.getString(END_TIME, "");
+    }
+
+
     boolean isSSIDAway() {
         //possibility if coming back to do normalization instead of quick and dirty way:
         //http://commons.apache.org/proper/commons-collections/javadocs/api-release/org/apache/commons/collections4/queue/CircularFifoQueue.html
@@ -127,9 +118,6 @@ public class LunchOutDetectionService extends android.app.Service {
         }
     }
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
+    public abstract void onPossibleLunchOut();
+
 }

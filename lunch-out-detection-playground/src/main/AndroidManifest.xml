@@ -20,9 +20,13 @@
             </intent-filter>
         </activity>
 
-        <service
-                android:name="com.github.androidatelier.lunchin.lunch_out_detection.LunchOutDetectionService"
-                android:exported="false"/>
+        <receiver android:name="LunchOutUiReceiver" >
+            <intent-filter>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" >
+                </action>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

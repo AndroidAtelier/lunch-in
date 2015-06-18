@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Mark Scheel on 6/11/15.
+ * Created by Mark S on 6/11/15.
  *
  * TODO: Come back and deal with possibility of setting which days of week person works, or allow person to turn off notifications for x days
  * TODO: Normalize multiple SSID change receipts so only one call back to app
@@ -30,13 +30,16 @@ public class LunchOutDetectionReceiver extends BroadcastReceiver {
     private String mWorkSSID;
     private String mStartTimeString; //HH:mm
     private String mEndTimeString; //HH:mm
-    private LunchOutDetectionListener mListener;
     private String mLastSSID = "";
     private String mCurrentSSID = "";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("KIO", "LunchOutDetectionReceiver::onReceive()");
+
+        // TODO: Remove this call once we have real data from shared prefs. Until now, send notification
+        //    on any wifi state change
+        sendNotification();
 
         updateUserSettings(context);
 
@@ -55,6 +58,7 @@ public class LunchOutDetectionReceiver extends BroadcastReceiver {
 
             if (isNowLunchTime(mStartTimeString, mEndTimeString)) {
                 if (isSSIDAway()) {
+                    Log.d("KIO", "sendNotification is called");
                     sendNotification();
                 }
             }
@@ -94,6 +98,7 @@ public class LunchOutDetectionReceiver extends BroadcastReceiver {
 
     void updateUserSettings(Context context){
         SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+
         mWorkSSID = prefs.getString(WORK_WIFI, "");
         mStartTimeString = prefs.getString(START_TIME, "");
         mEndTimeString = prefs.getString(END_TIME, "");

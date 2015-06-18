@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
     public void doWifiScan() {
         mWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
         mWifiManager.startScan();
-
         List<ScanResult> availableNetworks = mWifiManager.getScanResults();
         List<String> resultList = new ArrayList<String>();
         for (int i = 0; i < availableNetworks.size(); i++) {
@@ -103,9 +102,14 @@ public class MainActivity extends AppCompatActivity {
         TextView dialogTitle = (TextView)dialog.findViewById(R.id.dialog_wifi_list_title);
         dialogTitle.setText("Select Your Wifi Network");
         ListView lv = (ListView)dialog.findViewById(R.id.dialog_wifi_list_listview);
+
+        if (networks.isEmpty()) {
+            networks.add("No networks detected");
+        }
+
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, networks);
         lv.setAdapter(listAdapter);
-
+        
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override

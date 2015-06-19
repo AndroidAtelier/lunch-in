@@ -13,6 +13,9 @@ public class DatabaseUtility extends SQLiteOpenHelper {
     public static final String COLUMN_LUNCHIN_DATE = "LunchInDate";
     public static final String COLUMN_LUNCHIN_SUCCESS = "Success";
 
+    private static final String TABLE_PREFERENCES = "Preferences";
+    private static final String COLUMN_AVG_LUNCH_COST = "AvgLunchCost";
+
     private static final String DATABASE_NAME = "lunchin.db";
     private static final int DATABASE_VERSION = 1;
 
@@ -22,6 +25,10 @@ public class DatabaseUtility extends SQLiteOpenHelper {
             + " integer primary key autoincrement, " + COLUMN_LUNCHIN_DATE
             + " datetime not null, " + COLUMN_LUNCHIN_SUCCESS
             + " bit);";
+
+    private static final String PREFERENCES_DB_CREATE = "create table "
+            + TABLE_PREFERENCES + "(" + COLUMN_AVG_LUNCH_COST
+            + " INTEGER DEFAULT 0);";
 
     public DatabaseUtility(Context context)
     {

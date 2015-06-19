@@ -11,8 +11,9 @@ public class Setting {
     public static final int GROUP_GOAL_SETTINGS = 2;
 
     public static final String TITLE_WIFI_WORK = "Work Wifi";
-    public static final String TITLE_LUNCH_TIME = "Lunch Time";
-    public static final String TITLE_LUNCH_DURATION = "Lunch Duration";
+    public static final String TITLE_LUNCH_BEGIN = "Lunch Time Begin";
+    public static final String TITLE_LUNCH_END = "Lunch Time End";
+    public static final String TITLE_LUNCH_DAYS_TRACKED = "Days to track";
     public static final String TITLE_LUNCH_AVG_COST = "Average Lunch Cost";
     public static final String TITLE_MY_GOAL= "My Goal";
 

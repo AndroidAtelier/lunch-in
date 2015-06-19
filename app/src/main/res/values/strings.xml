@@ -10,6 +10,16 @@
 
     <string name="goal_name">Goal Name</string>
     <string name="goal_cost">Goal Cost</string>
+    <string name="input_avg_cost_of_lunch">Enter the average cost of lunch</string>
+
+    <string name="sat">Sat</string>
+    <string name="sun">Sun</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+
     <!-- begin content descriptions -->
         <string name ="cd_row_setting_icon">setting item icon</string>
         <string name ="cd_row_setting_title">setting item title</string>

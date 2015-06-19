@@ -1,5 +1,6 @@
 package com.github.androidatelier.lunchin.activity;
 
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.net.wifi.ScanResult;
@@ -15,8 +16,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import com.github.androidatelier.lunchin.adapter.ViewPagerAdapter;
 import com.github.androidatelier.lunchin.fragment.MyGoalFragment;
 import com.github.androidatelier.lunchin.fragment.SettingsFragment;
 import com.github.androidatelier.lunchin.fragment.StatsFragment;
+import com.github.androidatelier.lunchin.model.Setting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
     private void setupToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        // I'll uncomment these when I get the graphic sizing right for the lunch-in text icon I want to use
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //toolbar.setLogo(R.drawable.banner_lunchin);
+        //toolbar.setLogoDescription("lunch-in toolbar title");
     }
 
     private void initViewPager() {
@@ -122,47 +128,71 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void displayTimePickerDialog(String title) {
+    public void displayTimePickerDialog(String title, final boolean isStartTime) {
         TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                // @todo persist this to somewhere
+                if (isStartTime) {
+                    // @todo persist lunch start time
+                } else {
+                    // @todo persist lunch end time
+                }
             }
         };
 
-        final TimePickerDialog dialog = new TimePickerDialog(this, timeSetListener, 12, 0, false);
+        TimePickerDialog dialog = null;
+        if (title.equals(Setting.TITLE_LUNCH_BEGIN)) {
+            dialog = new TimePickerDialog(this, timeSetListener, 12, 0, false);
+        } else {
+            dialog = new TimePickerDialog(this, timeSetListener, 13, 0, false);
+        }
+
         dialog.setTitle(title);
         dialog.show();
     }
 
-    public void displayNumberPickerDialog(String title) {
+    public void displayAverageLunchCostDialog() {
         final AppCompatDialog dialog = new AppCompatDialog(this);
-        dialog.setContentView(R.layout.dialog_number_picker);
-        TextView dialogTitle = (TextView)dialog.findViewById(R.id.dialog_number_picker_title);
-        dialogTitle.setText(title);
+        dialog.setContentView(R.layout.dialog_lunch_cost);
+        TextView dialogTitle = (TextView)dialog.findViewById(R.id.dialog_lunch_cost_title);
+        dialogTitle.setText("Average Lunch Cost");
 
-        Button positive = (Button) dialog.findViewById(R.id.dialog_number_picker_btn_ok);
-        positive.setOnClickListener(new View.OnClickListener() {
+        Button positive = (Button) dialog.findViewById(R.id.dialog_lunch_cost_btn_ok);
+        Runnable runnable = new Runnable() {
             @Override
-            public void onClick(View v) {
-                // @todo persist selection
-            }
-        });
-
-        Button neutral = (Button)dialog.findViewById(R.id.dialog_number_picker_btn_cancel);
-        neutral.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            public void run() {
+                //@todo the logic to persist to database here
                 dialog.dismiss();
             }
-        });
+        };
+        setPositiveButtonOnClickListener(positive, runnable);
 
-        NumberPicker picker = (NumberPicker)dialog.findViewById(R.id.dialog_number_picker_minutes);
-        picker.setMaxValue(120);
-        picker.setMinValue(0);
-        // set to display whatever value they set it to, otherwise default to 60 mins
-        picker.setValue(60);
+        Button neutral = (Button)dialog.findViewById(R.id.dialog_lunch_cost_btn_cancel);
+        setNeutralButtonOnClickListener(neutral, dialog);
+        dialog.show();
+    }
 
+    public void displayDaysToTrackDialog() {
+        final AppCompatDialog dialog = new AppCompatDialog(this);
+        dialog.setContentView(R.layout.dialog_days_to_track);
+        TextView dialogTitle = (TextView)dialog.findViewById(R.id.dialog_days_to_track_title);
+        dialogTitle.setText("Days to Track");
+
+        final CheckedTextView sat = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_sat);
+        final CheckedTextView sun = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_sun);
+        final CheckedTextView mon = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_mon);
+        final CheckedTextView tue = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_tue);
+        final CheckedTextView wed = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_wed);
+        final CheckedTextView thu = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_thu);
+        final CheckedTextView fri = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_fri);
+
+        setCheckedTextViewOnClickListener(sat);
+        setCheckedTextViewOnClickListener(sun);
+        setCheckedTextViewOnClickListener(mon);
+        setCheckedTextViewOnClickListener(tue);
+        setCheckedTextViewOnClickListener(wed);
+        setCheckedTextViewOnClickListener(thu);
+        setCheckedTextViewOnClickListener(fri);
 
         dialog.show();
     }
@@ -175,6 +205,40 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
+    private void setCheckedTextViewOnClickListener(final CheckedTextView view) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (view.isChecked()) {
+                    view.setChecked(false);
+                } else {
+                    view.setChecked(true);
+                }
+
+            }
+        });
+    }
+
+    private void setPositiveButtonOnClickListener(final Button positiveButtonView, final Runnable onClickAction) {
+        positiveButtonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // @todo persist selection
+            }
+        });
+    }
+
+    private void setNeutralButtonOnClickListener(final Button neutralButtonView, final Dialog dialog) {
+        neutralButtonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+
 }
 
 

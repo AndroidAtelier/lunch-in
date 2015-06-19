@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:orientation="vertical"
@@ -11,55 +11,60 @@
         android:id="@+id/dialog_goal_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:textSize="22dp"
         android:padding="8dp"
         android:textColor="@color/app_default_text"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/dialog_goal_name_label"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:text="@string/goal_name"
+        android:layout_below="@id/dialog_goal_title"
+        />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/goal_name"
-            />
-
-        <EditText
-            android:id="@+id/dialog_goal_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textNoSuggestions"
-            android:imeOptions="actionSend"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/dialog_goal_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:layout_below="@id/dialog_goal_name_label"
+        android:inputType="textNoSuggestions"
+        />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/goal_cost"
-            />
+    <TextView
+        android:id="@+id/dialog_goal_cost_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/goal_cost"
+        android:layout_below="@id/dialog_goal_name"
+        />
 
-        <EditText
-            android:id="@+id/dialog_goal_cost"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:layout_weight="1"
-            android:imeOptions="actionSend"
-            />
+    <EditText
+        android:id="@+id/dialog_goal_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:layout_below="@id/dialog_goal_cost_label"
+        />
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/dialog_goal_btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_goal_cost"
+        android:layout_alignParentLeft="true"
+        android:text="@string/button_cancel"
+        />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/dialog_goal_btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_goal_cost"
+        android:layout_alignParentRight="true"
+        android:text="@string/button_ok"
+        />
+
+</RelativeLayout>

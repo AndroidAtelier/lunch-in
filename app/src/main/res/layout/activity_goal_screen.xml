@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".GoalScreenActivity">
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:gravity="center"
+        android:text="@string/hello_world"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/helloText"
+        android:textSize="24sp"
+        tools:context="com.github.androidatelier.lunchin.activity.GoalScreenActivity"/>
+    <view android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        class="com.github.androidatelier.lunchin.activity.GoalScreenActivity"
+        android:id="@+id/view"
+        tools:context="com.github.androidatelier.lunchin.activity.GoalScreenActivity"/>
+</LinearLayout>

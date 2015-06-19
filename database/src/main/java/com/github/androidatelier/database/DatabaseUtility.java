@@ -39,6 +39,7 @@ public class DatabaseUtility extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database)
     {
         database.execSQL(DATABASE_CREATE);
+        database.execSQL(PREFERENCES_DB_CREATE);
     }
 
     @Override

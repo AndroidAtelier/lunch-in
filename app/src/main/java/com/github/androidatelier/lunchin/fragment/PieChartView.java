@@ -75,33 +75,26 @@ public class PieChartView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //draw background circle anyway
-        Log.v(TAG, "PieChartView onDraw");
 
-        //bgpaint.setColor(Color.BLUE);
-        //float left, float top, float right, float bottom, Paint paint)
-        //canvas.drawRect(0, 0, 1000, 1000, bgpaint);
-        //int left = screenWidth / 4;
-        //int width = screenWidth / 2;
-        int left = 0;
+        //Log.v(TAG, "PieChartView onDraw");
+
+        int left = 100;
         int width = 400;
         int top = 0;
         rect.set(left, top, left + width, top + width);
 
-        int sweepAngle = (int) (360 * (percentage / 100.f));
-        int startAngle = 270 - sweepAngle / 2;
-
         //drawArc(RectF oval, float startAngle, float sweepAngle, boolean useCenter, Paint paint)
+        //draw background circle anyway
         canvas.drawArc(rect, -90, 360, true, bgpaint);
         if (percentage != 0) {
-            //canvas.drawArc(rect, -90, (360*percentage), true, paint);
-            //canvas.drawArc(rect, 90, 45, true, paint);
+            int sweepAngle = (int) (360 * (percentage / 100.f));
+            int startAngle = 270 - sweepAngle / 2;
             canvas.drawArc(rect, startAngle, sweepAngle, true, paint);
         }
     }
 
     public void setPercentage(float percentage) {
-        this.percentage = percentage / 100;
+        this.percentage = percentage;
         invalidate();
     }
 }

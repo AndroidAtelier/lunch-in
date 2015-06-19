@@ -39,7 +39,7 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
 
         // TODO: Remove this call once we have real data from shared prefs. Until now, send notification
         //    on any wifi state change
-        onPossibleLunchOut();
+        onPossibleLunchOut(context);
 
         updateUserSettings(context);
 
@@ -59,7 +59,7 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
             if (isNowLunchTime(mStartTimeString, mEndTimeString)) {
                 if (isSSIDAway()) {
                     Log.d("KIO", "sendNotification is called");
-                    onPossibleLunchOut();
+                    onPossibleLunchOut(context);
                 }
             }
         }
@@ -118,6 +118,5 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
         }
     }
 
-    public abstract void onPossibleLunchOut();
-
+    public abstract void onPossibleLunchOut(Context context);
 }

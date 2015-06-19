@@ -27,7 +27,8 @@ import com.github.androidatelier.lunchin.adapter.ViewPagerAdapter;
 import com.github.androidatelier.lunchin.fragment.MyGoalFragment;
 import com.github.androidatelier.lunchin.fragment.SettingsFragment;
 import com.github.androidatelier.lunchin.fragment.StatsFragment;
-import com.github.androidatelier.lunchin.model.Setting;
+import com.github.androidatelier.lunchin.model.Setting
+import com.github.androidatelier.lunchin.notification.NotificationUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,9 +48,15 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
         setupViewPager(mViewPager);
         setupTablayout();
+
+        String action = getIntent().getAction();
+        if (NotificationUtil.ACTION_LUNCH_OUT.equals(action)) {
+            updateLunchOutUI();
+        }
+        if (NotificationUtil.ACTION_LUNCH_IN.equals(action)) {
+            updateLunchInUI();
+        }
     }
-
-
 
     private void setupToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,6 +77,17 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
+    // TODO: Display number of hours you need to work to by this lunch
+    private void updateLunchOutUI() {
+        NotificationUtil.cancelNotification(this);
+        Toast.makeText(this, "Lunch out", Toast.LENGTH_LONG).show();
+    }
+
+    // TODO: Update progress
+    private void updateLunchInUI() {
+        NotificationUtil.cancelNotification(this);
+        Toast.makeText(this, "Lunch in", Toast.LENGTH_LONG).show();
+    }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());

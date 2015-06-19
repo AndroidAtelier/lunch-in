@@ -27,7 +27,7 @@ import com.github.androidatelier.lunchin.adapter.ViewPagerAdapter;
 import com.github.androidatelier.lunchin.fragment.MyGoalFragment;
 import com.github.androidatelier.lunchin.fragment.SettingsFragment;
 import com.github.androidatelier.lunchin.fragment.StatsFragment;
-import com.github.androidatelier.lunchin.model.Setting
+import com.github.androidatelier.lunchin.model.Setting;
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
 
 import java.util.ArrayList;

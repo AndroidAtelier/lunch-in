@@ -8,13 +8,11 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.androidatelier.lunchin.R;
@@ -23,6 +21,7 @@ import com.github.androidatelier.lunchin.fragment.MyGoalFragment;
 import com.github.androidatelier.lunchin.fragment.SettingsFragment;
 import com.github.androidatelier.lunchin.fragment.StatsFragment;
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
+import com.github.androidatelier.lunchin.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -125,25 +124,11 @@ public class MainActivity extends AppCompatActivity {
         mSettingsFragment.displayTimePickerDialog(hours, minutes, requestCode);
     }
 
-    public void displayAverageLunchCostDialog() {
-        final AppCompatDialog dialog = new AppCompatDialog(this);
-        dialog.setContentView(R.layout.dialog_lunch_cost);
-        TextView dialogTitle = (TextView)dialog.findViewById(R.id.dialog_lunch_cost_title);
-        dialogTitle.setText("Average Lunch Cost");
-
-        Button positive = (Button) dialog.findViewById(R.id.dialog_lunch_cost_btn_ok);
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                //@todo the logic to persist to database here
-                dialog.dismiss();
-            }
-        };
-        setPositiveButtonOnClickListener(positive, runnable);
-
-        Button neutral = (Button)dialog.findViewById(R.id.dialog_lunch_cost_btn_cancel);
-        setNeutralButtonOnClickListener(neutral, dialog);
-        dialog.show();
+    public void displayAverageLunchCostDialog(CharSequence title, float cost) {
+        mSettingsFragment.displayEditTextDialog(
+                title,
+                String.valueOf(cost),
+                Constants.REQUEST_CODE_LUNCH_COST_DIALOG);
     }
 
     public void displayDaysToTrackDialog() {

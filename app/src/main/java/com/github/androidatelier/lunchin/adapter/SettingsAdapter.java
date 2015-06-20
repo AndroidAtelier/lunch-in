@@ -89,7 +89,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
                 }
 
                 else if (titleText.equals(Setting.TITLE_LUNCH_AVG_COST)) {
-                    activity.displayAverageLunchCostDialog();
+                    activity.displayAverageLunchCostDialog(titleText, Constants.DEFAULT_LUNCH_COST);
                 }
 
                 else if (titleText.equals(Setting.TITLE_MY_GOAL)) {

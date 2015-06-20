@@ -73,6 +73,13 @@ public class SettingsFragment extends Fragment {
         fragment.show(getFragmentManager(), Constants.FRAGMENT_TAG_DAYS_TO_TRACK_DIALOG);
     }
 
+    public void displayEditTextDialog(CharSequence title, String text, int requestCode) {
+        DialogFragment fragment
+                = EditTextDialogFragment.newInstance(title, text);
+        fragment.setTargetFragment(this, requestCode);
+        fragment.show(getFragmentManager(), Constants.FRAGMENT_TAG_EDIT_TEXT_DIALOG);
+    }
+
     public void displayGoalSetterDialog() {
         // TODO: Read saved goal name and amount to pass to GoalSetterDialogFragment
         String goalName = getString(R.string.default_goal_name);
@@ -110,6 +117,18 @@ public class SettingsFragment extends Fragment {
                         Setting.TITLE_LUNCH_BEGIN : Setting.TITLE_LUNCH_END;
                 updateSetting(title, formatLunchHour(hours, minutes));
                 break;
+            case Constants.REQUEST_CODE_LUNCH_COST_DIALOG:
+                String text = data.getStringExtra(Constants.KEY_TEXT);
+                if (!TextUtils.isEmpty(text)) {
+                    try {
+                        float cost = Float.parseFloat(text);
+                        updateSetting(Setting.TITLE_LUNCH_AVG_COST,
+                                NumberFormat.getCurrencyInstance().format(cost));
+                    } catch (NumberFormatException e) {
+
+                    }
+                }
+                break;
             case Constants.REQUEST_CODE_GOAL_SETTER_DIALOG:
                 String goalName = data.getStringExtra(Constants.KEY_GOAL_NAME);
                 float goalCost = data.getFloatExtra(Constants.KEY_GOAL_COST, -1);
@@ -136,7 +155,8 @@ public class SettingsFragment extends Fragment {
                         Constants.DEFAULT_LUNCH_BEGIN_HOURS + Constants.DEFAULT_LUNCH_DURATION_HOURS,
                         Constants.DEFAULT_LUNCH_BEGIN_MINUTES),
                 0));  // TODO: Read saved value
-        mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES, Setting.TITLE_LUNCH_AVG_COST, "The average cost of lunch if you ate out", 0));
+        mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES,
+                Setting.TITLE_LUNCH_AVG_COST, NumberFormat.getCurrencyInstance().format(Constants.DEFAULT_LUNCH_COST), 0));  // TODO: Read saved value
 
         // goal settings
         mSettings.add(new Setting(Setting.GROUP_GOAL_SETTINGS, Setting.TITLE_MY_GOAL, formatGoal(), 0));

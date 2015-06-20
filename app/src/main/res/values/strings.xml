@@ -23,6 +23,9 @@
     <string name="dialog_title_wifi_networks">Select Your Wifi Network</string>
     <string name="no_networks_detected">"No networks detected"</string>
 
+    <string name="default_goal_name">Bahamas vacation</string>
+    <integer name="default_goal_cost">5000</integer>
+
     <!-- begin content descriptions -->
     <string name ="cd_row_setting_icon">setting item icon</string>
     <string name ="cd_row_setting_title">setting item title</string>

@@ -193,13 +193,8 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void displayGoalSetterDialog(String title) {
-        final AppCompatDialog dialog = new AppCompatDialog(this);
-        dialog.setContentView(R.layout.dialog_goal);
-        TextView dialogTitle = (TextView)dialog.findViewById(R.id.dialog_goal_title);
-        dialogTitle.setText(title);
-
-        dialog.show();
+    public void displayGoalSetterDialog() {
+        mSettingsFragment.displayGoalSetterDialog();
     }
 
     private void setCheckedTextViewOnClickListener(final CheckedTextView view) {
@@ -233,8 +228,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }
-
-

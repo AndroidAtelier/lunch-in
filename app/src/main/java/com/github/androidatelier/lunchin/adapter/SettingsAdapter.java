@@ -84,7 +84,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
                 }
 
                 else if (titleText.equals(Setting.TITLE_MY_GOAL)) {
-                    activity.displayGoalSetterDialog(titleText.toString());
+                    activity.displayGoalSetterDialog();
                 }
             }
         }

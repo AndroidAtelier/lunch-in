@@ -8,6 +8,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.github.androidatelier.lunchin.adapter.SettingsAdapter;
 import com.github.androidatelier.lunchin.model.Setting;
 import com.github.androidatelier.lunchin.util.Constants;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,13 +52,30 @@ public class SettingsFragment extends Fragment {
         fragment.show(getFragmentManager(), Constants.FRAGMENT_TAG_WIFI_NETWORKS_DIALOG);
     }
 
+    public void displayGoalSetterDialog() {
+      // TODO: Read saved goal name and amount to pass to GoalSetterDialogFragment
+      String goalName = getString(R.string.default_goal_name);
+      int goalCost = getResources().getInteger(R.integer.default_goal_cost);
+
+      DialogFragment fragment = GoalSetterDialogFragment.newInstance(goalName, goalCost);
+      fragment.setTargetFragment(this, Constants.REQUEST_CODE_GOAL_SETTER_DIALOG);
+      fragment.show(getFragmentManager(), Constants.FRAGMENT_TAG_GOAL_SETTER_DIALOG);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case Constants.REQUEST_CODE_WIFI_NETWORKS_DIALOG:
                 if (resultCode == Activity.RESULT_OK) {
                     updateSetting(
-                        Setting.TITLE_WIFI_WORK, data.getStringExtra(Constants.KEY_NETWORK));
+                            Setting.TITLE_WIFI_WORK, data.getStringExtra(Constants.KEY_NETWORK));
+                }
+                break;
+            case Constants.REQUEST_CODE_GOAL_SETTER_DIALOG:
+                if (resultCode == Activity.RESULT_OK) {
+                    String goalName = data.getStringExtra(Constants.KEY_GOAL_NAME);
+                    float goalCost = data.getFloatExtra(Constants.KEY_GOAL_COST, -1);
+                    updateSetting(Setting.TITLE_MY_GOAL, formatGoal(goalName, goalCost));
                 }
                 break;
             default:
@@ -78,7 +97,7 @@ public class SettingsFragment extends Fragment {
         mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES, Setting.TITLE_LUNCH_AVG_COST, "The average cost of lunch if you ate out", 0));
 
         // goal settings
-        mSettings.add(new Setting(Setting.GROUP_GOAL_SETTINGS, Setting.TITLE_MY_GOAL, "Enter a savings goal", 0));
+        mSettings.add(new Setting(Setting.GROUP_GOAL_SETTINGS, Setting.TITLE_MY_GOAL, formatGoal(), 0));
     }
 
     // TODO: Save to preferences
@@ -90,5 +109,27 @@ public class SettingsFragment extends Fragment {
                 mRecyclerView.getAdapter().notifyItemChanged(i);
             }
         }
+    }
+
+    private String formatGoal() {
+        // TODO: Read saved goal name and cost
+        String goalName = getString(R.string.default_goal_name);
+        int goalCost = getResources().getInteger(R.integer.default_goal_cost);
+
+        return formatGoal(goalName, goalCost);
+    }
+
+    private String formatGoal(String goalName, float goalCost) {
+        String defaultGoalName = getString(R.string.default_goal_name);
+        int defaultGoalCost = getResources().getInteger(R.integer.default_goal_cost);
+
+        if (TextUtils.isEmpty(goalName)) {
+            goalName = defaultGoalName;
+        }
+        if (goalCost <= 0) {
+            goalCost = defaultGoalCost;
+        }
+
+        return goalName + ": " + NumberFormat.getCurrencyInstance().format(goalCost);
     }
 }

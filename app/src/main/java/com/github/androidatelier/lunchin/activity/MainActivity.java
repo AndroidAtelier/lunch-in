@@ -169,28 +169,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displayDaysToTrackDialog() {
-        final AppCompatDialog dialog = new AppCompatDialog(this);
-        dialog.setContentView(R.layout.dialog_days_to_track);
-        TextView dialogTitle = (TextView)dialog.findViewById(R.id.dialog_days_to_track_title);
-        dialogTitle.setText("Days to Track");
-
-        final CheckedTextView sat = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_sat);
-        final CheckedTextView sun = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_sun);
-        final CheckedTextView mon = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_mon);
-        final CheckedTextView tue = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_tue);
-        final CheckedTextView wed = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_wed);
-        final CheckedTextView thu = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_thu);
-        final CheckedTextView fri = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_fri);
-
-        setCheckedTextViewOnClickListener(sat);
-        setCheckedTextViewOnClickListener(sun);
-        setCheckedTextViewOnClickListener(mon);
-        setCheckedTextViewOnClickListener(tue);
-        setCheckedTextViewOnClickListener(wed);
-        setCheckedTextViewOnClickListener(thu);
-        setCheckedTextViewOnClickListener(fri);
-
-        dialog.show();
+        mSettingsFragment.displayDaysToTrackDialog();
     }
 
     public void displayGoalSetterDialog() {

@@ -26,7 +26,7 @@ public class DaysToTrackDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        
+
         final DaysOfTheWeek daysToTrack = new DaysOfTheWeek(
                 getResources().getStringArray(R.array.days_of_the_week));
         daysToTrack.bitVector = getArguments().getInt(

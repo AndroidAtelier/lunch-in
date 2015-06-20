@@ -1,7 +1,6 @@
 package com.github.androidatelier.lunchin.activity;
 
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.github.androidatelier.lunchin.R;
@@ -24,7 +22,6 @@ import com.github.androidatelier.lunchin.adapter.ViewPagerAdapter;
 import com.github.androidatelier.lunchin.fragment.MyGoalFragment;
 import com.github.androidatelier.lunchin.fragment.SettingsFragment;
 import com.github.androidatelier.lunchin.fragment.StatsFragment;
-import com.github.androidatelier.lunchin.model.Setting;
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
 
 import java.util.ArrayList;
@@ -78,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    // TODO: Display number of hours you need to work to by this lunch
+    // TODO: Display number of hours you need to work to buy this lunch
     private void updateLunchOutUI() {
         NotificationUtil.cancelNotification(this);
         Toast.makeText(this, "Lunch out", Toast.LENGTH_LONG).show();
@@ -124,27 +121,8 @@ public class MainActivity extends AppCompatActivity {
         mSettingsFragment.displayWifiNetworksDialog(resultList);
     }
 
-    public void displayTimePickerDialog(String title, final boolean isStartTime) {
-        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                if (isStartTime) {
-                    // @todo persist lunch start time
-                } else {
-                    // @todo persist lunch end time
-                }
-            }
-        };
-
-        TimePickerDialog dialog = null;
-        if (title.equals(Setting.TITLE_LUNCH_BEGIN)) {
-            dialog = new TimePickerDialog(this, timeSetListener, 12, 0, false);
-        } else {
-            dialog = new TimePickerDialog(this, timeSetListener, 13, 0, false);
-        }
-
-        dialog.setTitle(title);
-        dialog.show();
+    public void displayTimePickerDialog(int hours, int minutes, int requestCode) {
+        mSettingsFragment.displayTimePickerDialog(hours, minutes, requestCode);
     }
 
     public void displayAverageLunchCostDialog() {

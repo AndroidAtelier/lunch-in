@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.activity.MainActivity;
 import com.github.androidatelier.lunchin.model.Setting;
+import com.github.androidatelier.lunchin.util.Constants;
 
 import java.util.List;
 
@@ -72,11 +73,19 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
                 }
 
                 else if (titleText.equals(Setting.TITLE_LUNCH_BEGIN)) {
-                    activity.displayTimePickerDialog(title.getText().toString(), true);
+                    // TODO: Use saved values
+                    activity.displayTimePickerDialog(
+                            Constants.DEFAULT_LUNCH_BEGIN_HOURS,
+                            Constants.DEFAULT_LUNCH_BEGIN_MINUTES,
+                            Constants.REQUEST_CODE_LUNCH_BEGIN_DIALOG);
                 }
 
                 else if (titleText.equals(Setting.TITLE_LUNCH_END)) {
-                    activity.displayTimePickerDialog(titleText.toString(), false);
+                    // TODO: Use saved values
+                    activity.displayTimePickerDialog(
+                            Constants.DEFAULT_LUNCH_BEGIN_HOURS + Constants.DEFAULT_LUNCH_DURATION_HOURS,
+                            Constants.DEFAULT_LUNCH_BEGIN_MINUTES,
+                            Constants.REQUEST_CODE_LUNCH_END_DIALOG);
                 }
 
                 else if (titleText.equals(Setting.TITLE_LUNCH_AVG_COST)) {

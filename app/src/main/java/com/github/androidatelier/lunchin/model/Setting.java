@@ -42,6 +42,10 @@ public class Setting {
         return this.description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public int getIcon() {
         return this.icon;
     }

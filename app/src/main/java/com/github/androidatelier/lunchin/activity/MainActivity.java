@@ -13,11 +13,8 @@ import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -31,6 +28,8 @@ import com.github.androidatelier.lunchin.model.Setting;
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private WifiManager mWifiManager;
     private TabLayout mTabLayout;
     ViewPager mViewPager;
+
+    private SettingsFragment mSettingsFragment = new SettingsFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new MyGoalFragment(), "My Goal");
         adapter.addFrag(new StatsFragment(), "Statistics");
-        adapter.addFrag(new SettingsFragment(), "Settings");
+        adapter.addFrag(mSettingsFragment, "Settings");
         viewPager.setAdapter(adapter);
     }
 
@@ -108,42 +109,19 @@ public class MainActivity extends AppCompatActivity {
         mWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
         mWifiManager.startScan();
         List<ScanResult> availableNetworks = mWifiManager.getScanResults();
-        List<String> resultList = new ArrayList<String>();
+        HashSet<String> results = new HashSet<>();
+
         for (int i = 0; i < availableNetworks.size(); i++) {
             String ssid = availableNetworks.get(i).SSID;
             // omit any networks not broadcasting ssid
             if (!TextUtils.isEmpty(ssid)) {
-                resultList.add(ssid);
+                results.add(ssid);
             }
         }
+        ArrayList<String> resultList = new ArrayList<>(results);
+        Collections.sort(resultList);
 
-        displayWifiNetworksDialog(resultList);
-    }
-
-    private void displayWifiNetworksDialog(List<String> networks) {
-        final AppCompatDialog dialog = new AppCompatDialog(this);
-        dialog.setContentView(R.layout.dialog_wifi_list);
-        TextView dialogTitle = (TextView)dialog.findViewById(R.id.dialog_wifi_list_title);
-        dialogTitle.setText("Select Your Wifi Network");
-        ListView lv = (ListView)dialog.findViewById(R.id.dialog_wifi_list_listview);
-
-        if (networks.isEmpty()) {
-            networks.add("No networks detected");
-        }
-
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, networks);
-        lv.setAdapter(listAdapter);
-        
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String ssid = parent.getItemAtPosition(position).toString();
-                Toast.makeText(dialog.getContext(), ssid, Toast.LENGTH_SHORT).show();
-                //@todo persist this to ?? Database? SharedPreferences?
-            }
-        });
-        dialog.show();
+        mSettingsFragment.displayWifiNetworksDialog(resultList);
     }
 
     public void displayTimePickerDialog(String title, final boolean isStartTime) {

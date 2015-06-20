@@ -28,6 +28,8 @@ import com.github.androidatelier.lunchin.model.Setting;
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -107,14 +109,17 @@ public class MainActivity extends AppCompatActivity {
         mWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
         mWifiManager.startScan();
         List<ScanResult> availableNetworks = mWifiManager.getScanResults();
-        ArrayList<String> resultList = new ArrayList<String>();
+        HashSet<String> results = new HashSet<>();
+
         for (int i = 0; i < availableNetworks.size(); i++) {
             String ssid = availableNetworks.get(i).SSID;
             // omit any networks not broadcasting ssid
             if (!TextUtils.isEmpty(ssid)) {
-                resultList.add(ssid);
+                results.add(ssid);
             }
         }
+        ArrayList<String> resultList = new ArrayList<>(results);
+        Collections.sort(resultList);
 
         mSettingsFragment.displayWifiNetworksDialog(resultList);
     }

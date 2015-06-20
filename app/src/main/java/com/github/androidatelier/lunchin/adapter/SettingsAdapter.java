@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.activity.MainActivity;
@@ -68,20 +67,26 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
                     activity.doWifiScan();
                 }
 
-                else if (titleText.equals(Setting.TITLE_LUNCH_TIME)) {
-                    activity.displayTimePickerDialog(title.getText().toString());
+                else if (titleText.equals(Setting.TITLE_LUNCH_DAYS_TRACKED)) {
+                    activity.displayDaysToTrackDialog();
                 }
 
-                else if (titleText.equals(Setting.TITLE_LUNCH_DURATION)) {
-                    activity.displayNumberPickerDialog(titleText.toString());
+                else if (titleText.equals(Setting.TITLE_LUNCH_BEGIN)) {
+                    activity.displayTimePickerDialog(title.getText().toString(), true);
+                }
+
+                else if (titleText.equals(Setting.TITLE_LUNCH_END)) {
+                    activity.displayTimePickerDialog(titleText.toString(), false);
+                }
+
+                else if (titleText.equals(Setting.TITLE_LUNCH_AVG_COST)) {
+                    activity.displayAverageLunchCostDialog();
                 }
 
                 else if (titleText.equals(Setting.TITLE_MY_GOAL)) {
                     activity.displayGoalSetterDialog(titleText.toString());
                 }
             }
-
-            Toast.makeText(v.getContext(), title.getText(), Toast.LENGTH_SHORT).show();
         }
     }
 }

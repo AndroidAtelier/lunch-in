@@ -1,7 +1,6 @@
 package com.github.androidatelier.lunchin.activity;
 
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
@@ -9,14 +8,11 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.github.androidatelier.lunchin.R;
@@ -24,8 +20,8 @@ import com.github.androidatelier.lunchin.adapter.ViewPagerAdapter;
 import com.github.androidatelier.lunchin.fragment.MyGoalFragment;
 import com.github.androidatelier.lunchin.fragment.SettingsFragment;
 import com.github.androidatelier.lunchin.fragment.StatsFragment;
-import com.github.androidatelier.lunchin.model.Setting;
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
+import com.github.androidatelier.lunchin.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -78,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    // TODO: Display number of hours you need to work to by this lunch
+    // TODO: Display number of hours you need to work to buy this lunch
     private void updateLunchOutUI() {
         NotificationUtil.cancelNotification(this);
         Toast.makeText(this, "Lunch out", Toast.LENGTH_LONG).show();
@@ -124,82 +120,23 @@ public class MainActivity extends AppCompatActivity {
         mSettingsFragment.displayWifiNetworksDialog(resultList);
     }
 
-    public void displayTimePickerDialog(String title, final boolean isStartTime) {
-        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                if (isStartTime) {
-                    // @todo persist lunch start time
-                } else {
-                    // @todo persist lunch end time
-                }
-            }
-        };
-
-        TimePickerDialog dialog = null;
-        if (title.equals(Setting.TITLE_LUNCH_BEGIN)) {
-            dialog = new TimePickerDialog(this, timeSetListener, 12, 0, false);
-        } else {
-            dialog = new TimePickerDialog(this, timeSetListener, 13, 0, false);
-        }
-
-        dialog.setTitle(title);
-        dialog.show();
+    public void displayTimePickerDialog(int hours, int minutes, int requestCode) {
+        mSettingsFragment.displayTimePickerDialog(hours, minutes, requestCode);
     }
 
-    public void displayAverageLunchCostDialog() {
-        final AppCompatDialog dialog = new AppCompatDialog(this);
-        dialog.setContentView(R.layout.dialog_lunch_cost);
-        TextView dialogTitle = (TextView)dialog.findViewById(R.id.dialog_lunch_cost_title);
-        dialogTitle.setText("Average Lunch Cost");
-
-        Button positive = (Button) dialog.findViewById(R.id.dialog_lunch_cost_btn_ok);
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                //@todo the logic to persist to database here
-                dialog.dismiss();
-            }
-        };
-        setPositiveButtonOnClickListener(positive, runnable);
-
-        Button neutral = (Button)dialog.findViewById(R.id.dialog_lunch_cost_btn_cancel);
-        setNeutralButtonOnClickListener(neutral, dialog);
-        dialog.show();
+    public void displayAverageLunchCostDialog(CharSequence title, float cost) {
+        mSettingsFragment.displayEditTextDialog(
+                title,
+                String.valueOf(cost),
+                Constants.REQUEST_CODE_LUNCH_COST_DIALOG);
     }
 
     public void displayDaysToTrackDialog() {
-        final AppCompatDialog dialog = new AppCompatDialog(this);
-        dialog.setContentView(R.layout.dialog_days_to_track);
-        TextView dialogTitle = (TextView)dialog.findViewById(R.id.dialog_days_to_track_title);
-        dialogTitle.setText("Days to Track");
-
-        final CheckedTextView sat = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_sat);
-        final CheckedTextView sun = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_sun);
-        final CheckedTextView mon = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_mon);
-        final CheckedTextView tue = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_tue);
-        final CheckedTextView wed = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_wed);
-        final CheckedTextView thu = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_thu);
-        final CheckedTextView fri = (CheckedTextView)dialog.findViewById(R.id.dialog_days_to_track_checkedtv_fri);
-
-        setCheckedTextViewOnClickListener(sat);
-        setCheckedTextViewOnClickListener(sun);
-        setCheckedTextViewOnClickListener(mon);
-        setCheckedTextViewOnClickListener(tue);
-        setCheckedTextViewOnClickListener(wed);
-        setCheckedTextViewOnClickListener(thu);
-        setCheckedTextViewOnClickListener(fri);
-
-        dialog.show();
+        mSettingsFragment.displayDaysToTrackDialog();
     }
 
-    public void displayGoalSetterDialog(String title) {
-        final AppCompatDialog dialog = new AppCompatDialog(this);
-        dialog.setContentView(R.layout.dialog_goal);
-        TextView dialogTitle = (TextView)dialog.findViewById(R.id.dialog_goal_title);
-        dialogTitle.setText(title);
-
-        dialog.show();
+    public void displayGoalSetterDialog() {
+        mSettingsFragment.displayGoalSetterDialog();
     }
 
     private void setCheckedTextViewOnClickListener(final CheckedTextView view) {
@@ -233,8 +170,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }
-
-

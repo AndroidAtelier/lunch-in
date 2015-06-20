@@ -12,16 +12,21 @@
     <string name="goal_cost">Goal Cost</string>
     <string name="input_avg_cost_of_lunch">Enter the average cost of lunch</string>
 
-    <string name="sat">Sat</string>
-    <string name="sun">Sun</string>
-    <string name="mon">Mon</string>
-    <string name="tue">Tue</string>
-    <string name="wed">Wed</string>
-    <string name="thu">Thu</string>
-    <string name="fri">Fri</string>
+    <string-array name="days_of_the_week">
+        <item>Sun</item>
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+    </string-array>
 
     <string name="dialog_title_wifi_networks">Select Your Wifi Network</string>
     <string name="no_networks_detected">"No networks detected"</string>
+
+    <string name="default_goal_name">Bahamas vacation</string>
+    <integer name="default_goal_cost">5000</integer>
 
     <!-- begin content descriptions -->
     <string name ="cd_row_setting_icon">setting item icon</string>

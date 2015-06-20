@@ -17,7 +17,8 @@
         android:id="@+id/dialog_goal_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textCapSentences"/>
+        android:inputType="textCapSentences"
+        android:selectAllOnFocus="true"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -28,5 +29,6 @@
         android:id="@+id/dialog_goal_cost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        android:selectAllOnFocus="true"/>
 </LinearLayout>

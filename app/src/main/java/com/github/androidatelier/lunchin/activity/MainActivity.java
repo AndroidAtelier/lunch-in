@@ -7,7 +7,6 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDialog;
@@ -25,10 +24,8 @@ import com.github.androidatelier.lunchin.adapter.ViewPagerAdapter;
 import com.github.androidatelier.lunchin.fragment.MyGoalFragment;
 import com.github.androidatelier.lunchin.fragment.SettingsFragment;
 import com.github.androidatelier.lunchin.fragment.StatsFragment;
-import com.github.androidatelier.lunchin.fragment.WifiNetworksDialogFragment;
 import com.github.androidatelier.lunchin.model.Setting;
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
-import com.github.androidatelier.lunchin.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private WifiManager mWifiManager;
     private TabLayout mTabLayout;
     ViewPager mViewPager;
+
+    private SettingsFragment mSettingsFragment = new SettingsFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new MyGoalFragment(), "My Goal");
         adapter.addFrag(new StatsFragment(), "Statistics");
-        adapter.addFrag(new SettingsFragment(), "Settings");
+        adapter.addFrag(mSettingsFragment, "Settings");
         viewPager.setAdapter(adapter);
     }
 
@@ -117,12 +116,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        displayWifiNetworksDialog(resultList);
-    }
-
-    private void displayWifiNetworksDialog(ArrayList<String> networks) {
-        DialogFragment fragment = WifiNetworksDialogFragment.newInstance(networks);
-        fragment.show(getSupportFragmentManager(), Constants.FRAGMENT_TAG_WIFI_NETWORKS_DIALOG);
+        mSettingsFragment.displayWifiNetworksDialog(resultList);
     }
 
     public void displayTimePickerDialog(String title, final boolean isStartTime) {

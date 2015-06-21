@@ -13,20 +13,50 @@
     <string name="input_avg_cost_of_lunch">Enter the average cost of lunch</string>
 
     <string-array name="days_of_the_week">
-        <item>Sun</item>
-        <item>Mon</item>
-        <item>Tue</item>
-        <item>Wed</item>
-        <item>Thu</item>
-        <item>Fri</item>
-        <item>Sat</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tueday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
     </string-array>
 
     <string name="dialog_title_wifi_networks">Select Your Wifi Network</string>
     <string name="no_networks_detected">"No networks detected"</string>
 
-    <string name="default_goal_name">Bahamas vacation</string>
+    <string name="default_goal_name">example: Bahamas Vacation</string>
     <integer name="default_goal_cost">5000</integer>
+
+    <!-- being preference strings -->
+    <string name="preference_file_settings">com.github.androidatelier.lunchin.PREFERENCE_FILE_SETTINGS</string>
+    <!-- preference keys -->
+    <string name="pref_key_work_wifi">pref_work_wifi</string>
+    <string name="pref_key_lunch_days_tracked">pref_days_to_track</string>
+    <string name="pref_key_lunch_start">pref_lunch_start</string>
+    <string name="pref_key_lunch_end">pref_lunch_end</string>
+    <string name="pref_key_avg_lunch_cost">pref_avg_lunch_cost</string>
+    <string name="pref_key_gross_salary">pref_gross_salary</string>
+    <string name="pref_key_savings_goal_name">pref_savings_goal_name</string>
+    <string name="pref_key_savings_goal_value">pref_savings_goal_cost</string>
+    <!-- preference titles -->
+    <string name="pref_title_work_wifi">Work Wifi</string>
+    <string name="pref_title_lunch_start">Lunch Time Begin</string>
+    <string name="pref_title_lunch_end">Lunch Time End</string>
+    <string name="pref_title_lunch_days_tracked">Days to track</string>
+    <string name="pref_title_avg_lunch_cost">Average Lunch Cost</string>
+    <string name="pref_title_gross_salary">Gross Annual Salary</string>
+    <string name="pref_title_my_goal">My Goal</string>
+    <!--preference descriptions-->
+    <string name="pref_description_work_wifi">Select your work network</string>
+    <string name="pref_description_lunch_start">Lunch start time</string>
+    <string name="pref_description_lunch_end">Lunch end time</string>
+    <string name="pref_description_lunch_days_tracked">Select the days you want to track</string>
+    <string name="pref_description_avg_lunch_cost">The average cost of lunch if you ate out</string>
+    <string name="pref_description_gross_salary">(Optional) Used to calculate cost facts. All data is kept privately on your device and is not shared</string>
+    <string name="pref_description_my_goal">Enter a savings goal</string>
+    <!-- /end preference strings -->
+
 
     <!-- begin content descriptions -->
     <string name ="cd_row_setting_icon">setting item icon</string>

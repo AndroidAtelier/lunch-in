@@ -10,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
 import com.github.androidatelier.lunchin.R;
+import com.github.androidatelier.lunchin.model.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
 
 import java.util.ArrayList;
@@ -40,9 +41,12 @@ public class WifiNetworksDialogFragment extends DialogFragment {
       builder.setItems(items, new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int position) {
-          Intent data = new Intent();
-          data.putExtra(Constants.KEY_NETWORK, items[position]);
-          getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, data);
+            Intent data = new Intent();
+            data.putExtra(Constants.KEY_NETWORK, items[position]);
+            // update shared prefs
+            new SettingsAccess(getActivity()).setWorkWifiId(items[position].toString());
+            // update UI
+            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, data);
         }
       });
     }

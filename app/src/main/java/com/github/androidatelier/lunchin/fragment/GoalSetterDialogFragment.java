@@ -14,14 +14,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.androidatelier.lunchin.R;
+import com.github.androidatelier.lunchin.model.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
 
 public class GoalSetterDialogFragment extends DialogFragment {
-    public static GoalSetterDialogFragment newInstance(String goalName, float goalCost) {
+    public static GoalSetterDialogFragment newInstance(String goalName, int goalCost) {
         GoalSetterDialogFragment fragment = new GoalSetterDialogFragment();
         Bundle args = new Bundle();
         args.putString(Constants.KEY_GOAL_NAME, goalName);
-        args.putFloat(Constants.KEY_GOAL_COST, goalCost);
+        args.putInt(Constants.KEY_GOAL_COST, goalCost);
         fragment.setArguments(args);
         return fragment;
     }
@@ -36,7 +37,7 @@ public class GoalSetterDialogFragment extends DialogFragment {
         String goalName = getArguments().getString(Constants.KEY_GOAL_NAME);
         nameView.setText(goalName);
         final TextView costView = (TextView) view.findViewById(R.id.dialog_goal_cost);
-        float goalCost = getArguments().getFloat(Constants.KEY_GOAL_COST);
+        int goalCost = getArguments().getInt(Constants.KEY_GOAL_COST);
         costView.setText(String.valueOf(goalCost));
         builder.setView(view);
 
@@ -52,12 +53,16 @@ public class GoalSetterDialogFragment extends DialogFragment {
                 if (!TextUtils.isEmpty(inputtedGoalName)) {
                     data.putExtra(Constants.KEY_GOAL_NAME, inputtedGoalName);
                     resultCode = Activity.RESULT_OK;
+                    // store SharedPreference
+                    new SettingsAccess(getActivity()).setSavingsGoalName(inputtedGoalName);
                 }
                 CharSequence inputtedGoalCost = costView.getText();
                 try {
-                    float cost = Float.parseFloat(inputtedGoalCost.toString());
+                    int cost = Integer.parseInt(inputtedGoalCost.toString());
                     data.putExtra(Constants.KEY_GOAL_COST, cost);
                     resultCode = Activity.RESULT_OK;
+                    // store SharedPreference
+                    new SettingsAccess(getActivity()).setSavingsGoalValue(cost);
                 } catch (NumberFormatException e) {
                 }
 

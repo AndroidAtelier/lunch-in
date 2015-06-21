@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.widget.EditText;
 
 import com.github.androidatelier.lunchin.R;
+import com.github.androidatelier.lunchin.model.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
 
 public class EditTextDialogFragment extends DialogFragment {
@@ -54,6 +55,10 @@ public class EditTextDialogFragment extends DialogFragment {
                 if (!TextUtils.isEmpty(inputtedText)) {
                     data.putExtra(Constants.KEY_TEXT, inputtedText);
                     resultCode = Activity.RESULT_OK;
+
+                    if (getTargetRequestCode() == Constants.REQUEST_CODE_LUNCH_COST_DIALOG) {
+                        new SettingsAccess(getActivity()).setAverageLunchCost(inputtedText);
+                    }
                 }
 
                 getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, data);

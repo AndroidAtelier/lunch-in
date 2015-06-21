@@ -139,6 +139,13 @@ public class SettingsFragment extends Fragment {
                     }
                 }
                 break;
+            case Constants.REQUEST_CODE_GROSS_SALARY_DIALOG:
+                String salaryText = data.getStringExtra(Constants.KEY_TEXT);
+                if (!TextUtils.isEmpty(salaryText)) {
+                    String salaryTitle = Setting.Resource.GROSS_SALARY.getTitleText(getActivity());
+                    int value = Integer.parseInt(salaryText);
+                    updateSetting(salaryTitle, Formatter.formatIntToCurrencyUSD(value));
+                }
             case Constants.REQUEST_CODE_GOAL_SETTER_DIALOG:
                 String goalName = data.getStringExtra(Constants.KEY_GOAL_NAME);
                 int goalCost = data.getIntExtra(Constants.KEY_GOAL_COST, -1);

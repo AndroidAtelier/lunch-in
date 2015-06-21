@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.model.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
+import com.github.androidatelier.lunchin.util.Formatter;
 
 public class EditTextDialogFragment extends DialogFragment {
     public static EditTextDialogFragment newInstance(CharSequence title, String text) {
@@ -41,7 +43,16 @@ public class EditTextDialogFragment extends DialogFragment {
 
         final EditText editText = (EditText) textInputLayout.findViewById(R.id.edit_text);
         String text = getArguments().getString(Constants.KEY_TEXT);
-        editText.setText(text);
+
+
+        if (getTargetRequestCode() == Constants.REQUEST_CODE_GROSS_SALARY_DIALOG) {
+            // only allow integers
+            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            editText.setText(text);
+        } else if (getTargetRequestCode() == Constants.REQUEST_CODE_LUNCH_COST_DIALOG) {
+            double averageLunchCost = Double.parseDouble(text);
+            editText.setText(Formatter.formatToDecimalHundreths(averageLunchCost));
+        }
 
         builder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
             @Override
@@ -58,7 +69,10 @@ public class EditTextDialogFragment extends DialogFragment {
 
                     if (getTargetRequestCode() == Constants.REQUEST_CODE_LUNCH_COST_DIALOG) {
                         new SettingsAccess(getActivity()).setAverageLunchCost(inputtedText);
+                    } else if (getTargetRequestCode() == Constants.REQUEST_CODE_GROSS_SALARY_DIALOG) {
+                        new SettingsAccess(getActivity()).setGrossAnnualSalary(Integer.parseInt(inputtedText));
                     }
+
                 }
 
                 getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, data);

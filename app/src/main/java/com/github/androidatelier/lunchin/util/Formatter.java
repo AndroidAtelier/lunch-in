@@ -3,12 +3,11 @@ package com.github.androidatelier.lunchin.util;
 import android.content.Context;
 import android.text.format.DateFormat;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-/**
- * Created by brenda on 6/20/15.
- */
+
 public class Formatter {
 
     Context mContext;
@@ -67,6 +66,17 @@ public class Formatter {
     public static String formatDoubleToCurrencyUSD(double doubleVal) {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("en", "US"));
         return numberFormat.format(doubleVal);
+    }
+
+    /**
+     * Formats a given number to the hundreths (two decimal places)
+     * @param number  must be an instance of some number type ie (int, float, double)
+     * @return
+     */
+    public static String formatToDecimalHundreths(Object number) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        String formatted = df.format(number);
+        return formatted;
     }
 
 }

@@ -96,6 +96,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
                     activity.displayAverageLunchCostDialog(titleText, settingsAccess.getAverageLunchCost());
                 }
 
+                else if (titleText.equals(Setting.Resource.GROSS_SALARY.getTitleText(context))) {
+                    activity.displayGrossSalaryDialog(titleText, settingsAccess.getGrossAnnualSalary());
+                }
+
                 else if (titleText.equals(Setting.Resource.MY_GOAL.getTitleText(context))) {
                     activity.displayGoalSetterDialog();
                 }

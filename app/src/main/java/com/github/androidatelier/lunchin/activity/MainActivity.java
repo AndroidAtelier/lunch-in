@@ -124,6 +124,12 @@ public class MainActivity extends AppCompatActivity {
                 Constants.REQUEST_CODE_LUNCH_COST_DIALOG);
     }
 
+    public void displayGrossSalaryDialog(CharSequence title, int grossAnnualSalary) {
+        mSettingsFragment.displayEditTextDialog(
+                title,
+                String.valueOf(grossAnnualSalary),
+                Constants.REQUEST_CODE_GROSS_SALARY_DIALOG);
+    }
     public void displayDaysToTrackDialog() {
         mSettingsFragment.displayDaysToTrackDialog();
     }

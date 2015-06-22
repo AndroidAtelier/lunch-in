@@ -46,9 +46,11 @@ public class MainActivity extends AppCompatActivity {
 
         String action = getIntent().getAction();
         if (NotificationUtil.ACTION_LUNCH_OUT.equals(action)) {
+            getIntent().setAction(null);
             updateLunchOutUI();
         }
         if (NotificationUtil.ACTION_LUNCH_IN.equals(action)) {
+            getIntent().setAction(null);
             updateLunchInUI();
         }
     }

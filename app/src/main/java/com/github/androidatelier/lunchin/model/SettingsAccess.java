@@ -18,16 +18,7 @@ public class SettingsAccess {
 
     private static final int DEFAULT_LUNCH_START = 720; // represented in minutes
     private static final int DEFAULT_LUNCH_END = 780; // represented in minutes
-
-    private String key_preference_file_settings;
-    private String key_work_wifi;
-    private String key_lunch_days_tracked;
-    private String key_lunch_start;
-    private String key_lunch_end;
-    private String key_lunch_cost;
-    private String key_gross_salary;
-    private String key_savings_goal_name;
-    private String key_savings_goal_value;
+    private static final String KEY_PREFERENCE_FILE_SETTINGS = "com.github.androidatelier.lunchin.PREFERENCE_FILE_SETTINGS";
 
     private Context mContext;
     private SharedPreferences mSharedPreference;
@@ -37,8 +28,7 @@ public class SettingsAccess {
     private SettingsAccess() {}
     public SettingsAccess(Context context) {
         this.mContext = context;
-        initializeKeys();
-        mSharedPreference = mContext.getSharedPreferences(key_preference_file_settings, Context.MODE_PRIVATE);
+        mSharedPreference = mContext.getSharedPreferences(KEY_PREFERENCE_FILE_SETTINGS, Context.MODE_PRIVATE);
         mEditor = mSharedPreference.edit();
     }
 
@@ -46,32 +36,19 @@ public class SettingsAccess {
         return mSharedPreference;
     }
 
-    private void initializeKeys() {
-        key_preference_file_settings = mContext.getString(R.string.preference_file_settings);
-        key_work_wifi = mContext.getString(Setting.Resource.WORK_WIFI.getKey());
-        key_lunch_days_tracked = mContext.getString(Setting.Resource.LUNCH_DAYS_TRACKED.getKey());
-        key_lunch_start = mContext.getString(Setting.Resource.LUNCH_START.getKey());
-        key_lunch_end = mContext.getString(Setting.Resource.LUNCH_END.getKey());
-        key_lunch_cost = mContext.getString(Setting.Resource.LUNCH_AVG_COST.getKey());
-        key_gross_salary = mContext.getString(Setting.Resource.GROSS_SALARY.getKey());
-        key_savings_goal_name = mContext.getString(Setting.Resource.SAVINGS_GOAL_NAME.getKey());
-        key_savings_goal_value = mContext.getString(Setting.Resource.SAVINGS_GOAL_VALUE.getKey());
-    }
-
-
     /**
      * Sets the work wifi ssid
      * @param ssid
      * @return true if saved to persistent storage, false otherwise
      */
     public boolean setWorkWifiId(String ssid) {
-        mEditor.putString(key_work_wifi, ssid);
+        mEditor.putString(Setting.Resource.WORK_WIFI.getKey(), ssid);
         boolean committed = mEditor.commit();
         return committed;
     }
 
     public String getWorkWifiId() {
-        return mSharedPreference.getString(key_work_wifi, "");
+        return mSharedPreference.getString(Setting.Resource.WORK_WIFI.getKey(), "");
     }
 
     /**
@@ -79,7 +56,7 @@ public class SettingsAccess {
      * @return
      */
     public boolean setDaysToTrack(int daysToTrack) {
-        mEditor.putInt(key_lunch_days_tracked, daysToTrack);
+        mEditor.putInt(Setting.Resource.LUNCH_DAYS_TRACKED.getKey(), daysToTrack);
         boolean committed = mEditor.commit();
         return committed;
     }
@@ -88,7 +65,7 @@ public class SettingsAccess {
      * default value if not user set is M-F
      */
     public DaysOfTheWeek getDaysToTrack() {
-        int daysTracked = mSharedPreference.getInt(key_lunch_days_tracked, Constants.DEFAULT_WORK_WEEK);
+        int daysTracked = mSharedPreference.getInt(Setting.Resource.LUNCH_DAYS_TRACKED.getKey(), Constants.DEFAULT_WORK_WEEK);
 
         final DaysOfTheWeek daysToTrack = new DaysOfTheWeek(
                 mContext.getResources().getStringArray(R.array.days_of_the_week));
@@ -103,7 +80,7 @@ public class SettingsAccess {
      */
     public boolean setLunchStartTime(int hourIn24HourFormat, int minutes) {
         int timeInMinutes = hourIn24HourFormat * 60 + minutes;
-        mEditor.putInt(key_lunch_start, timeInMinutes);
+        mEditor.putInt(Setting.Resource.LUNCH_START.getKey(), timeInMinutes);
         boolean committed = mEditor.commit();
         return committed;
     }
@@ -113,7 +90,7 @@ public class SettingsAccess {
      * @return
      */
     public int[] getLunchStartTime() {
-        int timeInMinutes = mSharedPreference.getInt(key_lunch_start, DEFAULT_LUNCH_START);
+        int timeInMinutes = mSharedPreference.getInt(Setting.Resource.LUNCH_START.getKey(), DEFAULT_LUNCH_START);
         return Formatter.getHoursAndMinutes(timeInMinutes);
     }
 
@@ -122,7 +99,7 @@ public class SettingsAccess {
      */
     public boolean setLunchEndTime(int hourIn24HourFormat, int minutes) {
         int timeInMinutes = hourIn24HourFormat * 60 + minutes;
-        mEditor.putInt(key_lunch_end, timeInMinutes);
+        mEditor.putInt(Setting.Resource.LUNCH_END.getKey(), timeInMinutes);
         boolean committed = mEditor.commit();
         return committed;
     }
@@ -132,11 +109,9 @@ public class SettingsAccess {
      * @return
      */
     public int[] getLunchEndTime() {
-        int timeInMinutes =  mSharedPreference.getInt(key_lunch_end, DEFAULT_LUNCH_END);
+        int timeInMinutes =  mSharedPreference.getInt(Setting.Resource.LUNCH_END.getKey(), DEFAULT_LUNCH_END);
         return Formatter.getHoursAndMinutes(timeInMinutes);
     }
-
-
 
     /**
      * Sets the average cost of lunch as provided by the user, stored as a String.
@@ -145,7 +120,7 @@ public class SettingsAccess {
      * @return
      */
     public boolean setAverageLunchCost(String averageLunchCost) {
-        mEditor.putString(key_lunch_cost, averageLunchCost);
+        mEditor.putString(Setting.Resource.LUNCH_AVG_COST.getKey(), averageLunchCost);
         boolean committed = mEditor.commit();
         return committed;
     }
@@ -159,7 +134,7 @@ public class SettingsAccess {
     public double getAverageLunchCost() {
         double value;
         double defaultValue = DEFAULT_AVG_LUNCH_COST;
-        String persistedValue = mSharedPreference.getString(key_lunch_cost, "");
+        String persistedValue = mSharedPreference.getString(Setting.Resource.LUNCH_AVG_COST.getKey(), "");
         if (!persistedValue.isEmpty()) {
             value = Double.parseDouble(persistedValue);
         } else {
@@ -175,7 +150,7 @@ public class SettingsAccess {
      * @return boolean
      */
     public boolean setGrossAnnualSalary(int grossAnnualSalary) {
-        mEditor.putInt(key_gross_salary, grossAnnualSalary);
+        mEditor.putInt(Setting.Resource.GROSS_SALARY.getKey(), grossAnnualSalary);
         boolean committed = mEditor.commit();
         return committed;
     }
@@ -188,27 +163,27 @@ public class SettingsAccess {
      */
     public int getGrossAnnualSalary() {
         int defaultValue = Constants.DEFAULT_GROSS_ANNUAL_SALARY;
-        return mSharedPreference.getInt(key_gross_salary, defaultValue);
+        return mSharedPreference.getInt(Setting.Resource.GROSS_SALARY.getKey(), defaultValue);
     }
 
     public boolean setSavingsGoalName(String goalName) {
-        mEditor.putString(key_savings_goal_name, goalName);
+        mEditor.putString(Setting.Resource.SAVINGS_GOAL_NAME.getKey(), goalName);
         boolean committed = mEditor.commit();
         return committed;
     }
 
     public String getSavingsGoalName() {
         String defaultGoalName = mContext.getString(R.string.default_goal_name);
-        return mSharedPreference.getString(key_savings_goal_name, defaultGoalName);
+        return mSharedPreference.getString(Setting.Resource.SAVINGS_GOAL_NAME.getKey(), defaultGoalName);
     }
 
     public boolean setSavingsGoalValue(int goalValue) {
-        mEditor.putInt(key_savings_goal_value, goalValue);
+        mEditor.putInt(Setting.Resource.SAVINGS_GOAL_VALUE.getKey(), goalValue);
         boolean committed = mEditor.commit();
         return committed;
     }
 
     public int getSavingsGoalValue() {
-        return mSharedPreference.getInt(key_savings_goal_value, 5000);
+        return mSharedPreference.getInt(Setting.Resource.SAVINGS_GOAL_VALUE.getKey(), 5000);
     }
 }

@@ -1,6 +1,9 @@
 package com.github.androidatelier.lunchin.util;
 
 public abstract class Constants {
+
+
+
     public static final String KEY_DAYS_TO_TRACK = "daysToTrack";
     public static final String KEY_GOAL_COST = "goalCost";
     public static final String KEY_GOAL_NAME = "goalTitle";

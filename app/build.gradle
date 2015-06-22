@@ -25,5 +25,5 @@ dependencies {
     compile 'com.android.support:design:22.+'
 
     testCompile 'junit:junit:4.12'
-    testCompile 'com.google.truth:truth:0.27'
+//    testCompile 'com.google.truth:truth:0.27'
 }

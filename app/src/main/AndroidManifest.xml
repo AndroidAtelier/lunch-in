@@ -21,10 +21,12 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".receiver.LunchOutUiReceiver" >
+        <receiver android:name=".receiver.LunchOutUiReceiver">
             <intent-filter>
-                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" >
-                </action>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
+                <action android:name="android.net.ConnectivityManager.CONNECTIVITY_ACTION" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+                <action android:name="android.net.wifi.supplicant.CONNECTION_CHANGE" />
             </intent-filter>
         </receiver>
 

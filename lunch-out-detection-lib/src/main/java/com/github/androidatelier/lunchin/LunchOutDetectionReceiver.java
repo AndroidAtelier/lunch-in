@@ -42,11 +42,6 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
             WifiInfo info = wifiManager.getConnectionInfo();
             String ssid = info.getSSID().replace("\"", ""); //remove surrounding quotes
 
-            if (mCurrentSSID != null) {
-                updateLastSSID(ssid);
-                Log.d("MARK", "updating last to: " + ssid);
-                mLastSSID = ssid;
-            }
             mCurrentSSID = ssid;
 
             Log.d("MARK", ssid);
@@ -56,6 +51,12 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
                     Log.d("KIO", "sendNotification is called");
                     onPossibleLunchOut(context);
                 }
+            }
+
+            if(mLastSSID != mCurrentSSID) {
+                updateLastSSID(mCurrentSSID);
+                Log.d("MARK", "updating last to: " + mCurrentSSID);
+                mLastSSID = mCurrentSSID;
             }
         }
     }
@@ -130,6 +131,7 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
             Log.d("MARK", "isSSIDAway() is false (last, current, work): " + mLastSSID +", " + mCurrentSSID + ", " + mWorkSSID);
             return false;
         }
+
     }
 
     public abstract void onPossibleLunchOut(Context context);

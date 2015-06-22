@@ -15,6 +15,7 @@ android {
 
 
 dependencies {
+    compile project(':database')
     compile project(':notification-lib')
     compile project(':lunch-out-detection-lib')
     compile 'com.android.support:support-v4:22+'

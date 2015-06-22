@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.github.androidatelier.database.LunchInApi;
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.adapter.ViewPagerAdapter;
 import com.github.androidatelier.lunchin.fragment.MyGoalFragment;
@@ -24,11 +25,11 @@ import java.util.HashSet;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     private WifiManager mWifiManager;
+    private LunchInApi mLunchInApi;
+
     private TabLayout mTabLayout;
     ViewPager mViewPager;
-
     private SettingsFragment mSettingsFragment = new SettingsFragment();
 
     @Override
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
         setupViewPager(mViewPager);
         setupTablayout();
+
+        mLunchInApi = new LunchInApi(this);
 
         String action = getIntent().getAction();
         if (NotificationUtil.ACTION_LUNCH_OUT.equals(action)) {
@@ -71,14 +74,22 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO: Display number of hours you need to work to buy this lunch
     private void updateLunchOutUI() {
+        mLunchInApi.setLunchOut();
         NotificationUtil.cancelNotification(this);
-        Toast.makeText(this, "Lunch out", Toast.LENGTH_LONG).show();
+        Toast.makeText(
+                this,
+                "Lunch out: " + mLunchInApi.getNumberOfLunchOuts() + "/" + mLunchInApi.getLunchTotal(),
+                Toast.LENGTH_LONG).show();
     }
 
     // TODO: Update progress
     private void updateLunchInUI() {
+        mLunchInApi.setLunchIn();
         NotificationUtil.cancelNotification(this);
-        Toast.makeText(this, "Lunch in", Toast.LENGTH_LONG).show();
+        Toast.makeText(
+                this,
+                "Lunch in: " + mLunchInApi.getNumberOfLunchIns() + "/" + mLunchInApi.getLunchTotal(),
+                Toast.LENGTH_LONG).show();
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -88,12 +99,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFrag(mSettingsFragment, "Settings");
         viewPager.setAdapter(adapter);
     }
-
-
-    public void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-
 
     // settings dialogs
     public void doWifiScan() {

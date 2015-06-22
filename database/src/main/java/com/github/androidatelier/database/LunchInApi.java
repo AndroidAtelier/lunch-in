@@ -1,45 +1,64 @@
 package com.github.androidatelier.database;
 
-import java.util.Random;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
+import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 /**
  * Created by Jenny on 6/16/2015.
  */
 public class LunchInApi {
+    private final SQLiteDatabase db;
+
+    public LunchInApi(Context context) {
+        DatabaseUtility databaseUtility = new DatabaseUtility(context);
+        db = databaseUtility.getWritableDatabase();
+    }
 
     /**
-     * Get the number of lunch ins the person has used
-     * @return Returns a random number between 0 and 50
+     * @return the number of lunch ins the person has done
      */
-    public int GetNumberOfLunchIns()
-    {
-        Random generator = new Random();
-        return generator.nextInt(50);
+    public int getNumberOfLunchIns() {
+        return cupboard().withDatabase(db)
+                .query(MealItem.class)
+                .withSelection("success = ?", "1")
+                .getCursor()
+                .getCount();
+    }
+
+    public int getNumberOfLunchOuts() {
+        return cupboard().withDatabase(db)
+                .query(MealItem.class)
+                .withSelection("success = ?", "0")
+                .getCursor()
+                .getCount();
+    }
+
+    public int getLunchTotal() {
+        return cupboard().withDatabase(db)
+                .query(MealItem.class)
+                .getCursor()
+                .getCount();
     }
 
     /**
      * Creates another lunch in line in database
      */
-    public void SetLunchIn()
-    {
-
+    public void setLunchIn() {
+        createMealItem(true);
     }
 
     /**
      * Indicates user went out to lunch instead of eating in
      */
-    public void SetLunchOut()
-    {
-
+    public void setLunchOut() {
+        createMealItem(false);
     }
 
-    public void InitializeDatabase()
-    {
-
-    }
-
-    public void UpgradeDatabase()
-    {
-        
+    private void createMealItem(boolean success) {
+        long now = System.currentTimeMillis();
+        MealItem item = new MealItem(now, success);
+        cupboard().withDatabase(db).put(item);
     }
 }

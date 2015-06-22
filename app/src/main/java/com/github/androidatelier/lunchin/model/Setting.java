@@ -120,8 +120,7 @@ public class Setting {
                 String value = "";
                 int salary = mSettingsAccess.getGrossAnnualSalary();
                 if (salary == Constants.DEFAULT_GROSS_ANNUAL_SALARY) {
-                    value = Formatter.formatIntToCurrencyUSD(salary) + " " +
-                            mContext.getString(R.string.info_national_average_income);
+                    value = mContext.getString(R.string.info_national_average_income, Formatter.formatIntToCurrencyUSD(salary));
                 } else {
                     value = Formatter.formatIntToCurrencyUSD(salary);
                 }

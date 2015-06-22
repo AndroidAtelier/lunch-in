@@ -15,7 +15,6 @@ import com.github.androidatelier.lunchin.util.Formatter;
 public class SettingsAccess {
     // default values
     private static final double DEFAULT_AVG_LUNCH_COST = 10.00;
-
     private static final int DEFAULT_LUNCH_START = 720; // represented in minutes
     private static final int DEFAULT_LUNCH_END = 780; // represented in minutes
     private static final String KEY_PREFERENCE_FILE_SETTINGS = "com.github.androidatelier.lunchin.PREFERENCE_FILE_SETTINGS";

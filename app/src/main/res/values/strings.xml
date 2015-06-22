@@ -12,7 +12,7 @@
     <string name="goal_cost">Goal Cost</string>
     <string name="input_avg_cost_of_lunch">Enter the average cost of lunch</string>
 
-    <string name="info_national_average_income"> is the current national average per person in the US. Enter your
+    <string name="info_national_average_income">%1$s is the current national average per person in the US. Enter your
         information for personalized statistics. All settings data are stored locally and never shared</string>
     <string-array name="days_of_the_week">
         <item>Sunday</item>

@@ -1,5 +1,6 @@
 package com.github.androidatelier.lunchin.fragment;
 
+
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -30,9 +31,9 @@ public class StatsFragment extends Fragment{
         double lunch_cost = mSettingsAccess.getAverageLunchCost();
         double hourly_wage = salary/(40.0 * 52.0); //40 hours in a week and 52 weeks in a year
 
-        String strHoursLunch = String.format("You would have to work %.1f hours " +
+        String strHoursLunch = String.format("You would have to work %.1f minutes " +
                 "to buy lunch that costs %s with an annual salary of %s",
-                lunch_cost/hourly_wage,
+                lunch_cost/hourly_wage * 60,
                 NumberFormat.getCurrencyInstance().format(lunch_cost),
                 NumberFormat.getCurrencyInstance().format(salary));
 

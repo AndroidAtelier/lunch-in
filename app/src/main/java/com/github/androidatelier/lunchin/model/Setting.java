@@ -34,7 +34,7 @@ public class Setting {
         SAVINGS_GOAL_NAME(KEY_SAVINGS_GOAL_NAME, R.string.pref_title_my_goal, R.string.pref_description_my_goal),
         SAVINGS_GOAL_VALUE(KEY_SAVINGS_GOAL_VALUE, R.string.pref_title_my_goal, R.string.pref_description_my_goal),
         MY_GOAL("", R.string.pref_title_my_goal, R.string.pref_description_my_goal),
-        LAST_SSID_VALUE(KEY_LAST_SSID, 0, 0)
+        LAST_SSID_VALUE(KEY_LAST_SSID, R.string.pref_title_last_ssid, R.string.pref_description_last_ssid)
         ;
 
         private final String prefKey;

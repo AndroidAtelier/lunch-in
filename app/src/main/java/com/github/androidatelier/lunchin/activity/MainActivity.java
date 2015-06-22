@@ -1,6 +1,5 @@
 package com.github.androidatelier.lunchin.activity;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
@@ -10,9 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckedTextView;
 import android.widget.Toast;
 
 import com.github.androidatelier.lunchin.R;
@@ -24,7 +20,6 @@ import com.github.androidatelier.lunchin.notification.NotificationUtil;
 import com.github.androidatelier.lunchin.util.Constants;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -115,8 +110,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         ArrayList<String> resultList = new ArrayList<>(results);
-        Collections.sort(resultList);
-
         mSettingsFragment.displayWifiNetworksDialog(resultList);
     }
 
@@ -124,13 +117,19 @@ public class MainActivity extends AppCompatActivity {
         mSettingsFragment.displayTimePickerDialog(hours, minutes, requestCode);
     }
 
-    public void displayAverageLunchCostDialog(CharSequence title, float cost) {
+    public void displayAverageLunchCostDialog(CharSequence title, double cost) {
         mSettingsFragment.displayEditTextDialog(
                 title,
                 String.valueOf(cost),
                 Constants.REQUEST_CODE_LUNCH_COST_DIALOG);
     }
 
+    public void displayGrossSalaryDialog(CharSequence title, int grossAnnualSalary) {
+        mSettingsFragment.displayEditTextDialog(
+                title,
+                String.valueOf(grossAnnualSalary),
+                Constants.REQUEST_CODE_GROSS_SALARY_DIALOG);
+    }
     public void displayDaysToTrackDialog() {
         mSettingsFragment.displayDaysToTrackDialog();
     }
@@ -139,35 +138,4 @@ public class MainActivity extends AppCompatActivity {
         mSettingsFragment.displayGoalSetterDialog();
     }
 
-    private void setCheckedTextViewOnClickListener(final CheckedTextView view) {
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (view.isChecked()) {
-                    view.setChecked(false);
-                } else {
-                    view.setChecked(true);
-                }
-
-            }
-        });
-    }
-
-    private void setPositiveButtonOnClickListener(final Button positiveButtonView, final Runnable onClickAction) {
-        positiveButtonView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // @todo persist selection
-            }
-        });
-    }
-
-    private void setNeutralButtonOnClickListener(final Button neutralButtonView, final Dialog dialog) {
-        neutralButtonView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-    }
 }

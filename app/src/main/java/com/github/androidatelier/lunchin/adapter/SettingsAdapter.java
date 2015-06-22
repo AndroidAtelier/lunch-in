@@ -1,5 +1,6 @@
 package com.github.androidatelier.lunchin.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.activity.MainActivity;
 import com.github.androidatelier.lunchin.model.Setting;
+import com.github.androidatelier.lunchin.model.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
 
 import java.util.List;
@@ -35,7 +37,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
         Setting setting = mSettings.get(i);
         settingViewHolder.title.setText(setting.getTitle());
         settingViewHolder.description.setText(setting.getDescription());
-        settingViewHolder.icon.setImageResource(setting.getIcon());
     }
 
     @Override
@@ -61,38 +62,45 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
 
         @Override
         public void onClick(View v) {
-            if (v.getContext()instanceof MainActivity) {
-                final MainActivity activity = (MainActivity) v.getContext();
+            Context context = v.getContext();
+            if (context instanceof MainActivity) {
+                final MainActivity activity = (MainActivity) context;
                 final CharSequence titleText = title.getText();
-                if (titleText.equals(Setting.TITLE_WIFI_WORK)) {
+                final SettingsAccess settingsAccess = new SettingsAccess(context);
+
+                if (titleText.equals(Setting.Resource.WORK_WIFI.getTitleText(context))) {
                     activity.doWifiScan();
                 }
 
-                else if (titleText.equals(Setting.TITLE_LUNCH_DAYS_TRACKED)) {
+                else if (titleText.equals(Setting.Resource.LUNCH_DAYS_TRACKED.getTitleText(context))) {
                     activity.displayDaysToTrackDialog();
                 }
 
-                else if (titleText.equals(Setting.TITLE_LUNCH_BEGIN)) {
-                    // TODO: Use saved values
+                else if (titleText.equals(Setting.Resource.LUNCH_START.getTitleText(context))) {
+                    int[] startTime = settingsAccess.getLunchStartTime();
                     activity.displayTimePickerDialog(
-                            Constants.DEFAULT_LUNCH_BEGIN_HOURS,
-                            Constants.DEFAULT_LUNCH_BEGIN_MINUTES,
-                            Constants.REQUEST_CODE_LUNCH_BEGIN_DIALOG);
+                            startTime[0],
+                            startTime[1],
+                            Constants.REQUEST_CODE_LUNCH_START_DIALOG);
                 }
 
-                else if (titleText.equals(Setting.TITLE_LUNCH_END)) {
-                    // TODO: Use saved values
+                else if (titleText.equals(Setting.Resource.LUNCH_END.getTitleText(context))) {
+                    int[] endTime = settingsAccess.getLunchEndTime();
                     activity.displayTimePickerDialog(
-                            Constants.DEFAULT_LUNCH_BEGIN_HOURS + Constants.DEFAULT_LUNCH_DURATION_HOURS,
-                            Constants.DEFAULT_LUNCH_BEGIN_MINUTES,
+                            endTime[0],
+                            endTime[1],
                             Constants.REQUEST_CODE_LUNCH_END_DIALOG);
                 }
 
-                else if (titleText.equals(Setting.TITLE_LUNCH_AVG_COST)) {
-                    activity.displayAverageLunchCostDialog(titleText, Constants.DEFAULT_LUNCH_COST);
+                else if (titleText.equals(Setting.Resource.LUNCH_AVG_COST.getTitleText(context))) {
+                    activity.displayAverageLunchCostDialog(titleText, settingsAccess.getAverageLunchCost());
                 }
 
-                else if (titleText.equals(Setting.TITLE_MY_GOAL)) {
+                else if (titleText.equals(Setting.Resource.GROSS_SALARY.getTitleText(context))) {
+                    activity.displayGrossSalaryDialog(titleText, settingsAccess.getGrossAnnualSalary());
+                }
+
+                else if (titleText.equals(Setting.Resource.MY_GOAL.getTitleText(context))) {
                     activity.displayGoalSetterDialog();
                 }
             }

@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +16,15 @@ import android.view.ViewGroup;
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.adapter.SettingsAdapter;
 import com.github.androidatelier.lunchin.model.Setting;
+import com.github.androidatelier.lunchin.model.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
 import com.github.androidatelier.lunchin.util.DaysOfTheWeek;
+import com.github.androidatelier.lunchin.util.Formatter;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by brenda on 6/17/15.
@@ -30,6 +32,8 @@ import java.util.List;
 public class SettingsFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private List<Setting> mSettings;
+    private SettingsAccess mSettingsAccess;
+    private Formatter mFormatter;
 
     private DaysOfTheWeek daysToTrack;
 
@@ -37,6 +41,8 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.fragment_settings,container,false);
 
+        mSettingsAccess = new SettingsAccess(getActivity());
+        mFormatter = new Formatter(getActivity());
         daysToTrack = new DaysOfTheWeek(
                 getResources().getStringArray(R.array.days_of_the_week));
 
@@ -81,9 +87,8 @@ public class SettingsFragment extends Fragment {
     }
 
     public void displayGoalSetterDialog() {
-        // TODO: Read saved goal name and amount to pass to GoalSetterDialogFragment
-        String goalName = getString(R.string.default_goal_name);
-        int goalCost = getResources().getInteger(R.integer.default_goal_cost);
+        String goalName = mSettingsAccess.getSavingsGoalName();
+        int goalCost = mSettingsAccess.getSavingsGoalValue();
 
         DialogFragment fragment = GoalSetterDialogFragment.newInstance(goalName, goalCost);
         fragment.setTargetFragment(this, Constants.REQUEST_CODE_GOAL_SETTER_DIALOG);
@@ -99,40 +104,53 @@ public class SettingsFragment extends Fragment {
 
         switch (requestCode) {
             case Constants.REQUEST_CODE_WIFI_NETWORKS_DIALOG:
+                String titleWorkWifi = getActivity().getString(Setting.Resource.WORK_WIFI.getTitle());
                 updateSetting(
-                        Setting.TITLE_WIFI_WORK, data.getStringExtra(Constants.KEY_NETWORK));
+                        titleWorkWifi, data.getStringExtra(Constants.KEY_NETWORK));
                 break;
             case Constants.REQUEST_CODE_DAYS_TO_TRACK_DIALOG:
                 daysToTrack.bitVector = data.getIntExtra(Constants.KEY_DAYS_TO_TRACK, 0);
-                updateSetting(Setting.TITLE_LUNCH_DAYS_TRACKED, daysToTrack.toString());
+                String titleDaysTracked = getActivity().getString(Setting.Resource.LUNCH_DAYS_TRACKED.getTitle());
+                updateSetting(titleDaysTracked, daysToTrack.toString());
                 break;
-            case Constants.REQUEST_CODE_LUNCH_BEGIN_DIALOG:
+            case Constants.REQUEST_CODE_LUNCH_START_DIALOG:
             case Constants.REQUEST_CODE_LUNCH_END_DIALOG:
                 // TODO: If lunch end is before lunch begin, reset it to one hour after lunch begin
                 int hours = data.getIntExtra(
                         Constants.KEY_HOURS, Constants.DEFAULT_LUNCH_BEGIN_HOURS);
                 int minutes = data.getIntExtra(
                         Constants.KEY_MINUTES, Constants.DEFAULT_LUNCH_BEGIN_MINUTES);
-                String title = (requestCode == Constants.REQUEST_CODE_LUNCH_BEGIN_DIALOG) ?
-                        Setting.TITLE_LUNCH_BEGIN : Setting.TITLE_LUNCH_END;
-                updateSetting(title, formatLunchHour(hours, minutes));
+                String titleLunchBegin = getActivity().getString(Setting.Resource.LUNCH_START.getTitle());
+                String titleLunchEnd = getActivity().getString(Setting.Resource.LUNCH_END.getTitle());
+                String title = (requestCode == Constants.REQUEST_CODE_LUNCH_START_DIALOG) ?
+                        titleLunchBegin : titleLunchEnd;
+                updateSetting(title, mFormatter.formatTime(hours, minutes));
                 break;
             case Constants.REQUEST_CODE_LUNCH_COST_DIALOG:
                 String text = data.getStringExtra(Constants.KEY_TEXT);
                 if (!TextUtils.isEmpty(text)) {
                     try {
-                        float cost = Float.parseFloat(text);
-                        updateSetting(Setting.TITLE_LUNCH_AVG_COST,
-                                NumberFormat.getCurrencyInstance().format(cost));
+                        String titleLunchCost = getActivity().getString(Setting.Resource.LUNCH_AVG_COST.getTitle());
+                        double cost = Double.parseDouble(text);
+                        updateSetting(titleLunchCost,
+                                NumberFormat.getCurrencyInstance(Locale.US).format(cost));
                     } catch (NumberFormatException e) {
 
                     }
                 }
                 break;
+            case Constants.REQUEST_CODE_GROSS_SALARY_DIALOG:
+                String salaryText = data.getStringExtra(Constants.KEY_TEXT);
+                if (!TextUtils.isEmpty(salaryText)) {
+                    String salaryTitle = Setting.Resource.GROSS_SALARY.getTitleText(getActivity());
+                    int value = Integer.parseInt(salaryText);
+                    updateSetting(salaryTitle, Formatter.formatIntToCurrencyUSD(value));
+                }
             case Constants.REQUEST_CODE_GOAL_SETTER_DIALOG:
                 String goalName = data.getStringExtra(Constants.KEY_GOAL_NAME);
-                float goalCost = data.getFloatExtra(Constants.KEY_GOAL_COST, -1);
-                updateSetting(Setting.TITLE_MY_GOAL, formatGoal(goalName, goalCost));
+                int goalCost = data.getIntExtra(Constants.KEY_GOAL_COST, -1);
+                String goalTitle = getActivity().getString(Setting.Resource.MY_GOAL.getTitle());
+                updateSetting(goalTitle, mFormatter.formatGoal(goalName, goalCost));
             default:
                 super.onActivityResult(requestCode, resultCode, data);
                 break;
@@ -143,23 +161,16 @@ public class SettingsFragment extends Fragment {
         mSettings = new ArrayList<>();
 
         // app settings
-        mSettings.add(new Setting(Setting.GROUP_APP_SETTINGS, Setting.TITLE_WIFI_WORK, "Select your work network", 0));
+        mSettings.add(new Setting(getActivity(), Setting.Resource.WORK_WIFI));
 
         // lunch settings
         daysToTrack.bitVector = Constants.DEFAULT_WORK_WEEK;  // TODO: Read saved value
-        mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES, Setting.TITLE_LUNCH_DAYS_TRACKED, daysToTrack.toString(), 0));
-        mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES, Setting.TITLE_LUNCH_BEGIN,
-                formatLunchHour(Constants.DEFAULT_LUNCH_BEGIN_HOURS, Constants.DEFAULT_LUNCH_BEGIN_MINUTES), 0));  // TODO: Read saved value
-        mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES, Setting.TITLE_LUNCH_END,
-                formatLunchHour(
-                        Constants.DEFAULT_LUNCH_BEGIN_HOURS + Constants.DEFAULT_LUNCH_DURATION_HOURS,
-                        Constants.DEFAULT_LUNCH_BEGIN_MINUTES),
-                0));  // TODO: Read saved value
-        mSettings.add(new Setting(Setting.GROUP_USER_PREFERENCES,
-                Setting.TITLE_LUNCH_AVG_COST, NumberFormat.getCurrencyInstance().format(Constants.DEFAULT_LUNCH_COST), 0));  // TODO: Read saved value
-
-        // goal settings
-        mSettings.add(new Setting(Setting.GROUP_GOAL_SETTINGS, Setting.TITLE_MY_GOAL, formatGoal(), 0));
+        mSettings.add(new Setting(getActivity(), Setting.Resource.LUNCH_DAYS_TRACKED));
+        mSettings.add(new Setting(getActivity(), Setting.Resource.LUNCH_START));
+        mSettings.add(new Setting(getActivity(), Setting.Resource.LUNCH_END));
+        mSettings.add(new Setting(getActivity(), Setting.Resource.LUNCH_AVG_COST));
+        mSettings.add(new Setting(getActivity(), Setting.Resource.GROSS_SALARY));
+        mSettings.add(new Setting(getActivity(), Setting.Resource.MY_GOAL));
     }
 
     // TODO: Save to preferences in dialogs
@@ -167,42 +178,9 @@ public class SettingsFragment extends Fragment {
         for (int i = 0; i < mSettings.size(); ++i) {
             Setting setting = mSettings.get(i);
             if (title.equals(setting.getTitle())) {
-                setting.setDescription(description);
                 mRecyclerView.getAdapter().notifyItemChanged(i);
             }
         }
     }
 
-    private String formatLunchHour(int hours, int minutes) {
-        return DateFormat.is24HourFormat(getActivity()) ?
-                String.format("%02d:%02d", hours, minutes) :
-                String.format("%d:%02d", convertTo12Hour(hours), minutes);
-    }
-
-    private static int convertTo12Hour(int hour) {
-        int result = hour % 12;
-        return (result == 0) ? 12 : result;
-    }
-
-    private String formatGoal() {
-        // TODO: Read saved goal name and cost
-        String goalName = getString(R.string.default_goal_name);
-        int goalCost = getResources().getInteger(R.integer.default_goal_cost);
-
-        return formatGoal(goalName, goalCost);
-    }
-
-    private String formatGoal(String goalName, float goalCost) {
-        String defaultGoalName = getString(R.string.default_goal_name);
-        int defaultGoalCost = getResources().getInteger(R.integer.default_goal_cost);
-
-        if (TextUtils.isEmpty(goalName)) {
-            goalName = defaultGoalName;
-        }
-        if (goalCost <= 0) {
-            goalCost = defaultGoalCost;
-        }
-
-        return goalName + ": " + NumberFormat.getCurrencyInstance().format(goalCost);
-    }
 }

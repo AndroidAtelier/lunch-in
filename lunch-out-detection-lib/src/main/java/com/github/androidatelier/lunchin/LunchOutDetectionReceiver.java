@@ -82,25 +82,9 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
 
         Date now = new Date();
 
-        Calendar cStart = Calendar.getInstance();
-        cStart.setTime(dStart);
+        Calendar cTodayStart = getTodayCalendarFromDate(dStart);
 
-        Calendar cTodayStart = Calendar.getInstance();
-        cTodayStart.setTime(new Date());
-
-        cTodayStart.set(Calendar.HOUR_OF_DAY, cStart.get(Calendar.HOUR_OF_DAY));
-        cTodayStart.set(Calendar.MINUTE, cStart.get(Calendar.MINUTE));
-        cTodayStart.set(Calendar.SECOND, 0);
-
-        Calendar cEnd = Calendar.getInstance();
-        cEnd.setTime(dEnd);
-
-        Calendar cTodayEnd = Calendar.getInstance();
-        cTodayEnd.setTime(new Date());
-
-        cTodayEnd.set(Calendar.HOUR_OF_DAY, cEnd.get(Calendar.HOUR_OF_DAY));
-        cTodayEnd.set(Calendar.MINUTE, cEnd.get(Calendar.MINUTE));
-        cTodayEnd.set(Calendar.SECOND, 0);
+        Calendar cTodayEnd = getTodayCalendarFromDate(dEnd);
 
 
         DateTimeComparator comparator = DateTimeComparator.getTimeOnlyInstance();
@@ -110,6 +94,20 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
         }
         Log.d("MARK", "isNowLunchTime() is false: " + cTodayStart.getTime() + ", " + cTodayEnd.getTime() + ", " + now);
         return false;
+    }
+
+    private Calendar getTodayCalendarFromDate(Date date) {
+        Calendar incomingTime = Calendar.getInstance();
+        incomingTime.setTime(date);
+
+        Calendar todayCal = Calendar.getInstance();
+        todayCal.setTime(new Date());
+
+        todayCal.set(Calendar.HOUR_OF_DAY, incomingTime.get(Calendar.HOUR_OF_DAY));
+        todayCal.set(Calendar.MINUTE, incomingTime.get(Calendar.MINUTE));
+        todayCal.set(Calendar.SECOND, 0);
+
+        return todayCal;
     }
 
     public void updateUserSettings(String wifi, String start, String end, String last){

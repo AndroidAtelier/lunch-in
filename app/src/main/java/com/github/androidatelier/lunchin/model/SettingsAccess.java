@@ -93,6 +93,10 @@ public class SettingsAccess {
         return Formatter.getHoursAndMinutes(timeInMinutes);
     }
 
+    public int getLunchStartTimeMinutes() {
+        return mSharedPreference.getInt(Setting.Resource.LUNCH_START.getKey(), DEFAULT_LUNCH_START);
+    }
+
     public String getLunchStartTimeString() {
         int timeInMinutes = mSharedPreference.getInt(Setting.Resource.LUNCH_START.getKey(), DEFAULT_LUNCH_START);
         int[] hoursAndMinutes = Formatter.getHoursAndMinutes(timeInMinutes);
@@ -119,8 +123,17 @@ public class SettingsAccess {
         return Formatter.getHoursAndMinutes(timeInMinutes);
     }
 
-    public String getLunchEndTimeString() {
-        int timeInMinutes = mSharedPreference.getInt(Setting.Resource.LUNCH_END.getKey(), DEFAULT_LUNCH_END);
+    public int getLunchEndTimeMinutes() {
+        return mSharedPreference.getInt(Setting.Resource.LUNCH_END.getKey(), DEFAULT_LUNCH_END);
+    }
+
+    /**
+     * Helper method, takes int representation of time and returns HH:mm string
+     *
+     * @param timeInMinutes
+     * @return
+     */
+    public static String getTimeString(int timeInMinutes) {
         int[] hoursAndMinutes = Formatter.getHoursAndMinutes(timeInMinutes);
         return String.format("%d:%02d", hoursAndMinutes[0], hoursAndMinutes[1]);
     }

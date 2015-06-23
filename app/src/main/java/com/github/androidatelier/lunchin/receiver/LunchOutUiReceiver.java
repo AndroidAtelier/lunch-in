@@ -17,10 +17,10 @@ public class LunchOutUiReceiver extends LunchOutDetectionReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("KIO", "app: onRecieve");
+        Log.d("KIO", "app: onReceive");
         mContext = context;
         SettingsAccess sa = new SettingsAccess(context);
-        updateUserSettings(sa.getWorkWifiId(), sa.getLunchStartTimeString(), sa.getLunchEndTimeString(), sa.getLastSSIDValue());
+        updateUserSettings(sa.getWorkWifiId(), SettingsAccess.getTimeString(sa.getLunchStartTimeMinutes()), SettingsAccess.getTimeString(sa.getLunchEndTimeMinutes()), sa.getLastSSIDValue());
 
         super.onReceive(context, intent);
     }

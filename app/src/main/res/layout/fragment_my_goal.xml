@@ -70,11 +70,46 @@
         <view
             android:id="@+id/pie_chart_view"
             android:layout_width="400dip"
-            android:layout_height="400dip"
+            android:layout_height="200dip"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_gravity="center"
             class="com.github.androidatelier.lunchin.fragment.PieChartView"
+            />
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/pie_chart_view"
+            android:id="@+id/visible_button"
+            android:layout_centerHorizontal="true"
+            android:text="Show Animation Images" />
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/visible_button"
+            android:id="@+id/invisible_button"
+            android:layout_centerHorizontal="true"
+            android:text="Hide Animation Images" />
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/invisible_button"
+            android:id="@+id/on_button"
+            android:layout_centerHorizontal="true"
+            android:text="On" />
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/on_button"
+            android:id="@+id/off_button"
+            android:layout_centerHorizontal="true"
+            android:text="Off" />
+        <ImageView
+            android:id="@+id/raining_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
             />
     </LinearLayout>
 </ScrollView>

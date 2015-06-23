@@ -30,6 +30,8 @@
     <string name="default_goal_name">example: Bahamas Vacation</string>
     <integer name="default_goal_cost">5000</integer>
 
+    <string name="lunch_ins_this_month">Lunched-in %1$d days this month</string>
+
     <!-- being preference strings -->
         <!-- preference titles -->
         <string name="pref_title_work_wifi">Work Wifi</string>

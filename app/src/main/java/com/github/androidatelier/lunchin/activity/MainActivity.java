@@ -5,6 +5,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,7 @@ import com.github.androidatelier.lunchin.adapter.ViewPagerAdapter;
 import com.github.androidatelier.lunchin.fragment.MyGoalFragment;
 import com.github.androidatelier.lunchin.fragment.SettingsFragment;
 import com.github.androidatelier.lunchin.fragment.StatsFragment;
+import com.github.androidatelier.lunchin.fragment.Updateable;
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
 import com.github.androidatelier.lunchin.util.Constants;
 
@@ -95,11 +97,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new MyGoalFragment(), "My Goal");
         adapter.addFrag(new StatsFragment(), "Statistics");
         adapter.addFrag(mSettingsFragment, "Settings");
         viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                Fragment fragment = adapter.getItem(position);
+                if (fragment instanceof Updateable) {
+                    ((Updateable) fragment).update();
+                }
+            }
+
+            @Override
+            public void onPageScrolled(
+                    int position, float positionOffset, int positionOffsetPixels) {
+                // Do nothing
+            }
+
+            @Override public void onPageScrollStateChanged(int state) {
+                // Do nothing
+            }
+        });
     }
 
     // settings dialogs

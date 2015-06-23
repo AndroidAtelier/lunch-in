@@ -52,6 +52,10 @@ public class LunchInApi {
                 .getCount();
     }
 
+    public int getNumberOfLunchInsThisMonth() {
+        return getNumberOfLunchsThisMonth(true);
+    }
+
     public boolean didUserLunchOutToday() {
         DateTime now = mClock.getNow();
         DateTime start = now.withTimeAtStartOfDay();
@@ -85,5 +89,19 @@ public class LunchInApi {
         long now = mClock.getNow().getMillis();
         MealItem item = new MealItem(now, success);
         cupboard().withDatabase(mDb).put(item);
+    }
+
+    public int getNumberOfLunchsThisMonth(boolean success) {
+        DateTime now = mClock.getNow();
+        DateTime start = now.withDayOfMonth(1).withTimeAtStartOfDay();
+        DateTime end = start.plusMonths(1);
+        return cupboard().withDatabase(mDb)
+                .query(MealItem.class)
+                .withSelection("timestamp >= ? AND timestamp < ? AND success = ?",
+                        String.valueOf(start.getMillis()),
+                        String.valueOf(end.getMillis()),
+                        success ? "1" : "0")
+                .getCursor()
+                .getCount();
     }
 }

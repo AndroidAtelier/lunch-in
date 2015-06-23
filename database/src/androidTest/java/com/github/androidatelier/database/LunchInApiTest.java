@@ -76,6 +76,25 @@ public class LunchInApiTest extends InstrumentationTestCase {
         assertEquals(false, mLunchInApi.didUserLunchOutToday());
     }
 
+    public void testLunchInsThisMonth() {
+        assertEquals(0, mLunchInApi.getLunchTotal());
+
+        Mockito.when(mClock.getNow()).thenReturn(
+                new DateTime(2015, 6, 1, 0, 0, 0).minusMillis(1));
+        mLunchInApi.setLunchIn();
+        
+        Mockito.when(mClock.getNow()).thenReturn(new DateTime(2015, 6, 9, 18, 0, 0));
+        assertEquals(1, mLunchInApi.getLunchTotal());
+        assertEquals(1, mLunchInApi.getNumberOfLunchIns());
+        assertEquals(0, mLunchInApi.getNumberOfLunchInsThisMonth());
+
+        Mockito.when(mClock.getNow()).thenReturn(new DateTime(2015, 6, 12, 12, 15, 0));
+        mLunchInApi.setLunchIn();
+        assertEquals(2, mLunchInApi.getLunchTotal());
+        assertEquals(2, mLunchInApi.getNumberOfLunchIns());
+        assertEquals(1, mLunchInApi.getNumberOfLunchInsThisMonth());
+    }
+
     @Override
     protected void tearDown() throws Exception {
         getInstrumentation().getContext().deleteDatabase(DATABASE_NAME);

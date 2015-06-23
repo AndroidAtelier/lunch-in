@@ -93,6 +93,17 @@ public class SettingsAccess {
         return Formatter.getHoursAndMinutes(timeInMinutes);
     }
 
+    public int getLunchStartTimeMinutes() {
+        return mSharedPreference.getInt(Setting.Resource.LUNCH_START.getKey(), DEFAULT_LUNCH_START);
+    }
+
+    public String getLunchStartTimeString() {
+        int timeInMinutes = mSharedPreference.getInt(Setting.Resource.LUNCH_START.getKey(), DEFAULT_LUNCH_START);
+        int[] hoursAndMinutes = Formatter.getHoursAndMinutes(timeInMinutes);
+        return String.format("%d:%02d", hoursAndMinutes[0], hoursAndMinutes[1]);
+    }
+
+
     /**
      * @return
      */
@@ -110,6 +121,21 @@ public class SettingsAccess {
     public int[] getLunchEndTime() {
         int timeInMinutes =  mSharedPreference.getInt(Setting.Resource.LUNCH_END.getKey(), DEFAULT_LUNCH_END);
         return Formatter.getHoursAndMinutes(timeInMinutes);
+    }
+
+    public int getLunchEndTimeMinutes() {
+        return mSharedPreference.getInt(Setting.Resource.LUNCH_END.getKey(), DEFAULT_LUNCH_END);
+    }
+
+    /**
+     * Helper method, takes int representation of time and returns HH:mm string
+     *
+     * @param timeInMinutes
+     * @return
+     */
+    public static String getTimeString(int timeInMinutes) {
+        int[] hoursAndMinutes = Formatter.getHoursAndMinutes(timeInMinutes);
+        return String.format("%d:%02d", hoursAndMinutes[0], hoursAndMinutes[1]);
     }
 
     /**
@@ -184,5 +210,15 @@ public class SettingsAccess {
 
     public int getSavingsGoalValue() {
         return mSharedPreference.getInt(Setting.Resource.SAVINGS_GOAL_VALUE.getKey(), 5000);
+    }
+
+    public boolean setLastSSID(String ssid) {
+        mEditor.putString(Setting.Resource.LAST_SSID_VALUE.getKey(), ssid);
+        boolean committed = mEditor.commit();
+        return committed;
+    }
+
+    public String getLastSSIDValue() {
+        return mSharedPreference.getString(Setting.Resource.LAST_SSID_VALUE.getKey(), "");
     }
 }

@@ -39,6 +39,7 @@
         <string name="pref_title_avg_lunch_cost">Average Lunch Cost</string>
         <string name="pref_title_gross_salary">Gross Annual Salary</string>
         <string name="pref_title_my_goal">My Goal</string>
+        <string name="pref_title_last_ssid">Last SSID</string>
         <!--preference descriptions-->
         <string name="pref_description_work_wifi">Select your work network</string>
         <string name="pref_description_lunch_start">Lunch start time</string>
@@ -47,6 +48,7 @@
         <string name="pref_description_avg_lunch_cost">The average cost of lunch if you ate out</string>
         <string name="pref_description_gross_salary">(Optional) Used to calculate cost facts. All data is kept privately on your device and is not shared</string>
         <string name="pref_description_my_goal">Enter a savings goal</string>
+        <string name="pref_description_last_ssid">Helps avoid too many notifications</string>
     <!-- /end preference strings -->
 
 

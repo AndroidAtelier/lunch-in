@@ -16,22 +16,25 @@ public class Setting {
     private static final String KEY_GROSS_SALARY = "pref_gross_salary";
     private static final String KEY_SAVINGS_GOAL_NAME = "pref_savings_goal_name";
     private static final String KEY_SAVINGS_GOAL_VALUE = "pref_savings_goal_value";
-    
+    private static final String KEY_LAST_SSID = "pref_last_ssid";
+
+
     private Context mContext;
     private SettingsAccess mSettingsAccess;
     private Resource mEnum;
 
     public enum Resource {
-                            // key, title, description
-        WORK_WIFI           (KEY_WORK_WIFI, R.string.pref_title_work_wifi, R.string.pref_description_work_wifi),
-        LUNCH_START         (KEY_LUNCH_DAYS_TRACKED, R.string.pref_title_lunch_start, R.string.pref_description_lunch_start),
-        LUNCH_END           (KEY_LUNCH_START, R.string.pref_title_lunch_end, R.string.pref_description_lunch_end),
-        LUNCH_DAYS_TRACKED  (KEY_LUNCH_END, R.string.pref_title_lunch_days_tracked, R.string.pref_description_lunch_days_tracked),
-        LUNCH_AVG_COST      (KEY_LUNCH_COST, R.string.pref_title_avg_lunch_cost, R.string.pref_description_avg_lunch_cost),
-        GROSS_SALARY        (KEY_GROSS_SALARY, R.string.pref_title_gross_salary, R.string.pref_description_gross_salary),
-        SAVINGS_GOAL_NAME   (KEY_SAVINGS_GOAL_NAME, R.string.pref_title_my_goal, R.string.pref_description_my_goal),
-        SAVINGS_GOAL_VALUE  (KEY_SAVINGS_GOAL_VALUE, R.string.pref_title_my_goal, R.string.pref_description_my_goal),
-        MY_GOAL             ("", R.string.pref_title_my_goal, R.string.pref_description_my_goal)
+        // key, title, description
+        WORK_WIFI(KEY_WORK_WIFI, R.string.pref_title_work_wifi, R.string.pref_description_work_wifi),
+        LUNCH_START(KEY_LUNCH_DAYS_TRACKED, R.string.pref_title_lunch_start, R.string.pref_description_lunch_start),
+        LUNCH_END(KEY_LUNCH_START, R.string.pref_title_lunch_end, R.string.pref_description_lunch_end),
+        LUNCH_DAYS_TRACKED(KEY_LUNCH_END, R.string.pref_title_lunch_days_tracked, R.string.pref_description_lunch_days_tracked),
+        LUNCH_AVG_COST(KEY_LUNCH_COST, R.string.pref_title_avg_lunch_cost, R.string.pref_description_avg_lunch_cost),
+        GROSS_SALARY(KEY_GROSS_SALARY, R.string.pref_title_gross_salary, R.string.pref_description_gross_salary),
+        SAVINGS_GOAL_NAME(KEY_SAVINGS_GOAL_NAME, R.string.pref_title_my_goal, R.string.pref_description_my_goal),
+        SAVINGS_GOAL_VALUE(KEY_SAVINGS_GOAL_VALUE, R.string.pref_title_my_goal, R.string.pref_description_my_goal),
+        MY_GOAL("", R.string.pref_title_my_goal, R.string.pref_description_my_goal),
+        LAST_SSID_VALUE(KEY_LAST_SSID, R.string.pref_title_last_ssid, R.string.pref_description_last_ssid)
         ;
 
         private final String prefKey;

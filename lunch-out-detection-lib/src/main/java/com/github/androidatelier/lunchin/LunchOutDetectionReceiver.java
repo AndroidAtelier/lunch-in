@@ -3,15 +3,14 @@ package com.github.androidatelier.lunchin;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
-
 import org.joda.time.DateTimeComparator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -30,28 +29,19 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
     private String mWorkSSID;
     private String mStartTimeString; //HH:mm
     private String mEndTimeString; //HH:mm
-    private String mLastSSID = "";
     private String mCurrentSSID = "";
+    private String mLastSSID;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("KIO", "LunchOutDetectionReceiver::onReceive()");
 
-        // TODO: Remove this call once we have real data from shared prefs. Until now, send notification
-        //    on any wifi state change
-        onPossibleLunchOut(context);
-
-        updateUserSettings(context);
-
-        if( mWorkSSID!= null && mStartTimeString != "" && mEndTimeString!= "") {
+        if(!mWorkSSID.isEmpty() && !mStartTimeString.isEmpty() && !mEndTimeString.isEmpty()) {
 
             WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
             WifiInfo info = wifiManager.getConnectionInfo();
             String ssid = info.getSSID().replace("\"", ""); //remove surrounding quotes
 
-            if (mCurrentSSID != null) {
-                mLastSSID = mCurrentSSID;
-            }
             mCurrentSSID = ssid;
 
             Log.d("MARK", ssid);
@@ -61,6 +51,12 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
                     Log.d("KIO", "sendNotification is called");
                     onPossibleLunchOut(context);
                 }
+            }
+
+            if(mLastSSID != mCurrentSSID) {
+                updateLastSSID(mCurrentSSID);
+                Log.d("MARK", "updating last to: " + mCurrentSSID);
+                mLastSSID = mCurrentSSID;
             }
         }
     }
@@ -86,22 +82,39 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
 
         Date now = new Date();
 
+        Calendar cTodayStart = getTodayCalendarFromDate(dStart);
+
+        Calendar cTodayEnd = getTodayCalendarFromDate(dEnd);
+
+
         DateTimeComparator comparator = DateTimeComparator.getTimeOnlyInstance();
-        if( comparator.compare(now, dStart) >= 0 && comparator.compare(now, dEnd) <= 0) {
-            Log.d("MARK", "isNowLunchTime() is false");
+        if( now.getTime() >= cTodayStart.getTime().getTime() && now.getTime()  <= cTodayEnd.getTime().getTime() ) {
+            Log.d("MARK", "isNowLunchTime() is true: " + cTodayStart.getTime() + ", " + cTodayEnd.getTime() + ", " + now);
             return true;
         }
-
-        Log.d("MARK", "isNowLunchTime() is true");
+        Log.d("MARK", "isNowLunchTime() is false: " + cTodayStart.getTime() + ", " + cTodayEnd.getTime() + ", " + now);
         return false;
     }
 
-    void updateUserSettings(Context context){
-        SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+    private Calendar getTodayCalendarFromDate(Date date) {
+        Calendar incomingTime = Calendar.getInstance();
+        incomingTime.setTime(date);
 
-        mWorkSSID = prefs.getString(WORK_WIFI, "");
-        mStartTimeString = prefs.getString(START_TIME, "");
-        mEndTimeString = prefs.getString(END_TIME, "");
+        Calendar todayCal = Calendar.getInstance();
+        todayCal.setTime(new Date());
+
+        todayCal.set(Calendar.HOUR_OF_DAY, incomingTime.get(Calendar.HOUR_OF_DAY));
+        todayCal.set(Calendar.MINUTE, incomingTime.get(Calendar.MINUTE));
+        todayCal.set(Calendar.SECOND, 0);
+
+        return todayCal;
+    }
+
+    public void updateUserSettings(String wifi, String start, String end, String last){
+        mWorkSSID = wifi;
+        mStartTimeString = start;
+        mEndTimeString = end;
+        mLastSSID = last;
     }
 
 
@@ -110,13 +123,16 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
         //http://commons.apache.org/proper/commons-collections/javadocs/api-release/org/apache/commons/collections4/queue/CircularFifoQueue.html
 
         if( mLastSSID.equals( mWorkSSID ) && !mCurrentSSID.equals( mWorkSSID ) ) {
-            Log.d("MARK", "isSSIDAway() is true");
+            Log.d("MARK", "isSSIDAway() is true (last, current, work): " + mLastSSID +", " + mCurrentSSID + ", " + mWorkSSID);
             return true;
         } else {
-            Log.d("MARK", "isSSIDAway() is false");
+            Log.d("MARK", "isSSIDAway() is false (last, current, work): " + mLastSSID +", " + mCurrentSSID + ", " + mWorkSSID);
             return false;
         }
+
     }
 
     public abstract void onPossibleLunchOut(Context context);
+
+    public abstract void updateLastSSID(String ssid);
 }

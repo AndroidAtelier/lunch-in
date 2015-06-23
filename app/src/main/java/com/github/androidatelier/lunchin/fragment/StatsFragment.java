@@ -1,6 +1,6 @@
 package com.github.androidatelier.lunchin.fragment;
 
-
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,7 +19,7 @@ import java.text.NumberFormat;
 /**
  * Created by brenda on 6/17/15.
  */
-public class StatsFragment extends Fragment {
+public class StatsFragment extends Fragment implements Updateable {
     private SettingsAccess mSettingsAccess;
     private LunchInApi mLunchInApi;
 
@@ -40,7 +40,12 @@ public class StatsFragment extends Fragment {
         return v;
     }
 
+    @Override
     public void update() {
+        Activity activity = getActivity();
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
         double salary = mSettingsAccess.getGrossAnnualSalary();
         double lunch_cost = mSettingsAccess.getAverageLunchCost();
         double hourly_wage = salary/(40.0 * 52.0); //40 hours in a week and 52 weeks in a year

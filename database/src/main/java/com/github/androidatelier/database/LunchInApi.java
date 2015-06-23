@@ -56,6 +56,10 @@ public class LunchInApi {
         return getNumberOfLunchsThisMonth(true);
     }
 
+    public int getNumberOfLunchOutsThisMonth() {
+        return getNumberOfLunchsThisMonth(false);
+    }
+
     public boolean didUserLunchOutToday() {
         DateTime now = mClock.getNow();
         DateTime start = now.withTimeAtStartOfDay();

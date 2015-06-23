@@ -31,6 +31,7 @@
     <integer name="default_goal_cost">5000</integer>
 
     <string name="lunch_ins_this_month">Lunched-in this month</string>
+    <string name="lunch_outs_this_month">Lunched-out this month</string>
 
     <plurals name="day">
         <item quantity="zero">days</item>

@@ -25,12 +25,14 @@ public class StatsFragment extends Fragment implements Updateable {
 
     private TextView mLunchCostInMinutes;
     private StatsRow mLunchInsThisMonth;
+    private StatsRow mLunchOutsThisMonth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.fragment_stats,container,false);
         mLunchCostInMinutes = (TextView) v.findViewById(R.id.fragment_stats_tv2);
         mLunchInsThisMonth = (StatsRow) v.findViewById(R.id.lunch_ins_this_month);
+        mLunchOutsThisMonth = (StatsRow) v.findViewById(R.id.lunch_outs_this_month);
 
         mSettingsAccess = new SettingsAccess(getActivity());
         mLunchInApi = new LunchInApi(getActivity());
@@ -59,5 +61,6 @@ public class StatsFragment extends Fragment implements Updateable {
         mLunchCostInMinutes.setText(strHoursLunch);
 
         mLunchInsThisMonth.setNumber(mLunchInApi.getNumberOfLunchInsThisMonth(), R.plurals.day);
+        mLunchOutsThisMonth.setNumber(mLunchInApi.getNumberOfLunchOutsThisMonth(), R.plurals.day);
     }
 }

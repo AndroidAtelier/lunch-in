@@ -59,14 +59,11 @@
             android:id="@+id/lunch_ins_this_month"
             android:title="@string/lunch_ins_this_month"/>
 
-        <TextView
-            android:id="@+id/fragment_stats_tv4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Lunched-out n days this month"
-            />
+        <com.github.androidatelier.lunchin.widget.StatsRow
+            style="@style/StatsRow"
+            android:id="@+id/lunch_outs_this_month"
+            android:title="@string/lunch_outs_this_month"/>
+
         <TextView
             android:id="@+id/fragment_stats_tv5"
             android:layout_width="wrap_content"

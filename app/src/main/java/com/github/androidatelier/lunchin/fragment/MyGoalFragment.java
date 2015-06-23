@@ -27,7 +27,7 @@ public class MyGoalFragment extends Fragment{
         animationView.setVisibility(ImageView.INVISIBLE);
 
         // Setting animation_list.xml as the background of the image view
-        animationView.setBackgroundResource(R.drawable.animation_list);
+       // animationView.setBackgroundResource(R.drawable.animation_list);
 
         final AnimationDrawable rainingMoneyAnimation=(AnimationDrawable)animationView.getBackground();
 

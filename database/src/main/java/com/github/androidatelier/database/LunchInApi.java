@@ -3,6 +3,8 @@ package com.github.androidatelier.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.joda.time.DateTime;
+
 import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 /**
@@ -42,6 +44,21 @@ public class LunchInApi {
                 .getCount();
     }
 
+    public boolean didUserLunchOutToday() {
+        DateTime now = getNow();
+        DateTime start = now.withTimeAtStartOfDay();
+        DateTime end = start.plusDays(1);
+        int count = cupboard().withDatabase(db)
+                .query(MealItem.class)
+                .withSelection("timestamp >= ? AND timestamp < ? AND success = ?",
+                        String.valueOf(start.getMillis()),
+                        String.valueOf(end.getMillis()),
+                        "0")
+                .getCursor()
+                .getCount();
+        return (count > 0);
+    }
+
     /**
      * Creates another lunch in line in database
      */
@@ -57,8 +74,12 @@ public class LunchInApi {
     }
 
     private void createMealItem(boolean success) {
-        long now = System.currentTimeMillis();
+        long now = getNow().getMillis();
         MealItem item = new MealItem(now, success);
         cupboard().withDatabase(db).put(item);
+    }
+
+    private DateTime getNow() {
+        return new DateTime();
     }
 }

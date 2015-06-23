@@ -1,9 +1,9 @@
 package com.github.androidatelier.lunchin.fragment;
 
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.github.androidatelier.database.LunchInApi;
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.model.SettingsAccess;
+import com.github.androidatelier.lunchin.widget.StatsRow;
 
 import java.text.NumberFormat;
 
@@ -23,13 +24,13 @@ public class StatsFragment extends Fragment {
     private LunchInApi mLunchInApi;
 
     private TextView mLunchCostInMinutes;
-    private TextView mLunchInsThisMonth;
+    private StatsRow mLunchInsThisMonth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.fragment_stats,container,false);
         mLunchCostInMinutes = (TextView) v.findViewById(R.id.fragment_stats_tv2);
-        mLunchInsThisMonth = (TextView) v.findViewById(R.id.fragment_stats_tv3);
+        mLunchInsThisMonth = (StatsRow) v.findViewById(R.id.lunch_ins_this_month);
 
         mSettingsAccess = new SettingsAccess(getActivity());
         mLunchInApi = new LunchInApi(getActivity());
@@ -52,7 +53,6 @@ public class StatsFragment extends Fragment {
 
         mLunchCostInMinutes.setText(strHoursLunch);
 
-        mLunchInsThisMonth.setText(
-                getString(R.string.lunch_ins_this_month, mLunchInApi.getNumberOfLunchInsThisMonth()));
+        mLunchInsThisMonth.setNumber(mLunchInApi.getNumberOfLunchInsThisMonth(), R.plurals.day);
     }
 }

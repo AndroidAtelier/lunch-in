@@ -34,4 +34,9 @@
 
     </style>
 
+    <style name="StatsRow">
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+
 </resources>

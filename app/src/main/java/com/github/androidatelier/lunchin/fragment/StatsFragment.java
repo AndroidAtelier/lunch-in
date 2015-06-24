@@ -62,6 +62,8 @@ public class StatsFragment extends Fragment implements Updateable {
         mLunchCostInMinutes.setText(strHoursLunch);
 
         mLunchInsThisMonth.setNumber(mLunchInApi.getNumberOfLunchInsThisMonth(), R.plurals.day);
+        mLunchInsThisMonth.setNumberBackground(1);
         mLunchOutsThisMonth.setNumber(mLunchInApi.getNumberOfLunchOutsThisMonth(), R.plurals.day);
+        mLunchOutsThisMonth.setNumberBackground(2);
     }
 }

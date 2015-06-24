@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.github.androidatelier.database.LunchInApi;
 import com.github.androidatelier.lunchin.R;
+import com.github.androidatelier.lunchin.component.ui.PieChartView;
 import com.github.androidatelier.lunchin.model.SettingsAccess;
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
 import com.github.androidatelier.lunchin.util.Formatter;
@@ -30,12 +31,14 @@ public class MyGoalFragment extends Fragment implements Updateable {
     private LunchInApi mLunchInApi;
 
     private TextView mGoalProgress;
+    private PieChartView mPieChartView;
     ImageView imageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.fragment_my_goal,container,false);
         mGoalProgress = (TextView) v.findViewById(R.id.fragment_my_goal_progress_gained);
+        mPieChartView = (PieChartView) v.findViewById(R.id.pie_chart_view);
 
         mSettingsAccess = new SettingsAccess(getActivity());
         mLunchInApi = new LunchInApi(getActivity());
@@ -120,13 +123,16 @@ public class MyGoalFragment extends Fragment implements Updateable {
         if (activity == null || activity.isFinishing()) {
             return;
         }
+
         double averageLunchCost = mSettingsAccess.getAverageLunchCost();
         int goal = mSettingsAccess.getSavingsGoalValue();
         int numLunchIns = mLunchInApi.getNumberOfLunchIns();
+        double progress = numLunchIns * averageLunchCost;
 
         mGoalProgress.setText(getString(R.string.goal_progress,
-                Formatter.formatDoubleToCurrencyUSD(numLunchIns * averageLunchCost),
+                Formatter.formatDoubleToCurrencyUSD(progress),
                 Formatter.formatIntToCurrencyUSD(goal)));
+        mPieChartView.setPercentage(progress * 100 / goal);
     }
 
     // animation

@@ -61,8 +61,8 @@
 
         <view
             android:id="@+id/pie_chart_view"
-            android:layout_width="400dip"
-            android:layout_height="200dip"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_gravity="center"

@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.adapter.SettingsAdapter;
@@ -39,6 +40,7 @@ public class SettingsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         View v =inflater.inflate(R.layout.fragment_settings,container,false);
 
         mSettingsAccess = new SettingsAccess(getActivity());

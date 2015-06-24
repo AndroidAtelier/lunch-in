@@ -15,10 +15,12 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.androidatelier.database.LunchInApi;
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.model.SettingsAccess;
+import com.github.androidatelier.lunchin.notification.NotificationUtil;
 import com.github.androidatelier.lunchin.util.Formatter;
 
 public class MyGoalFragment extends Fragment implements Updateable {
@@ -42,6 +44,16 @@ public class MyGoalFragment extends Fragment implements Updateable {
         initializeGoalAchievedAnimation(v);
 
         update();
+
+        String action = getActivity().getIntent().getAction();
+        if (NotificationUtil.ACTION_LUNCH_OUT.equals(action)) {
+            getActivity().getIntent().setAction(null);
+            updateLunchOutUI();
+        }
+        if (NotificationUtil.ACTION_LUNCH_IN.equals(action)) {
+            getActivity().getIntent().setAction(null);
+            updateLunchInUI();
+        }
 
         return v;
     }
@@ -153,5 +165,27 @@ public class MyGoalFragment extends Fragment implements Updateable {
         scaleAnimation.setRepeatMode(Animation.RESTART);
         scaleAnimation.setInterpolator(new OvershootInterpolator(6f));
         imageView.startAnimation(scaleAnimation);
+    }
+    
+    // TODO: Display number of hours you need to work to buy this lunch
+    private void updateLunchOutUI() {
+        mLunchInApi.setLunchOut();
+        update();
+        NotificationUtil.cancelNotification(getActivity());
+        Toast.makeText(
+                getActivity(),
+                "Lunch out: " + mLunchInApi.getNumberOfLunchOuts() + "/" + mLunchInApi.getLunchTotal(),
+                Toast.LENGTH_LONG).show();
+    }
+
+    private void updateLunchInUI() {
+        mLunchInApi.setLunchIn();
+        update();
+        NotificationUtil.cancelNotification(getActivity());
+        highlightGoalProgress();
+    }
+
+    private void highlightGoalProgress() {
+        mGoalProgress.setBackgroundResource(R.color.highlight);
     }
 }

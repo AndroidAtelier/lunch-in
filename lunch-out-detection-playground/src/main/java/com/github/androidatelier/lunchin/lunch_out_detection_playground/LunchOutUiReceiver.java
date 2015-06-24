@@ -1,7 +1,6 @@
 package com.github.androidatelier.lunchin.lunch_out_detection_playground;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.github.androidatelier.lunchin.LunchOutDetectionReceiver;
@@ -15,5 +14,10 @@ public class LunchOutUiReceiver extends LunchOutDetectionReceiver {
     public void onPossibleLunchOut(Context context) {
         Log.d("KIO", "Inside playground onPossibleLunchOut of LunchOutUiReceiver");
         NotificationUtil.showLunchOutNotification(context, LunchOutUiReceiver.class);
+    }
+
+    @Override
+    public void updateLastSSID(String ssid) {
+        Log.d("KIO", "last ssid: " + ssid);
     }
 }

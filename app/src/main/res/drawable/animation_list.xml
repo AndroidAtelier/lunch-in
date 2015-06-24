@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+    <item android:drawable="@drawable/money_0" android:duration="50" />
+    <item android:drawable="@drawable/money_1" android:duration="50" />
+    <item android:drawable="@drawable/money_2" android:duration="50" />
+    <item android:drawable="@drawable/money_3" android:duration="50" />
+    <item android:drawable="@drawable/money_4" android:duration="50" />
+    <item android:drawable="@drawable/money_5" android:duration="50" />
+    <item android:drawable="@drawable/money_6" android:duration="50" />
+    <item android:drawable="@drawable/money_7" android:duration="50" />
+    <item android:drawable="@drawable/money_8" android:duration="50" />
+    <item android:drawable="@drawable/money_9" android:duration="50" />
+    <item android:drawable="@drawable/money_10" android:duration="50" />
+    <item android:drawable="@drawable/money_11" android:duration="50" />
+    <item android:drawable="@drawable/money_12" android:duration="50" />
+    <item android:drawable="@drawable/money_13" android:duration="50" />
+    <item android:drawable="@drawable/money_14" android:duration="50" />
+    <item android:drawable="@drawable/money_15" android:duration="50" />
+    <item android:drawable="@drawable/money_16" android:duration="50" />
+    <item android:drawable="@drawable/money_17" android:duration="50" />
+    <item android:drawable="@drawable/money_18" android:duration="50" />
+    <item android:drawable="@drawable/money_19" android:duration="50" />
+</animation-list>

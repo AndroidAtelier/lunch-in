@@ -7,25 +7,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
-import android.R;
-import android.R.color;
-import android.graphics.Color;
-import android.util.Log;
-
-
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.util.AttributeSet;
-import android.view.View;
-import android.graphics.Rect;
-import android.graphics.RectF;
-
-import android.content.Context;
-import android.util.DisplayMetrics;
-import android.view.WindowManager;
-
 
 public class PieChartView extends View {
     private static final String TAG = "PieChartView";
@@ -36,36 +17,33 @@ public class PieChartView extends View {
 
     public PieChartView(Context context) {
         super(context);
-        init();
+        init(context);
     }
 
     public PieChartView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
     public PieChartView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init();
+        init(context);
     }
 
-    private void init() {
-        Log.v(TAG, "PieChartView init");
+    private void init(Context context) {
+        //Log.v(TAG, "PieChartView init");
+
         paint = new Paint();
-
-        paint.setColor(0xFF5086ED);
-        //paint.setColor(getContext().getResources().getColor(R.color.cerulean));
-        //paint.setColor(this.getResources().getColor(R.color.cerulean));
-
+        paint.setColor(0xFF5086ED);  // R.color.cerulean
+        paint.setTextSize(40);
         paint.setAntiAlias(false);
         paint.setStyle(Paint.Style.FILL);
         bgpaint = new Paint();
 
-        bgpaint.setColor(0xFF8D47ED);
-        //bgpaint.setColor(getResources().getColor(R.color.scheme_tab_accent));
-
+        bgpaint.setColor(0xFF8D47ED);  // R.color.scheme_tab_accent
         bgpaint.setAntiAlias(false);
         bgpaint.setStyle(Paint.Style.FILL);
+
         rect = new RectF();
         percentage = 55.96f;
         setWillNotDraw(false);
@@ -84,13 +62,17 @@ public class PieChartView extends View {
         rect.set(left, top, left + width, top + width);
 
         //drawArc(RectF oval, float startAngle, float sweepAngle, boolean useCenter, Paint paint)
-        //draw background circle anyway
+        //draw background circle
         canvas.drawArc(rect, -90, 360, true, bgpaint);
         if (percentage != 0) {
+            // draw the percentage arc
             int sweepAngle = (int) (360 * (percentage / 100.f));
             int startAngle = 270 - sweepAngle / 2;
             canvas.drawArc(rect, startAngle, sweepAngle, true, paint);
         }
+
+        canvas.drawRect(left + width + 10, top + 10, left + width + 10 + 50, top + 10 + 50, paint);
+        canvas.drawText("Savings", left + width + 10 + 50 + 10, top + 10 + 40, paint);
     }
 
     public void setPercentage(float percentage) {

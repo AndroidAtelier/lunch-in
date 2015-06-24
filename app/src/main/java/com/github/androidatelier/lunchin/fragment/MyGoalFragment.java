@@ -1,25 +1,42 @@
 package com.github.androidatelier.lunchin.fragment;
 
-import android.support.v4.app.Fragment;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.graphics.drawable.AnimationDrawable;
+import android.widget.TextView;
 
 import com.github.androidatelier.lunchin.R;
+import com.github.androidatelier.lunchin.model.SettingsAccess;
+import com.github.androidatelier.lunchin.util.Formatter;
 
-/**
- * Created by brenda on 6/17/15.
- */
 public class MyGoalFragment extends Fragment{
+    private SettingsAccess  mSettingsAccess;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.fragment_my_goal,container,false);
 
+        mSettingsAccess = new SettingsAccess(getActivity());
+        initializeViews(v);
+        initializeGoalAchievedAnimation(v);
+
+        return v;
+    }
+
+    private void initializeViews(View v) {
+        TextView goalName = (TextView)v.findViewById(R.id.fragment_my_goal_name);
+        goalName.setText(mSettingsAccess.getSavingsGoalName());
+
+        TextView goalValue = (TextView)v.findViewById(R.id.fragment_my_goal_value);
+        goalValue.setText(Formatter.formatIntToCurrencyUSD(mSettingsAccess.getSavingsGoalValue()));
+    }
+
+    private void initializeGoalAchievedAnimation(View v) {
         // Type casting the Image View
         final ImageView animationView=(ImageView)v.findViewById(R.id.raining_money);
 
@@ -27,7 +44,7 @@ public class MyGoalFragment extends Fragment{
         animationView.setVisibility(ImageView.INVISIBLE);
 
         // Setting animation_list.xml as the background of the image view
-       // animationView.setBackgroundResource(R.drawable.animation_list);
+        // animationView.setBackgroundResource(R.drawable.animation_list);
 
         final AnimationDrawable rainingMoneyAnimation=(AnimationDrawable)animationView.getBackground();
 
@@ -70,7 +87,5 @@ public class MyGoalFragment extends Fragment{
                     rainingMoneyAnimation.stop();
             }
         });
-
-        return v;
     }
 }

@@ -48,7 +48,7 @@ public class StatsFragment extends Fragment implements Updateable {
         if (activity == null || activity.isFinishing()) {
             return;
         }
-        double salary = mSettingsAccess.getGrossAnnualSalary();
+        double salary = mSettingsAccess.getGrossAnnualSalary(true);
         double lunch_cost = mSettingsAccess.getAverageLunchCost();
         double hourly_wage = salary/(40.0 * 52.0); //40 hours in a week and 52 weeks in a year
 

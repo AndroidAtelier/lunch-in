@@ -27,9 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by brenda on 6/17/15.
- */
 public class SettingsFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private List<Setting> mSettings;

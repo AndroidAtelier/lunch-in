@@ -39,6 +39,8 @@
         <item quantity="other">days</item>
     </plurals>
 
+    <string name="title_my_savings_goal">My Savings Goal </string>
+
     <!-- being preference strings -->
         <!-- preference titles -->
         <string name="pref_title_work_wifi">Work Wifi</string>

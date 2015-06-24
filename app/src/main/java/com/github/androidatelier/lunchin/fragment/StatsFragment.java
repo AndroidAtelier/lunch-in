@@ -50,7 +50,8 @@ public class StatsFragment extends Fragment implements Updateable {
         }
         double salary = mSettingsAccess.getGrossAnnualSalary();
         double lunch_cost = mSettingsAccess.getAverageLunchCost();
-        double hourly_wage = salary/(40.0 * 52.0); //40 hours in a week and 52 weeks in a year
+        double hourly_wage = salary * 0.75/(40.0 * 52.0); //40 hours in a week and 52 weeks in a year
+        //0.75 assumes a 25% tax rate
 
         String strHoursLunch = String.format("You would have to work %.1f minutes " +
                         "to buy lunch that costs %s with an annual salary of %s",

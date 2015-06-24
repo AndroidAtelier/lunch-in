@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
-
 import org.joda.time.DateTimeComparator;
 
 import java.text.ParseException;

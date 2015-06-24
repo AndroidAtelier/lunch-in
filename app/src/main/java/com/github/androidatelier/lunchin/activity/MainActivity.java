@@ -1,6 +1,9 @@
 package com.github.androidatelier.lunchin.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -10,8 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.widget.Toast;
-
 import com.github.androidatelier.database.LunchInApi;
+import com.github.androidatelier.lunchin.LunchInDetectionReceiver;
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.adapter.ViewPagerAdapter;
 import com.github.androidatelier.lunchin.fragment.MyGoalFragment;
@@ -23,6 +26,7 @@ import com.github.androidatelier.lunchin.util.Constants;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private WifiManager mWifiManager;
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
         setupViewPager(mViewPager);
         setupTablayout();
+        startRepeatingAlarm();
 
         mLunchInApi = new LunchInApi(this);
 
@@ -72,6 +77,17 @@ public class MainActivity extends AppCompatActivity {
     private void setupTablayout() {
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    private void startRepeatingAlarm() {
+        Intent alarmIntent = new Intent(MainActivity.this, LunchInDetectionReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
+
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        long interval = TimeUnit.MINUTES.toMillis(1);
+
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
+        Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
     }
 
     // TODO: Display number of hours you need to work to buy this lunch

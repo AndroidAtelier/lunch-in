@@ -120,19 +120,28 @@ public class Setting {
                 double lunchCost = mSettingsAccess.getAverageLunchCost();
                 return Formatter.formatDoubleToCurrencyUSD(lunchCost);
             case GROSS_SALARY :
-                String value = "";
-                int salary = mSettingsAccess.getGrossAnnualSalary();
-                if (salary == Constants.DEFAULT_GROSS_ANNUAL_SALARY) {
-                    value = mContext.getString(R.string.info_national_average_income, Formatter.formatIntToCurrencyUSD(salary));
-                } else {
-                    value = Formatter.formatIntToCurrencyUSD(salary);
-                }
-                return value;
+                getGrossSalaryForSettingsDescription();
             case SAVINGS_GOAL_NAME :
                 return mSettingsAccess.getSavingsGoalName();
             case SAVINGS_GOAL_VALUE :
                 return mSettingsAccess.getSavingsGoalValue();
             default : return false;
         }
+    }
+
+    private String getGrossSalaryForSettingsDescription() {
+        String value = "";
+        boolean isNotSetByUser = false;
+        int salary = mSettingsAccess.getGrossAnnualSalary(false);
+        if (salary == Constants.CODE_GROSS_SALARY_NOT_SET) {
+            isNotSetByUser = true;
+            salary = Constants.DEFAULT_GROSS_ANNUAL_SALARY;
+        }
+        if (isNotSetByUser && salary == Constants.DEFAULT_GROSS_ANNUAL_SALARY) {
+            value = mContext.getString(R.string.info_national_average_income, Formatter.formatIntToCurrencyUSD(salary));
+        } else {
+            value = Formatter.formatIntToCurrencyUSD(salary);
+        }
+        return value;
     }
 }

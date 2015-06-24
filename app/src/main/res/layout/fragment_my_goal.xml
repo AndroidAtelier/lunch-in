@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="My Savings Goal "
+            android:text="@string/title_my_savings_goal"
             android:textColor="@color/cerulean"
             android:textSize="30dp"
             android:gravity="center" />
@@ -74,7 +75,7 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_gravity="center"
-            class="com.github.androidatelier.lunchin.fragment.PieChartView"
+            class="com.github.androidatelier.lunchin.component.ui.PieChartView"
             />
         <Button
             android:layout_width="fill_parent"
@@ -112,4 +113,4 @@
             android:adjustViewBounds="true"
             />
     </LinearLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

@@ -1,4 +1,4 @@
-package com.github.androidatelier.lunchin.fragment;
+package com.github.androidatelier.lunchin.component.ui;
 
 import android.content.Context;
 import android.graphics.Canvas;

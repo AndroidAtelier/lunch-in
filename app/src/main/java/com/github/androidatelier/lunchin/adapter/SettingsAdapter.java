@@ -97,7 +97,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
                 }
 
                 else if (titleText.equals(Setting.Resource.GROSS_SALARY.getTitleText(context))) {
-                    activity.displayGrossSalaryDialog(titleText, settingsAccess.getGrossAnnualSalary());
+                    activity.displayGrossSalaryDialog(titleText, settingsAccess.getGrossAnnualSalary(true));
                 }
 
                 else if (titleText.equals(Setting.Resource.MY_GOAL.getTitleText(context))) {

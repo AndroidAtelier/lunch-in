@@ -10,16 +10,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.widget.Toast;
 
-import com.github.androidatelier.database.LunchInApi;
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.adapter.ViewPagerAdapter;
 import com.github.androidatelier.lunchin.fragment.MyGoalFragment;
 import com.github.androidatelier.lunchin.fragment.SettingsFragment;
 import com.github.androidatelier.lunchin.fragment.StatsFragment;
 import com.github.androidatelier.lunchin.fragment.Updateable;
-import com.github.androidatelier.lunchin.notification.NotificationUtil;
 import com.github.androidatelier.lunchin.util.Constants;
 
 import java.util.ArrayList;
@@ -28,7 +25,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private WifiManager mWifiManager;
-    private LunchInApi mLunchInApi;
 
     private TabLayout mTabLayout;
     ViewPager mViewPager;
@@ -43,18 +39,6 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
         setupViewPager(mViewPager);
         setupTablayout();
-
-        mLunchInApi = new LunchInApi(this);
-
-        String action = getIntent().getAction();
-        if (NotificationUtil.ACTION_LUNCH_OUT.equals(action)) {
-            getIntent().setAction(null);
-            updateLunchOutUI();
-        }
-        if (NotificationUtil.ACTION_LUNCH_IN.equals(action)) {
-            getIntent().setAction(null);
-            updateLunchInUI();
-        }
     }
 
     private void setupToolbar(){
@@ -74,26 +58,6 @@ public class MainActivity extends AppCompatActivity {
     private void setupTablayout() {
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mTabLayout.setupWithViewPager(mViewPager);
-    }
-
-    // TODO: Display number of hours you need to work to buy this lunch
-    private void updateLunchOutUI() {
-        mLunchInApi.setLunchOut();
-        NotificationUtil.cancelNotification(this);
-        Toast.makeText(
-                this,
-                "Lunch out: " + mLunchInApi.getNumberOfLunchOuts() + "/" + mLunchInApi.getLunchTotal(),
-                Toast.LENGTH_LONG).show();
-    }
-
-    // TODO: Update progress
-    private void updateLunchInUI() {
-        mLunchInApi.setLunchIn();
-        NotificationUtil.cancelNotification(this);
-        Toast.makeText(
-                this,
-                "Lunch in: " + mLunchInApi.getNumberOfLunchIns() + "/" + mLunchInApi.getLunchTotal(),
-                Toast.LENGTH_LONG).show();
     }
 
     private void setupViewPager(ViewPager viewPager) {

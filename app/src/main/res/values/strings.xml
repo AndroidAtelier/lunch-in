@@ -8,6 +8,8 @@
     <string name="button_ok">OK</string>
     <string name="button_cancel">CANCEL</string>
 
+    <string name="goal_progress">Progress toward goal: %1$s/%2$s</string>
+    <string name="goal_remaining">Progress remaining: %1$s</string>
     <string name="goal_name">Goal Name</string>
     <string name="goal_cost">Goal Cost</string>
     <string name="input_avg_cost_of_lunch">Enter the average cost of lunch</string>

@@ -6,9 +6,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginLeft="10dp">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/fragment_my_goal_title"
@@ -44,34 +45,22 @@
 
         <TextView
             android:id="@+id/fragment_my_goal_progress_gained"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Progress toward goal: $2798/$5000"
-            android:textSize="16dp"
+            android:textSize="16sp"
             />
         <TextView
             android:id="@+id/fragment_my_goal_progress_remaining"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Progress remaining: $2202"
-            android:textSize="16dp"
-            />
-
-        <TextView
-            android:id="@+id/fragment_my_goal_other"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Team - Feel free to add content or give me ideas!"
-            android:textSize="16dp"
+            android:textSize="16sp"
             />
 
         <view
             android:id="@+id/pie_chart_view"
-            android:layout_width="400dip"
-            android:layout_height="200dip"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_gravity="center"

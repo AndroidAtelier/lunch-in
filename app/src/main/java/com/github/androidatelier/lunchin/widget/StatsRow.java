@@ -3,6 +3,7 @@ package com.github.androidatelier.lunchin.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.PluralsRes;
+import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
@@ -46,13 +47,14 @@ public class StatsRow extends TableRow {
         mUnit.setText(getResources().getQuantityString(unitResId, number));
     }
 
-    public void setNumberBackground(int color) {
-        if (color == 1)
+    public void setNumberBackground(@DrawableRes int intColor) {
+        mBackground.setBackground(getResources().getDrawable(intColor));
+       /* if (color == 1)
             mBackground.setBackground(getResources().getDrawable(R.drawable.stats_round_green));
         else if (color == 2)
             mBackground.setBackground(getResources().getDrawable(R.drawable.stats_round_red));
          else if (color == 3)
-            mBackground.setBackground(getResources().getDrawable(R.drawable.stats_round_gray));
+            mBackground.setBackground(getResources().getDrawable(R.drawable.stats_round_gray)); */
 
     }
 }

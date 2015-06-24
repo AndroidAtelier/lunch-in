@@ -54,9 +54,7 @@
             android:id="@+id/fragment_my_goal_progress_remaining"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Progress remaining: $2202"
-            android:textSize="16dp"
+            android:textSize="16sp"
             />
 
         <view

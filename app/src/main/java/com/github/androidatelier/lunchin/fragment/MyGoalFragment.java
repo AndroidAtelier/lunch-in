@@ -31,6 +31,7 @@ public class MyGoalFragment extends Fragment implements Updateable {
     private LunchInApi mLunchInApi;
 
     private TextView mGoalProgress;
+    private TextView mGoalRemaining;
     private PieChartView mPieChartView;
     ImageView imageView;
 
@@ -38,6 +39,7 @@ public class MyGoalFragment extends Fragment implements Updateable {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.fragment_my_goal,container,false);
         mGoalProgress = (TextView) v.findViewById(R.id.fragment_my_goal_progress_gained);
+        mGoalRemaining = (TextView) v.findViewById(R.id.fragment_my_goal_progress_remaining);
         mPieChartView = (PieChartView) v.findViewById(R.id.pie_chart_view);
 
         mSettingsAccess = new SettingsAccess(getActivity());
@@ -131,6 +133,9 @@ public class MyGoalFragment extends Fragment implements Updateable {
 
         mGoalProgress.setText(getString(R.string.goal_progress,
                 Formatter.formatDoubleToCurrencyUSD(progress),
+                Formatter.formatIntToCurrencyUSD(goal)));
+        mGoalRemaining.setText(getString(R.string.goal_remaining,
+                Formatter.formatDoubleToCurrencyUSD(goal - progress),
                 Formatter.formatIntToCurrencyUSD(goal)));
         mPieChartView.setPercentage(progress * 100 / goal);
     }

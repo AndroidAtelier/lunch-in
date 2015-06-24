@@ -76,40 +76,62 @@
             android:layout_gravity="center"
             class="com.github.androidatelier.lunchin.fragment.PieChartView"
             />
-        <Button
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/pie_chart_view"
-            android:id="@+id/visible_button"
-            android:layout_centerHorizontal="true"
-            android:text="Show Animation Images" />
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/visible_button"
-            android:id="@+id/invisible_button"
-            android:layout_centerHorizontal="true"
-            android:text="Hide Animation Images" />
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/invisible_button"
-            android:id="@+id/on_button"
-            android:layout_centerHorizontal="true"
-            android:text="On" />
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/on_button"
-            android:id="@+id/off_button"
-            android:layout_centerHorizontal="true"
-            android:text="Off" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="zoom"
+                android:id="@+id/button1"
+                android:layout_below="@+id/dollarView"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="bottom"
+                android:onClick="zoom"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="clockwise"
+                android:id="@+id/button2"
+                android:layout_alignTop="@+id/button1"
+                android:layout_gravity="bottom"
+                android:onClick="clockwise"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fade"
+                android:id="@+id/button3"
+                android:layout_alignTop="@+id/button1"
+                android:layout_gravity="bottom"
+                android:onClick="fade"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="blink"
+                android:id="@+id/button4"
+                android:layout_alignTop="@+id/button1"
+                android:layout_gravity="bottom"
+                android:onClick="blink"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="scale"
+                android:id="@+id/button5"
+                android:layout_alignTop="@+id/button1"
+                android:layout_gravity="bottom" />
+
+        </LinearLayout>
         <ImageView
-            android:id="@+id/raining_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
+            android:id="@+id/dollarView"
+            android:src="@drawable/dollar"
+            android:layout_below="@+id/pie_chart_view"
             />
     </LinearLayout>
 </ScrollView>

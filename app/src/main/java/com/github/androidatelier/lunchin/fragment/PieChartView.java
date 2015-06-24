@@ -77,6 +77,7 @@ public class PieChartView extends View {
 
     public void setPercentage(float percentage) {
         this.percentage = percentage;
+        // forces a redraw
         invalidate();
     }
 }

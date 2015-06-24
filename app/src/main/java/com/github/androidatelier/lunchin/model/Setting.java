@@ -120,7 +120,7 @@ public class Setting {
                 double lunchCost = mSettingsAccess.getAverageLunchCost();
                 return Formatter.formatDoubleToCurrencyUSD(lunchCost);
             case GROSS_SALARY :
-                getGrossSalaryForSettingsDescription();
+                return getGrossSalaryForSettingsDescription();
             case SAVINGS_GOAL_NAME :
                 return mSettingsAccess.getSavingsGoalName();
             case SAVINGS_GOAL_VALUE :

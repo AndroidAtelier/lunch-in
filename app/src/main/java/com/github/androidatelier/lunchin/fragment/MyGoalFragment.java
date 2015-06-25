@@ -30,6 +30,7 @@ public class MyGoalFragment extends Fragment implements Updateable {
     private SettingsAccess mSettingsAccess;
     private LunchInApi mLunchInApi;
 
+    private TextView mMoneySacrificed;
     private TextView mGoalProgress;
     private TextView mGoalRemaining;
     private PieChartView mPieChartView;
@@ -38,6 +39,7 @@ public class MyGoalFragment extends Fragment implements Updateable {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.fragment_my_goal,container,false);
+        mMoneySacrificed = (TextView) v.findViewById(R.id.fragment_money_sacrificed_to_lunch_out);
         mGoalProgress = (TextView) v.findViewById(R.id.fragment_my_goal_progress_gained);
         mGoalRemaining = (TextView) v.findViewById(R.id.fragment_my_goal_progress_remaining);
         mPieChartView = (PieChartView) v.findViewById(R.id.pie_chart_view);
@@ -138,6 +140,11 @@ public class MyGoalFragment extends Fragment implements Updateable {
                 Formatter.formatDoubleToCurrencyUSD(goal - progress),
                 Formatter.formatIntToCurrencyUSD(goal)));
         mPieChartView.setPercentage(progress * 100 / goal);
+
+        int numLunchesOut = mLunchInApi.getNumberOfLunchOuts();
+        double moneySacrificed = numLunchesOut * averageLunchCost;
+        mMoneySacrificed.setText(getString(R.string.money_sacrificed,
+                Formatter.formatDoubleToCurrencyUSD(moneySacrificed)));
     }
 
     // animation

@@ -54,8 +54,6 @@ public class MyGoalFragment extends Fragment implements Updateable {
 
         update();
 
-        // showGoalReachedDialog();
-
         String action = getActivity().getIntent().getAction();
         if (NotificationUtil.ACTION_LUNCH_OUT.equals(action)) {
             getActivity().getIntent().setAction(null);
@@ -205,6 +203,18 @@ public class MyGoalFragment extends Fragment implements Updateable {
         update();
         NotificationUtil.cancelNotification(getActivity());
         highlightGoalProgress();
+
+        if (getProgressPercentage() >= 100) {
+            showGoalReachedDialog();
+        }
+    }
+
+    private double getProgressPercentage() {
+        double averageLunchCost = mSettingsAccess.getAverageLunchCost();
+        int goal = mSettingsAccess.getSavingsGoalValue();
+        int numLunchIns = mLunchInApi.getNumberOfLunchIns();
+        double progress = numLunchIns * averageLunchCost;
+        return progress * 100 / goal;
     }
 
     private void highlightGoalProgress() {

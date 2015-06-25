@@ -1,11 +1,14 @@
 package com.github.androidatelier.lunchin.component.ui;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.github.androidatelier.lunchin.R;
 
 public class PieChartView extends View {
     private static final String TAG = "PieChartView";
@@ -30,16 +33,16 @@ public class PieChartView extends View {
     }
 
     private void init(Context context) {
-        //Log.v(TAG, "PieChartView init");
+        Resources res = context.getResources();
 
         paint = new Paint();
-        paint.setColor(0xFF5086ED);  // R.color.cerulean
+        paint.setColor(res.getColor(R.color.scheme_tab_primary));
         paint.setTextSize(40);
         paint.setAntiAlias(false);
         paint.setStyle(Paint.Style.FILL);
         bgpaint = new Paint();
 
-        bgpaint.setColor(0xFF8D47ED);  // R.color.scheme_tab_accent
+        bgpaint.setColor(res.getColor(R.color.scheme_tab_light));
         bgpaint.setAntiAlias(false);
         bgpaint.setStyle(Paint.Style.FILL);
 

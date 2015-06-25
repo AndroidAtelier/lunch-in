@@ -88,8 +88,8 @@ public class MyGoalFragment extends Fragment implements Updateable {
 
         int numLunchesOut = mLunchInApi.getNumberOfLunchOuts();
         double moneySacrificed = numLunchesOut * averageLunchCost;
-        mMoneySacrificed.setText(getString(R.string.money_sacrificed,
-                Formatter.formatDoubleToCurrencyUSD(moneySacrificed)));
+        mMoneySacrificed.setText(
+                getString(R.string.money_sacrificed, Formatter.formatDoubleToCurrencyUSD(moneySacrificed)));
     }
 
     // TODO: Display number of hours you need to work to buy this lunch
@@ -124,6 +124,7 @@ public class MyGoalFragment extends Fragment implements Updateable {
 
     private void highlightGoalProgress() {
         mGoalProgress.setBackgroundResource(R.color.highlight);
+        mMoneySacrificed.setBackgroundResource(R.color.highlight);
     }
 
     private void showGoalReachedDialog() {

@@ -3,6 +3,7 @@ package com.github.androidatelier.lunchin.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.component.ui.PieChartView;
 import com.github.androidatelier.lunchin.model.SettingsAccess;
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
+import com.github.androidatelier.lunchin.util.Constants;
 import com.github.androidatelier.lunchin.util.Formatter;
 
 public class MyGoalFragment extends Fragment implements Updateable {
@@ -51,6 +53,8 @@ public class MyGoalFragment extends Fragment implements Updateable {
         initializeGoalAchievedAnimation(v);
 
         update();
+
+        // showGoalReachedDialog();
 
         String action = getActivity().getIntent().getAction();
         if (NotificationUtil.ACTION_LUNCH_OUT.equals(action)) {
@@ -205,5 +209,13 @@ public class MyGoalFragment extends Fragment implements Updateable {
 
     private void highlightGoalProgress() {
         mGoalProgress.setBackgroundResource(R.color.highlight);
+    }
+
+    private void showGoalReachedDialog() {
+        String goalName = mSettingsAccess.getSavingsGoalName();
+        int goalCost = mSettingsAccess.getSavingsGoalValue();
+
+        DialogFragment fragment = GoalReachedDialogFragment.newInstance(goalName, goalCost);
+        fragment.show(getFragmentManager(), Constants.FRAGMENT_TAG_GOAL_REACHED_DIALOG);
     }
 }

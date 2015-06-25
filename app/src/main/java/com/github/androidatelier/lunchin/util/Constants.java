@@ -19,6 +19,7 @@ public abstract class Constants {
     public static final String FRAGMENT_TAG_GOAL_SETTER_DIALOG = "Goal Setter";
     public static final String FRAGMENT_TAG_TIME_PICKER_DIALOG = "Time Picker";
     public static final String FRAGMENT_TAG_WIFI_NETWORKS_DIALOG = "Wifi Networks";
+    public static final String FRAGMENT_TAG_GOAL_REACHED_DIALOG = "Goal Reached";
 
     public static final int REQUEST_CODE_WIFI_NETWORKS_DIALOG = 10000;
     public static final int REQUEST_CODE_DAYS_TO_TRACK_DIALOG = 10001;

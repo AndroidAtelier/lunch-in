@@ -38,6 +38,14 @@ public class MyGoalFragment extends Fragment implements Updateable {
         mGoalRemaining = (TextView) v.findViewById(R.id.fragment_my_goal_progress_remaining);
         mPieChartView = (PieChartView) v.findViewById(R.id.pie_chart_view);
 
+        mPieChartView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                updateLunchOutUI();
+                return false;
+            }
+        });
+
         mSettingsAccess = new SettingsAccess(getActivity());
         mLunchInApi = new LunchInApi(getActivity());
 
@@ -88,8 +96,8 @@ public class MyGoalFragment extends Fragment implements Updateable {
 
         int numLunchesOut = mLunchInApi.getNumberOfLunchOuts();
         double moneySacrificed = numLunchesOut * averageLunchCost;
-        mMoneySacrificed.setText(
-                getString(R.string.money_sacrificed, Formatter.formatDoubleToCurrencyUSD(moneySacrificed)));
+        mMoneySacrificed.setText(getString(R.string.money_sacrificed,
+                Formatter.formatDoubleToCurrencyUSD(moneySacrificed)));
     }
 
     // TODO: Display number of hours you need to work to buy this lunch
@@ -97,6 +105,7 @@ public class MyGoalFragment extends Fragment implements Updateable {
         mLunchInApi.setLunchOut();
         update();
         NotificationUtil.cancelNotification(getActivity());
+        highlightSacrificeProgress();
         Toast.makeText(
                 getActivity(),
                 "Lunch out: " + mLunchInApi.getNumberOfLunchOuts() + "/" + mLunchInApi.getLunchTotal(),
@@ -124,6 +133,9 @@ public class MyGoalFragment extends Fragment implements Updateable {
 
     private void highlightGoalProgress() {
         mGoalProgress.setBackgroundResource(R.color.highlight);
+    }
+
+    private void highlightSacrificeProgress() {
         mMoneySacrificed.setBackgroundResource(R.color.highlight);
     }
 

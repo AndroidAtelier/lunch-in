@@ -33,9 +33,7 @@ public class GoalReachedDialogFragment extends DialogFragment {
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_goal_reached, null);
 
-        ImageView imageView = (ImageView) view.findViewById(R.id.dollarView);
-        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.dollar);
-        imageView.startAnimation(animation);
+        final View titleView = view.findViewById(R.id.goal_reached);
 
         final TextView nameView = (TextView) view.findViewById(R.id.dialog_goal_name);
         String goalName = getArguments().getString(Constants.KEY_GOAL_NAME);
@@ -44,6 +42,32 @@ public class GoalReachedDialogFragment extends DialogFragment {
         final TextView costView = (TextView) view.findViewById(R.id.dialog_goal_cost);
         int goalCost = getArguments().getInt(Constants.KEY_GOAL_COST);
         costView.setText(Formatter.formatIntToCurrencyUSD(goalCost));
+
+        ImageView imageView = (ImageView) view.findViewById(R.id.dollarView);
+        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.dollar);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                titleView.setVisibility(View.VISIBLE);
+                nameView.setVisibility(View.VISIBLE);
+                costView.setVisibility(View.VISIBLE);
+                Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade);
+                titleView.setAnimation(fadeIn);
+                nameView.setAnimation(fadeIn);
+                costView.setAnimation(fadeIn);
+            }
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+                // Do nothing
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                // Do nothing
+            }
+        });
+        imageView.startAnimation(animation);
 
         builder.setView(view);
 

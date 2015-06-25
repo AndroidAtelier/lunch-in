@@ -38,14 +38,6 @@ public class MyGoalFragment extends Fragment implements Updateable {
         mGoalRemaining = (TextView) v.findViewById(R.id.fragment_my_goal_progress_remaining);
         mPieChartView = (PieChartView) v.findViewById(R.id.pie_chart_view);
 
-        mPieChartView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                updateLunchOutUI();
-                return false;
-            }
-        });
-
         mSettingsAccess = new SettingsAccess(getActivity());
         mLunchInApi = new LunchInApi(getActivity());
 

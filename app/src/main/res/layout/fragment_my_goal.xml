@@ -18,7 +18,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/title_my_savings_goal"
             android:textColor="@color/cerulean"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:gravity="center" />
 
         <ImageView
@@ -31,16 +31,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Bahamas Vacation"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/fragment_my_goal_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="$5000"
-            android:textSize="30dp"
+            android:textSize="30sp"
             />
 
         <TextView
@@ -73,63 +71,6 @@
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_gravity="center"
             class="com.github.androidatelier.lunchin.component.ui.PieChartView"
-            />
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="zoom"
-                android:id="@+id/button1"
-                android:layout_below="@+id/dollarView"
-                android:layout_marginTop="40dp"
-                android:layout_gravity="bottom"
-                android:onClick="zoom"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="clockwise"
-                android:id="@+id/button2"
-                android:layout_alignTop="@+id/button1"
-                android:layout_gravity="bottom"
-                android:onClick="clockwise"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="fade"
-                android:id="@+id/button3"
-                android:layout_alignTop="@+id/button1"
-                android:layout_gravity="bottom"
-                android:onClick="fade"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="blink"
-                android:id="@+id/button4"
-                android:layout_alignTop="@+id/button1"
-                android:layout_gravity="bottom"
-                android:onClick="blink"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="scale"
-                android:id="@+id/button5"
-                android:layout_alignTop="@+id/button1"
-                android:layout_gravity="bottom" />
-
-        </LinearLayout>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/dollarView"
-            android:src="@drawable/dollar"
-            android:layout_below="@+id/pie_chart_view"
             />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

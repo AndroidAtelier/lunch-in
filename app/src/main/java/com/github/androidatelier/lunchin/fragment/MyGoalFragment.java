@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.androidatelier.database.LunchInApi;
 import com.github.androidatelier.lunchin.R;
@@ -91,17 +90,12 @@ public class MyGoalFragment extends Fragment implements Updateable {
         mMoneySacrificed.setText(getString(R.string.money_sacrificed,
                 Formatter.formatDoubleToCurrencyUSD(moneySacrificed)));
     }
-
-    // TODO: Display number of hours you need to work to buy this lunch
+    
     private void updateLunchOutUI() {
         mLunchInApi.setLunchOut();
         update();
         NotificationUtil.cancelNotification(getActivity());
         highlightSacrificeProgress();
-        Toast.makeText(
-                getActivity(),
-                "Lunch out: " + mLunchInApi.getNumberOfLunchOuts() + "/" + mLunchInApi.getLunchTotal(),
-                Toast.LENGTH_LONG).show();
     }
 
     private void updateLunchInUI() {

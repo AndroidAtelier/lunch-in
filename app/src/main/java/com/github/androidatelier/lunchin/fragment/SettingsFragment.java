@@ -16,8 +16,8 @@ import android.view.WindowManager;
 
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.adapter.SettingsAdapter;
-import com.github.androidatelier.lunchin.model.Setting;
-import com.github.androidatelier.lunchin.model.SettingsAccess;
+import com.github.androidatelier.lunchin.settings.Setting;
+import com.github.androidatelier.lunchin.settings.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
 import com.github.androidatelier.lunchin.util.DaysOfTheWeek;
 import com.github.androidatelier.lunchin.util.Formatter;
@@ -31,7 +31,6 @@ public class SettingsFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private List<Setting> mSettings;
     private SettingsAccess mSettingsAccess;
-    private Formatter mFormatter;
 
     private DaysOfTheWeek daysToTrack;
 
@@ -41,7 +40,6 @@ public class SettingsFragment extends Fragment {
         View v =inflater.inflate(R.layout.fragment_settings,container,false);
 
         mSettingsAccess = new SettingsAccess(getActivity());
-        mFormatter = new Formatter(getActivity());
         daysToTrack = new DaysOfTheWeek(
                 getResources().getStringArray(R.array.days_of_the_week));
 
@@ -123,7 +121,7 @@ public class SettingsFragment extends Fragment {
                 String titleLunchEnd = getActivity().getString(Setting.Resource.LUNCH_END.getTitle());
                 String title = (requestCode == Constants.REQUEST_CODE_LUNCH_START_DIALOG) ?
                         titleLunchBegin : titleLunchEnd;
-                updateSetting(title, mFormatter.formatTime(hours, minutes));
+                updateSetting(title, Formatter.formatTime(hours, minutes, android.text.format.DateFormat.is24HourFormat(getActivity())));
                 break;
             case Constants.REQUEST_CODE_LUNCH_COST_DIALOG:
                 String text = data.getStringExtra(Constants.KEY_TEXT);
@@ -149,7 +147,7 @@ public class SettingsFragment extends Fragment {
                 String goalName = data.getStringExtra(Constants.KEY_GOAL_NAME);
                 int goalCost = data.getIntExtra(Constants.KEY_GOAL_COST, -1);
                 String goalTitle = getActivity().getString(Setting.Resource.MY_GOAL.getTitle());
-                updateSetting(goalTitle, mFormatter.formatGoal(goalName, goalCost));
+                updateSetting(goalTitle, Formatter.formatGoal(goalName, goalCost));
             default:
                 super.onActivityResult(requestCode, resultCode, data);
                 break;

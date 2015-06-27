@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.androidatelier.lunchin.R;
-import com.github.androidatelier.lunchin.model.SettingsAccess;
+import com.github.androidatelier.lunchin.settings.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
 
 public class GoalSetterDialogFragment extends DialogFragment {

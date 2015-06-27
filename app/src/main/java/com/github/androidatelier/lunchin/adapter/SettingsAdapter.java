@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.activity.MainActivity;
-import com.github.androidatelier.lunchin.model.Setting;
-import com.github.androidatelier.lunchin.model.SettingsAccess;
+import com.github.androidatelier.lunchin.settings.Setting;
+import com.github.androidatelier.lunchin.settings.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
 
 import java.util.List;

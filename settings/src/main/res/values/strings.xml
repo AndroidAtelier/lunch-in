@@ -1,0 +1,39 @@
+<resources>
+    <string-array name="days_of_the_week">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+
+    <string name="default_goal_name">e.g. Bahamas Vacation</string>
+    <integer name="default_goal_cost">1500</integer>
+
+    <string name="info_national_average_income">
+        %1$s is the current national average per person in the US. Enter your
+        information for personalized statistics. All settings data are stored locally and never shared
+    </string>
+
+    <!-- preference titles -->
+    <string name="pref_title_work_wifi">Work Wifi</string>
+    <string name="pref_title_lunch_start">Lunch Time Begin</string>
+    <string name="pref_title_lunch_end">Lunch Time End</string>
+    <string name="pref_title_lunch_days_tracked">Days to track</string>
+    <string name="pref_title_avg_lunch_cost">Average Lunch Cost</string>
+    <string name="pref_title_gross_salary">Gross Annual Salary</string>
+    <string name="pref_title_my_goal">My Goal</string>
+    <string name="pref_title_last_ssid">Last SSID</string>
+
+    <!--preference descriptions-->
+    <string name="pref_description_work_wifi">Select your work network</string>
+    <string name="pref_description_lunch_start">Lunch start time</string>
+    <string name="pref_description_lunch_end">Lunch end time</string>
+    <string name="pref_description_lunch_days_tracked">Select the days you want to track</string>
+    <string name="pref_description_avg_lunch_cost">The average cost of lunch if you ate out</string>
+    <string name="pref_description_gross_salary">(Optional) Used to calculate cost facts. All data is kept privately on your device and is not shared</string>
+    <string name="pref_description_my_goal">Enter a savings goal</string>
+    <string name="pref_description_last_ssid">Helps avoid too many notifications</string>
+</resources>

@@ -10,7 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
 import com.github.androidatelier.lunchin.R;
-import com.github.androidatelier.lunchin.model.SettingsAccess;
+import com.github.androidatelier.lunchin.settings.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
 import com.github.androidatelier.lunchin.util.DaysOfTheWeek;
 

@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 
+import com.github.androidatelier.lunchin.LunchInDetector;
 import com.github.androidatelier.lunchin.R;
-import com.github.androidatelier.lunchin.model.SettingsAccess;
+import com.github.androidatelier.lunchin.receiver.LunchInUiReceiver;
+import com.github.androidatelier.lunchin.settings.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
 
 import java.util.ArrayList;
@@ -41,11 +44,20 @@ public class WifiNetworksDialogFragment extends DialogFragment {
       builder.setItems(items, new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int position) {
+            SettingsAccess settingsAccess = new SettingsAccess(getActivity());
+            String originalWorkWifiId = settingsAccess.getWorkWifiId();
+
+            // update shared prefs
+            settingsAccess.setWorkWifiId(items[position].toString());
+
+            // set lunch in alarm
+            if (TextUtils.isEmpty(originalWorkWifiId)) {
+                LunchInDetector.setAlarm(getActivity(), LunchInUiReceiver.class);
+            }
+
+            // update UI
             Intent data = new Intent();
             data.putExtra(Constants.KEY_NETWORK, items[position]);
-            // update shared prefs
-            new SettingsAccess(getActivity()).setWorkWifiId(items[position].toString());
-            // update UI
             getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, data);
         }
       });

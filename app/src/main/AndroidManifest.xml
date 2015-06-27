@@ -36,13 +36,9 @@
           android:name="com.github.androidatelier.lunchin.notification.NotificationReceiver"
           android:exported="false"/>
 
-        <receiver android:name="com.github.androidatelier.lunchin.LunchInDetectionReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
-        </receiver>
+        <receiver android:name="com.github.androidatelier.lunchin.receiver.LunchInUiReceiver"/>
 
-        <receiver android:name="com.github.androidatelier.lunchin.LunchInDetectionBootStarterReceiver">
+        <receiver android:name=".receiver.LunchInDetectionBootStarterReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>

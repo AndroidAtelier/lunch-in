@@ -8,6 +8,11 @@ public class DaysOfTheWeek {
         this.labels = labels;
     }
 
+    public boolean isDayOfTheWeekSet(int dayOfTheWeek) {
+        // Joda time has SUNDAY = 7, but we have Sunday = 0
+        return isSet(dayOfTheWeek % 7);
+    }
+
     public boolean isSet(int position) {
         int dayBit = 1 << position;
         return ((bitVector & dayBit) == dayBit);

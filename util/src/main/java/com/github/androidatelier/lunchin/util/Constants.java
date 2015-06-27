@@ -29,6 +29,8 @@ public abstract class Constants {
     public static final int REQUEST_CODE_GOAL_SETTER_DIALOG = 10005;
     public static final int REQUEST_CODE_GROSS_SALARY_DIALOG = 10006;
 
+    public static final int REQUEST_CODE_LUNCH_END_BROADCAST = 20000;
+
     public static final int DEFAULT_WORK_WEEK = 2 + 4 + 8 + 16 + 32;  // Monday through Friday
     public static final int DEFAULT_LUNCH_BEGIN_HOURS = 12;
     public static final int DEFAULT_LUNCH_BEGIN_MINUTES = 0;

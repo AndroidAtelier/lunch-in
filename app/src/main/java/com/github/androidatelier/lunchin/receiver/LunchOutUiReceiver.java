@@ -25,4 +25,8 @@ public class LunchOutUiReceiver extends LunchOutDetectionReceiver {
         NotificationUtil.showLunchOutNotification(context, MainActivity.class);
     }
 
+    @Override
+    public void updateLastSSID(String ssid) {
+
+    }
 }

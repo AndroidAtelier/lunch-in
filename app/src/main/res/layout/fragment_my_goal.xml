@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginLeft="10dp">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/fragment_my_goal_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="My Savings Goal "
+            android:text="@string/title_my_savings_goal"
             android:textColor="@color/cerulean"
             android:textSize="30dp"
             android:gravity="center" />
@@ -42,74 +44,92 @@
             />
 
         <TextView
-            android:id="@+id/fragment_my_goal_progress_gained"
-            android:layout_width="match_parent"
+            android:id="@+id/fragment_money_sacrificed_to_lunch_out"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Progress toward goal: $2798/$5000"
-            android:textSize="16dp"
-            />
-        <TextView
-            android:id="@+id/fragment_my_goal_progress_remaining"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Progress remaining: $2202"
-            android:textSize="16dp"
+            android:textSize="16sp"
             />
 
         <TextView
-            android:id="@+id/fragment_my_goal_other"
-            android:layout_width="match_parent"
+            android:id="@+id/fragment_my_goal_progress_gained"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Team - Feel free to add content or give me ideas!"
-            android:textSize="16dp"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:id="@+id/fragment_my_goal_progress_remaining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
             />
 
         <view
             android:id="@+id/pie_chart_view"
-            android:layout_width="400dip"
-            android:layout_height="200dip"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_gravity="center"
-            class="com.github.androidatelier.lunchin.fragment.PieChartView"
+            class="com.github.androidatelier.lunchin.component.ui.PieChartView"
             />
-        <Button
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/pie_chart_view"
-            android:id="@+id/visible_button"
-            android:layout_centerHorizontal="true"
-            android:text="Show Animation Images" />
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/visible_button"
-            android:id="@+id/invisible_button"
-            android:layout_centerHorizontal="true"
-            android:text="Hide Animation Images" />
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/invisible_button"
-            android:id="@+id/on_button"
-            android:layout_centerHorizontal="true"
-            android:text="On" />
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/on_button"
-            android:id="@+id/off_button"
-            android:layout_centerHorizontal="true"
-            android:text="Off" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="zoom"
+                android:id="@+id/button1"
+                android:layout_below="@+id/dollarView"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="bottom"
+                android:onClick="zoom"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="clockwise"
+                android:id="@+id/button2"
+                android:layout_alignTop="@+id/button1"
+                android:layout_gravity="bottom"
+                android:onClick="clockwise"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fade"
+                android:id="@+id/button3"
+                android:layout_alignTop="@+id/button1"
+                android:layout_gravity="bottom"
+                android:onClick="fade"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="blink"
+                android:id="@+id/button4"
+                android:layout_alignTop="@+id/button1"
+                android:layout_gravity="bottom"
+                android:onClick="blink"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="scale"
+                android:id="@+id/button5"
+                android:layout_alignTop="@+id/button1"
+                android:layout_gravity="bottom" />
+
+        </LinearLayout>
         <ImageView
-            android:id="@+id/raining_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
+            android:id="@+id/dollarView"
+            android:src="@drawable/dollar"
+            android:layout_below="@+id/pie_chart_view"
             />
     </LinearLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

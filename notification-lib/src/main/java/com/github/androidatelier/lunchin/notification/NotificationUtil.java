@@ -27,7 +27,7 @@ public abstract class NotificationUtil  {
         = getLunchNotification(
         context, actionActivityClass, ACTION_LUNCH_OUT, NOTIFICATION_ID_LUNCH_OUT)
         .setContentText(context.getString(R.string.notification_text_lunch_out))
-        .setSmallIcon(R.drawable.ic_notification_lunch_out)
+        .setSmallIcon(R.drawable.bread_notification)
         .setSound(Uri.parse("android.resource://"
             + context.getPackageName() + "/"
             + R.raw.sad_trombone))

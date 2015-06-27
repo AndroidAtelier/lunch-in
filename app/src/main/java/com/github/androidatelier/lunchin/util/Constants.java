@@ -32,4 +32,5 @@ public abstract class Constants {
     public static final int DEFAULT_LUNCH_BEGIN_HOURS = 12;
     public static final int DEFAULT_LUNCH_BEGIN_MINUTES = 0;
     public static final int DEFAULT_GROSS_ANNUAL_SALARY = 26695;
+    public static final int CODE_GROSS_SALARY_NOT_SET = -12345;
 }

@@ -75,6 +75,21 @@ public class LunchInApi {
         return (count > 0);
     }
 
+    public boolean didUserLunchInToday() {
+        DateTime now = mClock.getNow();
+        DateTime start = now.withTimeAtStartOfDay();
+        DateTime end = start.plusDays(1);
+        int count = cupboard().withDatabase(mDb)
+                .query(MealItem.class)
+                .withSelection("timestamp >= ? AND timestamp < ? AND success = ?",
+                        String.valueOf(start.getMillis()),
+                        String.valueOf(end.getMillis()),
+                        "1")
+                .getCursor()
+                .getCount();
+        return (count > 0);
+    }
+
     /**
      * Creates another lunch in line in database
      */

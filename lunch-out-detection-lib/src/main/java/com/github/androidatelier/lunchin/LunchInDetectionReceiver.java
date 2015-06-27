@@ -18,7 +18,7 @@ import java.util.Date;
  */
 public class LunchInDetectionReceiver extends BroadcastReceiver {
 
-    private static final String KEY_LUNCH_START = "pref_lunch_start";
+    private static final String KEY_LUNCH_END = "pref_lunch_end";
     public static final String KEY_PREFERENCE_FILE_SETTINGS = "com.github.androidatelier.lunchin.PREFERENCE_FILE_SETTINGS";
 
     @Override
@@ -29,14 +29,14 @@ public class LunchInDetectionReceiver extends BroadcastReceiver {
         //check if lunch in should fire
         Toast.makeText(context, "checking for lunch in", Toast.LENGTH_SHORT).show();
         SharedPreferences prefs = context.getSharedPreferences(KEY_PREFERENCE_FILE_SETTINGS, Context.MODE_PRIVATE);
-        String end = prefs.getString(KEY_LUNCH_START, "13:00");
+        //TODO: get end time from settings
+        String end = "13:00";
         Log.d("MARK", "end: " + end);
         Date dEnd = null;
         try {
             dEnd = new SimpleDateFormat("HH:mm").parse(end);
         } catch(java.text.ParseException e) {
             Log.d("MARK", "parse failure");
-            //TODO: this keeps happening, get actual end time instead of "" ^
         }
         Calendar endCal = Calendar.getInstance();
         endCal.setTime(dEnd);
@@ -48,7 +48,7 @@ public class LunchInDetectionReceiver extends BroadcastReceiver {
 
         //if time only component of endCal is < time only component of nowCal
         //and user has not yet lunched out today
-        if(comparator.compare(endCal.getTime(), nowCal.getTime()) < 0 && ! (new LunchInApi(context).didUserLunchOutToday()) ) {
+        if(comparator.compare(endCal.getTime(), nowCal.getTime()) < 0 && ! (new LunchInApi(context).didUserLunchOutToday() && ! (new LunchInApi(context).didUserLunchInToday())) ) {
             Toast.makeText(context, "fire lunch in", Toast.LENGTH_SHORT).show();
             Log.d("MARK", "fire lunch in");
         } else {

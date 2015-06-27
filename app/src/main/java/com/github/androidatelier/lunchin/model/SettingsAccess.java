@@ -182,13 +182,21 @@ public class SettingsAccess {
 
     /**
      * Gets the user's gross annual salary.
-     * Default value, if not set by user, is the national average salary per person of
+     * If returnDefaultValueIfNotSet and value not set by user, default value returned is the national average salary per person of
      * $26,695 current as of June 2015
+     * Else if returnDefaultValueIfNotSet is false, value of Constants.CODE_GROSS_SALARY_NOT_SET is returned
+     * @Param returnDefaultValueIfNotSet
      * @return int
      */
-    public int getGrossAnnualSalary() {
+    public int getGrossAnnualSalary(boolean returnDefaultValueIfNotSet) {
         int defaultValue = Constants.DEFAULT_GROSS_ANNUAL_SALARY;
-        return mSharedPreference.getInt(Setting.Resource.GROSS_SALARY.getKey(), defaultValue);
+        int value;
+        if (returnDefaultValueIfNotSet) {
+            value = mSharedPreference.getInt(Setting.Resource.GROSS_SALARY.getKey(), defaultValue);
+        } else {
+            value = mSharedPreference.getInt(Setting.Resource.GROSS_SALARY.getKey(), Constants.CODE_GROSS_SALARY_NOT_SET);
+        }
+        return value;
     }
 
     public boolean setSavingsGoalName(String goalName) {

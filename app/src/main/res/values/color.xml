@@ -25,4 +25,6 @@
     <color name="cerulean">#5086ED</color>
     <color name="medium_gray">#9D9DAD</color>
     <color name="light_gray">#A7ACAD</color>
+
+    <color name="highlight">#ff0</color>
 </resources>

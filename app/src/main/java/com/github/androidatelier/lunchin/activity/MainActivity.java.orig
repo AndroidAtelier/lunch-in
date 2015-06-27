@@ -13,9 +13,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-
+<<<<<<< .merge_file_SvC9l7
 import android.widget.Toast;
+import com.github.androidatelier.database.LunchInApi;
 import com.github.androidatelier.lunchin.LunchInDetectionReceiver;
+=======
+
+>>>>>>> .merge_file_Nu04QC
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.adapter.ViewPagerAdapter;
 import com.github.androidatelier.lunchin.fragment.MyGoalFragment;
@@ -45,8 +49,22 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
         setupViewPager(mViewPager);
         setupTablayout();
-
+<<<<<<< .merge_file_SvC9l7
         startRepeatingAlarm();
+
+        mLunchInApi = new LunchInApi(this);
+
+        String action = getIntent().getAction();
+        if (NotificationUtil.ACTION_LUNCH_OUT.equals(action)) {
+            getIntent().setAction(null);
+            updateLunchOutUI();
+        }
+        if (NotificationUtil.ACTION_LUNCH_IN.equals(action)) {
+            getIntent().setAction(null);
+            updateLunchInUI();
+        }
+=======
+>>>>>>> .merge_file_Nu04QC
     }
 
     private void setupToolbar(){
@@ -68,6 +86,40 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
+<<<<<<< .merge_file_SvC9l7
+    private void startRepeatingAlarm() {
+        Intent alarmIntent = new Intent(MainActivity.this, LunchInDetectionReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
+
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        long interval = TimeUnit.MINUTES.toMillis(1);
+
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
+        Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
+    }
+
+    // TODO: Display number of hours you need to work to buy this lunch
+    private void updateLunchOutUI() {
+        mLunchInApi.setLunchOut();
+        NotificationUtil.cancelNotification(this);
+        Toast.makeText(
+                this,
+                "Lunch out: " + mLunchInApi.getNumberOfLunchOuts() + "/" + mLunchInApi.getLunchTotal(),
+                Toast.LENGTH_LONG).show();
+    }
+
+    // TODO: Update progress
+    private void updateLunchInUI() {
+        mLunchInApi.setLunchIn();
+        NotificationUtil.cancelNotification(this);
+        Toast.makeText(
+                this,
+                "Lunch in: " + mLunchInApi.getNumberOfLunchIns() + "/" + mLunchInApi.getLunchTotal(),
+                Toast.LENGTH_LONG).show();
+    }
+
+=======
+>>>>>>> .merge_file_Nu04QC
     private void setupViewPager(ViewPager viewPager) {
         final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new MyGoalFragment(), "My Goal");
@@ -93,17 +145,6 @@ public class MainActivity extends AppCompatActivity {
                 // Do nothing
             }
         });
-    }
-
-    private void startRepeatingAlarm() {
-        Intent alarmIntent = new Intent(MainActivity.this, LunchInDetectionReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
-
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        long interval = TimeUnit.MINUTES.toMillis(1);
-
-        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
-        Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
     }
 
     // settings dialogs

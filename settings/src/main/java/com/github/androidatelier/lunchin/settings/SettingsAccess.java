@@ -216,7 +216,8 @@ public class SettingsAccess {
     }
 
     public int getSavingsGoalValue() {
-        return mSharedPreference.getInt(Setting.Resource.SAVINGS_GOAL_VALUE.getKey(), 5000);
+        return mSharedPreference.getInt(Setting.Resource.SAVINGS_GOAL_VALUE.getKey(),
+                mContext.getResources().getInteger(R.integer.default_goal_cost));
     }
 
     public boolean setLastSSID(String ssid) {

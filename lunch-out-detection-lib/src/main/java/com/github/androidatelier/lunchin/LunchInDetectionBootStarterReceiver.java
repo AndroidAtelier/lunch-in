@@ -13,18 +13,16 @@ import java.util.concurrent.TimeUnit;
  */
 public class LunchInDetectionBootStarterReceiver extends BroadcastReceiver {
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             /* Setting the alarm here */
             Intent alarmIntent = new Intent(context, LunchInDetectionReceiver.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
 
             AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            long interval = TimeUnit.MINUTES.toMillis(1); // hourly
+            long interval = TimeUnit.MINUTES.toMillis(1);
             manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
-
         }
     }
 }

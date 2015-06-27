@@ -1,30 +1,18 @@
 package com.github.androidatelier.lunchin.util;
 
-import android.content.Context;
-import android.text.format.DateFormat;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-
-public class Formatter {
-
-    Context mContext;
-
-
-    public Formatter(Context context) {
-        this.mContext = context;
-    }
-
-    private String formatLunchHour(int hours, int minutes) {
-        return DateFormat.is24HourFormat(mContext) ?
+public abstract class Formatter {
+    private static String formatLunchHour(int hours, int minutes, boolean is24HourFormat) {
+        return is24HourFormat ?
                 String.format("%02d:%02d", hours, minutes) :
                 String.format("%d:%02d", convertTo12Hour(hours), minutes);
     }
 
-    public String formatTime(int hours, int minutes) {
-        String time = formatLunchHour(hours, minutes);
+    public static String formatTime(int hours, int minutes, boolean is24HourFormat) {
+        String time = formatLunchHour(hours, minutes, is24HourFormat);
         if (hours < 12) {
             time += " AM";
         } else {
@@ -78,5 +66,4 @@ public class Formatter {
         String formatted = df.format(number);
         return formatted;
     }
-
 }

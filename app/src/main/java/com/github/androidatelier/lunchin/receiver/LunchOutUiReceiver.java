@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 import com.github.androidatelier.lunchin.LunchOutDetectionReceiver;
 import com.github.androidatelier.lunchin.activity.MainActivity;
-import com.github.androidatelier.lunchin.model.SettingsAccess;
+import com.github.androidatelier.lunchin.settings.SettingsAccess;
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
 
 /**

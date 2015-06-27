@@ -1,8 +1,8 @@
-package com.github.androidatelier.lunchin.model;
+package com.github.androidatelier.lunchin.settings;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 
-import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.util.Constants;
 import com.github.androidatelier.lunchin.util.Formatter;
 
@@ -100,7 +100,7 @@ public class Setting {
     }
 
     public Object getValue(Resource resourceEnum) {
-        Formatter formatter = new Formatter(mContext);
+        boolean is24HourFormat = DateFormat.is24HourFormat(mContext);
         switch (resourceEnum) {
             case WORK_WIFI :
                 return mSettingsAccess.getWorkWifiId();
@@ -108,12 +108,12 @@ public class Setting {
                 int[] lunchStart = mSettingsAccess.getLunchStartTime();
                 int startHour = lunchStart[0];
                 int startMins = lunchStart[1];
-                return formatter.formatTime(startHour, startMins);
+                return Formatter.formatTime(startHour, startMins, is24HourFormat);
             case LUNCH_END :
                 int[] lunchEnd = mSettingsAccess.getLunchEndTime();
                 int endHour = lunchEnd[0];
                 int endMins = lunchEnd[1];
-                return formatter.formatTime(endHour, endMins);
+                return Formatter.formatTime(endHour, endMins, is24HourFormat);
             case LUNCH_DAYS_TRACKED :
                 return mSettingsAccess.getDaysToTrack();
             case LUNCH_AVG_COST :

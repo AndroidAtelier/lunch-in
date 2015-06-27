@@ -15,7 +15,7 @@ import android.view.LayoutInflater;
 import android.widget.EditText;
 
 import com.github.androidatelier.lunchin.R;
-import com.github.androidatelier.lunchin.model.SettingsAccess;
+import com.github.androidatelier.lunchin.settings.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
 import com.github.androidatelier.lunchin.util.Formatter;
 

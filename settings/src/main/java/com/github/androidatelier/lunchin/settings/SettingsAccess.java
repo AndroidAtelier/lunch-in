@@ -1,9 +1,8 @@
-package com.github.androidatelier.lunchin.model;
+package com.github.androidatelier.lunchin.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.util.Constants;
 import com.github.androidatelier.lunchin.util.DaysOfTheWeek;
 import com.github.androidatelier.lunchin.util.Formatter;

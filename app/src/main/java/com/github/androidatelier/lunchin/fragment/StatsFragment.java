@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.github.androidatelier.database.LunchInApi;
 import com.github.androidatelier.lunchin.R;
-import com.github.androidatelier.lunchin.model.SettingsAccess;
+import com.github.androidatelier.lunchin.settings.SettingsAccess;
 import com.github.androidatelier.lunchin.widget.StatsRow;
 
 import java.text.NumberFormat;

@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager(mViewPager);
         setupTablayout();
 
-        startRepeatingAlarm();
+        // startRepeatingAlarm();
     }
 
     private void setupToolbar(){

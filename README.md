@@ -1,10 +1,6 @@
 Lunch In
------------------
+--------
 
-Lunch In is an Android application designed to help people reduce the amount of money that they spend by dining out during lunch.  The application works by monitoring a particular wireless network and tracking whether that network is dropped over a specified lunch hour.  This application can help users set savings goals and track how many times a person has eaten out in a given month. 
+Lunch In is an Android application designed to help you reduce the amount of money that you spend by eating out for lunch. It works by monitoring your office wifi and tracking whether it is dropped over lunch hour.
 
-`app`: Main activity, settings. Depends on `notification-lib`.
-
-`notification-lib`: Library for notifications
-
-`notification-playground`: App for experimenting with notifications. Depends on `notification-lib`.
+You set a savings goal, and the app tells you how close you are to your goal by tracking how many times you have eaten out vs stayed in for lunch.

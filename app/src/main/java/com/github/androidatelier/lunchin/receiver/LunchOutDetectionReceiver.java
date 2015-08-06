@@ -19,8 +19,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by Kelly Shuster on 6/17/15.
- */
+  * Created by Mark & Kelly on 6/11/15.
+  *
+  * TODO: Come back and deal with possibility of setting which days of week person works, or allow person to turn off notifications for x days
+  * TODO: Normalize multiple SSID change receipts so only one call back to app
+*/
 public class LunchOutDetectionReceiver extends BroadcastReceiver {
 
     private Context mContext;

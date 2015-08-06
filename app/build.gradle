@@ -16,7 +16,6 @@ android {
 
 dependencies {
     compile project(':database')
-    compile project(':notification-lib')
     compile project(':settings')
     compile 'com.android.support:design:22.+' // contains v4 and v7 support libs
     compile 'com.android.support:support-annotations:22+'

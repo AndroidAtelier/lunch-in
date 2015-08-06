@@ -1,6 +1,0 @@
-<resources>
-  <style name="AppThemeBase" parent="android:Theme">
-  </style>
-  <style name="AppTheme" parent="AppThemeBase">
-  </style>
-</resources>

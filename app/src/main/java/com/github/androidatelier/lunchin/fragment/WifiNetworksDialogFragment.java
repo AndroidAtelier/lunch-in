@@ -10,11 +10,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
-import com.github.androidatelier.lunchin.LunchInDetector;
 import com.github.androidatelier.lunchin.R;
-import com.github.androidatelier.lunchin.receiver.LunchInUiReceiver;
+import com.github.androidatelier.lunchin.receiver.LunchInDetectionReceiver;
 import com.github.androidatelier.lunchin.settings.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
+import com.github.androidatelier.lunchin.utils.LunchInDetector;
 
 import java.util.ArrayList;
 
@@ -52,7 +52,7 @@ public class WifiNetworksDialogFragment extends DialogFragment {
 
             // set lunch in alarm
             if (TextUtils.isEmpty(originalWorkWifiId)) {
-                LunchInDetector.setAlarm(getActivity(), LunchInUiReceiver.class);
+                LunchInDetector.setAlarm(getActivity(), LunchInDetectionReceiver.class);
             }
 
             // update UI

@@ -1,2 +1,1 @@
 include ':app', ':notification-playground', ':notification-lib', ':database', ':settings', ':util'
-include ':lunch-out-detection-playground', ':lunch-out-detection-lib'

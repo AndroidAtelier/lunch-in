@@ -1,4 +1,4 @@
-package com.github.androidatelier.lunchin;
+package com.github.androidatelier.lunchin.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,6 +6,11 @@ import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
+
+import com.github.androidatelier.lunchin.activity.MainActivity;
+import com.github.androidatelier.lunchin.notification.NotificationUtil;
+import com.github.androidatelier.lunchin.settings.SettingsAccess;
+
 import org.joda.time.DateTimeComparator;
 
 import java.text.ParseException;
@@ -14,17 +19,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by Mark S on 6/11/15.
- *
- * TODO: Come back and deal with possibility of setting which days of week person works, or allow person to turn off notifications for x days
- * TODO: Normalize multiple SSID change receipts so only one call back to app
- */
-public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
+  * Created by Mark & Kelly on 6/11/15.
+  *
+  * TODO: Come back and deal with possibility of setting which days of week person works, or allow person to turn off notifications for x days
+  * TODO: Normalize multiple SSID change receipts so only one call back to app
+*/
+public class LunchOutDetectionReceiver extends BroadcastReceiver {
 
-    public static final String PREFS= "com.github.androidatelier.lunchin.lunch_out_detection.prefs";
-    public static final String WORK_WIFI= "com.github.androidatelier.lunchin.lunch_out_detection.work_wifi";
-    public static final String START_TIME= "com.github.androidatelier.lunchin.lunch_out_detection.start_time";
-    public static final String END_TIME= "com.github.androidatelier.lunchin.lunch_out_detection.end_time";
+    private Context mContext;
 
     private String mWorkSSID;
     private String mStartTimeString; //HH:mm
@@ -34,6 +36,11 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.d("KIO", "app: onReceive");
+        mContext = context;
+        SettingsAccess sa = new SettingsAccess(context);
+        updateUserSettings(sa.getWorkWifiId(), SettingsAccess.getTimeString(sa.getLunchStartTimeMinutes()), SettingsAccess.getTimeString(sa.getLunchEndTimeMinutes()), sa.getLastSSIDValue());
+
         Log.d("KIO", "LunchOutDetectionReceiver::onReceive()");
 
         if(!mWorkSSID.isEmpty() && !mStartTimeString.isEmpty() && !mEndTimeString.isEmpty()) {
@@ -132,7 +139,13 @@ public abstract class LunchOutDetectionReceiver extends BroadcastReceiver {
 
     }
 
-    public abstract void onPossibleLunchOut(Context context);
+    public void onPossibleLunchOut(Context context) {
+        Log.d("KIO", "app: sendNotification");
+        NotificationUtil.showLunchOutNotification(context, MainActivity.class);
+    }
 
-    public abstract void updateLastSSID(String ssid);
+    public void updateLastSSID(String ssid) {
+        SettingsAccess sa = new SettingsAccess(mContext);
+        sa.setLastSSID(ssid);
+    }
 }

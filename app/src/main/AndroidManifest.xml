@@ -37,7 +37,7 @@
           android:name="com.github.androidatelier.lunchin.notification.NotificationReceiver"
           android:exported="false"/>
 
-        <receiver android:name="com.github.androidatelier.lunchin.receiver.LunchInUiReceiver"/>
+        <receiver android:name=".receiver.LunchInDetectionReceiver"/>
 
         <receiver android:name=".receiver.LunchInDetectionBootStarterReceiver">
             <intent-filter>

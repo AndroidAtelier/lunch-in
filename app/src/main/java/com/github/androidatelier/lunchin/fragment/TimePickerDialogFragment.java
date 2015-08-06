@@ -10,10 +10,10 @@ import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
 
-import com.github.androidatelier.lunchin.LunchInDetector;
-import com.github.androidatelier.lunchin.receiver.LunchInUiReceiver;
+import com.github.androidatelier.lunchin.receiver.LunchInDetectionReceiver;
 import com.github.androidatelier.lunchin.settings.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
+import com.github.androidatelier.lunchin.utils.LunchInDetector;
 
 public class TimePickerDialogFragment extends DialogFragment {
     public static TimePickerDialogFragment newInstance(int hours, int minutes) {
@@ -40,7 +40,7 @@ public class TimePickerDialogFragment extends DialogFragment {
                     settingsAccess.setLunchStartTime(hours, minutes);
                 } else if (getTargetRequestCode() == Constants.REQUEST_CODE_LUNCH_END_DIALOG) {
                     settingsAccess.setLunchEndTime(hours, minutes);
-                    LunchInDetector.setAlarm(getActivity(), LunchInUiReceiver.class);
+                    LunchInDetector.setAlarm(getActivity(), LunchInDetectionReceiver.class);
                 }
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, data);
             }

@@ -1,16 +1,19 @@
-package com.github.androidatelier.lunchin;
+package com.github.androidatelier.lunchin.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
 import com.github.androidatelier.database.LunchInApi;
+import com.github.androidatelier.lunchin.activity.MainActivity;
+import com.github.androidatelier.lunchin.notification.NotificationUtil;
 import com.github.androidatelier.lunchin.settings.SettingsAccess;
 import com.github.androidatelier.lunchin.util.DaysOfTheWeek;
 
 import org.joda.time.DateTime;
 
-public abstract class LunchInDetectionReceiver extends BroadcastReceiver {
+public class LunchInDetectionReceiver extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
         SettingsAccess settingsAccess = new SettingsAccess(context);
@@ -24,5 +27,7 @@ public abstract class LunchInDetectionReceiver extends BroadcastReceiver {
         }
     }
 
-    public abstract void onPossibleLunchIn(Context context);
+    public void onPossibleLunchIn(Context context) {
+        NotificationUtil.showLunchInNotification(context, MainActivity.class);
+    }
 }

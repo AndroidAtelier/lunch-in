@@ -1,4 +1,4 @@
-package com.github.androidatelier.lunchin;
+package com.github.androidatelier.lunchin.utils;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.github.androidatelier.database.LunchInApi;
 import com.github.androidatelier.lunchin.activity.MainActivity;
+import com.github.androidatelier.lunchin.database.LunchInApi;
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
 import com.github.androidatelier.lunchin.settings.SettingsAccess;
 import com.github.androidatelier.lunchin.util.DaysOfTheWeek;

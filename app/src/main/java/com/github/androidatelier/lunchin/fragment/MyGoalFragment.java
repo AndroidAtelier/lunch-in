@@ -10,11 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.androidatelier.database.LunchInApi;
 import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.component.ui.PieChartView;
-import com.github.androidatelier.lunchin.settings.SettingsAccess;
+import com.github.androidatelier.lunchin.database.LunchInApi;
 import com.github.androidatelier.lunchin.notification.NotificationUtil;
+import com.github.androidatelier.lunchin.settings.SettingsAccess;
 import com.github.androidatelier.lunchin.util.Constants;
 import com.github.androidatelier.lunchin.util.Formatter;
 

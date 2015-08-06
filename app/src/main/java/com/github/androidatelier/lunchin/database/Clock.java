@@ -1,4 +1,4 @@
-package com.github.androidatelier.database;
+package com.github.androidatelier.lunchin.database;
 
 import org.joda.time.DateTime;
 

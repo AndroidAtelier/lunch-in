@@ -1,4 +1,4 @@
-package com.github.androidatelier.database;
+package com.github.androidatelier.lunchin.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

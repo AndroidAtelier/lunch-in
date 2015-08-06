@@ -1,7 +1,0 @@
-<resources>
-  <string name="notification_title">Lunch In</string>
-  <string name="notification_text_lunch_out">Going out for lunch?</string>
-  <string name="notification_text_lunch_in">Did you stay in for lunch?</string>
-  <string name="action_yes">Yes</string>
-  <string name="action_no">No</string>
-</resources>

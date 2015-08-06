@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.github.androidatelier.lunchin.R;
+
 public abstract class NotificationUtil  {
   public static final int NOTIFICATION_ID_LUNCH_OUT = 10000;
   public static final int NOTIFICATION_ID_LUNCH_IN = 10001;

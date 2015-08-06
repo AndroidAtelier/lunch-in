@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".receiver.LunchOutUiReceiver">
+        <receiver android:name=".receiver.LunchOutDetectionReceiver">
             <intent-filter>
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
                 <action android:name="android.net.ConnectivityManager.CONNECTIVITY_ACTION" />

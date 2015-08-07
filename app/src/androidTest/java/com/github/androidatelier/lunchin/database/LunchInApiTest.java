@@ -1,4 +1,4 @@
-package com.github.androidatelier.database;
+package com.github.androidatelier.lunchin.database;
 
 import android.test.InstrumentationTestCase;
 
@@ -14,12 +14,12 @@ public class LunchInApiTest extends InstrumentationTestCase {
     @Override
     public void setUp() {
         System.setProperty(
-                "dexmaker.dexcache",
-                getInstrumentation().getContext().getCacheDir().getPath());
+            "dexmaker.dexcache",
+            getInstrumentation().getTargetContext().getCacheDir().getPath());
 
         mClock = Mockito.mock(Clock.class);
         mLunchInApi = new LunchInApi(
-                getInstrumentation().getContext(), mClock, DATABASE_NAME);
+                getInstrumentation().getTargetContext(), mClock, DATABASE_NAME);
 
         Mockito.when(mClock.getNow()).thenReturn(new DateTime(2015, 6, 9, 18, 0, 0));
         assertEquals(0, mLunchInApi.getLunchTotal());
@@ -97,7 +97,7 @@ public class LunchInApiTest extends InstrumentationTestCase {
 
     @Override
     protected void tearDown() throws Exception {
-        getInstrumentation().getContext().deleteDatabase(DATABASE_NAME);
+        getInstrumentation().getTargetContext().deleteDatabase(DATABASE_NAME);
         super.tearDown();
     }
 }

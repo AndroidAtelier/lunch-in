@@ -3,6 +3,7 @@ package com.github.androidatelier.lunchin.settings;
 import android.content.Context;
 import android.text.format.DateFormat;
 
+import com.github.androidatelier.lunchin.R;
 import com.github.androidatelier.lunchin.util.Constants;
 import com.github.androidatelier.lunchin.util.Formatter;
 

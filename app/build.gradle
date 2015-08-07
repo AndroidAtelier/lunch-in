@@ -15,12 +15,13 @@ android {
 
 
 dependencies {
-    compile project(':settings')
     compile 'com.android.support:design:22.+' // contains v4 and v7 support libs
     compile 'com.android.support:support-annotations:22+'
     compile 'com.android.support:recyclerview-v7:22+'
     compile 'nl.qbusict:cupboard:2.1.2'
     compile 'joda-time:joda-time:2.8.1'
+
+    testCompile 'junit:junit:4.12'
 
     androidTestCompile 'org.mockito:mockito-core:1.10.19'
     androidTestCompile 'com.google.dexmaker:dexmaker:1.2'

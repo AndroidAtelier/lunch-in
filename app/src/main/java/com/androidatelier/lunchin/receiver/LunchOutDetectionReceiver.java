@@ -10,6 +10,7 @@ import android.util.Log;
 import com.androidatelier.lunchin.activity.MainActivity;
 import com.androidatelier.lunchin.notification.NotificationUtil;
 import com.androidatelier.lunchin.settings.SettingsAccess;
+import com.androidatelier.lunchin.util.DaysOfTheWeek;
 
 import org.joda.time.DateTimeComparator;
 
@@ -33,17 +34,18 @@ public class LunchOutDetectionReceiver extends BroadcastReceiver {
     private String mEndTimeString; //HH:mm
     private String mCurrentSSID = "";
     private String mLastSSID;
+    private DaysOfTheWeek mDaysToTrack;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("KIO", "app: onReceive");
         mContext = context;
         SettingsAccess sa = new SettingsAccess(context);
-        updateUserSettings(sa.getWorkWifiId(), SettingsAccess.getTimeString(sa.getLunchStartTimeMinutes()), SettingsAccess.getTimeString(sa.getLunchEndTimeMinutes()), sa.getLastSSIDValue());
+        updateUserSettings(sa.getWorkWifiId(), SettingsAccess.getTimeString(sa.getLunchStartTimeMinutes()), SettingsAccess.getTimeString(sa.getLunchEndTimeMinutes()), sa.getLastSSIDValue(), sa.getDaysToTrack());
 
         Log.d("KIO", "LunchOutDetectionReceiver::onReceive()");
 
-        if(!mWorkSSID.isEmpty() && !mStartTimeString.isEmpty() && !mEndTimeString.isEmpty()) {
+        if(!mWorkSSID.isEmpty() && !mStartTimeString.isEmpty() && !mEndTimeString.isEmpty() && isTodayTracked()) {
 
             WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
             WifiInfo info = wifiManager.getConnectionInfo();
@@ -68,6 +70,12 @@ public class LunchOutDetectionReceiver extends BroadcastReceiver {
         }
     }
 
+    boolean isTodayTracked() {
+        Calendar cToday = Calendar.getInstance();
+        int todayOfTheWeek = cToday.get(Calendar.DAY_OF_WEEK);
+
+        return mDaysToTrack.isDayOfTheWeekSet(todayOfTheWeek);
+    }
 
     /**
      * note that HH means hours in military time, eg 5PM = 17
@@ -117,11 +125,12 @@ public class LunchOutDetectionReceiver extends BroadcastReceiver {
         return todayCal;
     }
 
-    public void updateUserSettings(String wifi, String start, String end, String last){
+    public void updateUserSettings(String wifi, String start, String end, String last, DaysOfTheWeek daysToTrack){
         mWorkSSID = wifi;
         mStartTimeString = start;
         mEndTimeString = end;
         mLastSSID = last;
+        mDaysToTrack = daysToTrack;
     }
 
 

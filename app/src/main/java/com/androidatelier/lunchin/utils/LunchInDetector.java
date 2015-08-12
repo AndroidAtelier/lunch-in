@@ -29,7 +29,7 @@ public abstract class LunchInDetector {
         PendingIntent pendingIntent = getPendingIntent(context, receiverClass);
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         manager.setInexactRepeating(
-                AlarmManager.RTC_WAKEUP,
+                AlarmManager.RTC,
                 endTime.getMillis(),
                 INTERVAL,
                 pendingIntent);

@@ -27,12 +27,12 @@
 
 
 
-        <com.github.androidatelier.lunchin.widget.StatsRow
+        <com.androidatelier.lunchin.widget.StatsRow
             style="@style/StatsRow"
             android:id="@+id/lunch_ins_this_month"
             android:title="@string/lunch_ins_this_month"/>
 
-        <com.github.androidatelier.lunchin.widget.StatsRow
+        <com.androidatelier.lunchin.widget.StatsRow
             style="@style/StatsRow"
             android:id="@+id/lunch_outs_this_month"
             android:title="@string/lunch_outs_this_month"/>

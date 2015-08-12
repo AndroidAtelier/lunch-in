@@ -17,12 +17,12 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/helloText"
         android:textSize="24sp"
-        tools:context="com.github.androidatelier.lunchin.activity.GoalScreenActivity"/>
+        tools:context="com.androidatelier.lunchin.activity.GoalScreenActivity"/>
     <view android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
-        class="com.github.androidatelier.lunchin.activity.GoalScreenActivity"
+        class="com.androidatelier.lunchin.activity.GoalScreenActivity"
         android:id="@+id/view"
-        tools:context="com.github.androidatelier.lunchin.activity.GoalScreenActivity"/>
+        tools:context="com.androidatelier.lunchin.activity.GoalScreenActivity"/>
 </LinearLayout>

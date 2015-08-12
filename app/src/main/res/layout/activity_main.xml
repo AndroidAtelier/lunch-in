@@ -34,6 +34,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.github.androidatelier.lunchin.activity.MainActivity"
+        tools:context="com.androidatelier.lunchin.activity.MainActivity"
         />
 </android.support.design.widget.CoordinatorLayout>

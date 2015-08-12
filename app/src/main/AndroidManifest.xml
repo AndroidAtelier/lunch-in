@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.androidatelier.lunchin" >
+    package="com.androidatelier.lunchin" >
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
@@ -34,7 +34,7 @@
         </receiver>
 
         <receiver
-          android:name="com.github.androidatelier.lunchin.notification.NotificationReceiver"
+          android:name="com.androidatelier.lunchin.notification.NotificationReceiver"
           android:exported="false"/>
 
         <receiver android:name=".receiver.LunchInDetectionReceiver"/>

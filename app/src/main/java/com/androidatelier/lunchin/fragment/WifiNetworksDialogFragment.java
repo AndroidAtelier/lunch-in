@@ -2,8 +2,10 @@ package com.androidatelier.lunchin.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -12,6 +14,7 @@ import android.text.TextUtils;
 
 import com.androidatelier.lunchin.R;
 import com.androidatelier.lunchin.receiver.LunchInDetectionReceiver;
+import com.androidatelier.lunchin.receiver.LunchOutDetectionReceiver;
 import com.androidatelier.lunchin.settings.SettingsAccess;
 import com.androidatelier.lunchin.util.Constants;
 import com.androidatelier.lunchin.utils.LunchInDetector;
@@ -46,6 +49,14 @@ public class WifiNetworksDialogFragment extends DialogFragment {
         public void onClick(DialogInterface dialog, int position) {
             SettingsAccess settingsAccess = new SettingsAccess(getActivity());
             String originalWorkWifiId = settingsAccess.getWorkWifiId();
+
+            // Only turn on the receiver if its the user's first time setting it up
+            if((originalWorkWifiId == null) || (originalWorkWifiId.isEmpty())){
+                PackageManager pm  = getActivity().getPackageManager();
+                ComponentName componentName = new ComponentName(getActivity(), LunchOutDetectionReceiver.class);
+                pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP);
+            }
 
             // update shared prefs
             settingsAccess.setWorkWifiId(items[position].toString());

@@ -26,6 +26,9 @@ public class StatsFragment extends Fragment implements Updateable {
     private TextView mLunchCostInMinutes;
     private StatsRow mLunchInsThisMonth;
     private StatsRow mLunchOutsThisMonth;
+    private StatsRow mLunchInsThisYear;
+    private StatsRow mLunchOutsThisYear;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,6 +36,8 @@ public class StatsFragment extends Fragment implements Updateable {
         mLunchCostInMinutes = (TextView) v.findViewById(R.id.fragment_stats_tv2);
         mLunchInsThisMonth = (StatsRow) v.findViewById(R.id.lunch_ins_this_month);
         mLunchOutsThisMonth = (StatsRow) v.findViewById(R.id.lunch_outs_this_month);
+        mLunchInsThisYear = (StatsRow) v.findViewById(R.id.lunch_ins_this_year);
+        mLunchOutsThisYear = (StatsRow) v.findViewById(R.id.lunch_outs_this_year);
 
         mSettingsAccess = new SettingsAccess(getActivity());
         mLunchInApi = new LunchInApi(getActivity());
@@ -65,5 +70,10 @@ public class StatsFragment extends Fragment implements Updateable {
         mLunchInsThisMonth.setNumberBackground(R.drawable.stats_round_green);
         mLunchOutsThisMonth.setNumber(mLunchInApi.getNumberOfLunchOutsThisMonth(), R.plurals.day);
         mLunchOutsThisMonth.setNumberBackground(R.drawable.stats_round_red);
+
+        mLunchInsThisYear.setNumber(mLunchInApi.getNumberOfLunchInsThisYear(), R.plurals.day);
+        mLunchInsThisYear.setNumberBackground(R.drawable.stats_round_green);
+        mLunchOutsThisYear.setNumber(mLunchInApi.getNumberOfLunchOutsThisYear(), R.plurals.day);
+        mLunchOutsThisYear.setNumberBackground(R.drawable.stats_round_red);
     }
 }

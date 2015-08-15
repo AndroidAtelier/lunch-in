@@ -20,6 +20,8 @@
 
     <string name="lunch_ins_this_month">Lunched-in this month</string>
     <string name="lunch_outs_this_month">Lunched-out this month</string>
+    <string name="lunch_ins_this_year">Lunched-in this year</string>
+    <string name="lunch_outs_this_year">Lunched-out this year</string>
 
     <plurals name="day">
         <item quantity="zero">days</item>

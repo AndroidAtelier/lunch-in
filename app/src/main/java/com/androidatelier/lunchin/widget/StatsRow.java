@@ -49,12 +49,5 @@ public class StatsRow extends TableRow {
 
     public void setNumberBackground(@DrawableRes int intColor) {
         mBackground.setBackground(getResources().getDrawable(intColor));
-       /* if (color == 1)
-            mBackground.setBackground(getResources().getDrawable(R.drawable.stats_round_green));
-        else if (color == 2)
-            mBackground.setBackground(getResources().getDrawable(R.drawable.stats_round_red));
-         else if (color == 3)
-            mBackground.setBackground(getResources().getDrawable(R.drawable.stats_round_gray)); */
-
     }
 }

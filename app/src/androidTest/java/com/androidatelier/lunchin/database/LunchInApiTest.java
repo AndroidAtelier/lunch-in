@@ -2,8 +2,6 @@ package com.androidatelier.lunchin.database;
 
 import android.test.InstrumentationTestCase;
 
-import com.androidatelier.lunchin.database.Clock;
-
 import org.joda.time.DateTime;
 import org.mockito.Mockito;
 

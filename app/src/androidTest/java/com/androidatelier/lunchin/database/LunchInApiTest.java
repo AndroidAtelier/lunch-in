@@ -95,6 +95,65 @@ public class LunchInApiTest extends InstrumentationTestCase {
         assertEquals(1, mLunchInApi.getNumberOfLunchInsThisMonth());
     }
 
+    public void testLunchInsThisYear() {
+        assertEquals(0, mLunchInApi.getLunchTotal());
+
+        Mockito.when(mClock.getNow()).thenReturn(
+                new DateTime(2015, 6, 1, 0, 0, 0));
+        mLunchInApi.setLunchIn();
+
+        Mockito.when(mClock.getNow()).thenReturn(new DateTime(2015, 6, 9, 18, 0, 0));
+        assertEquals(1, mLunchInApi.getLunchTotal());
+        assertEquals(1, mLunchInApi.getNumberOfLunchIns());
+        assertEquals(1, mLunchInApi.getNumberOfLunchInsThisYear());
+
+        Mockito.when(mClock.getNow()).thenReturn(new DateTime(2015, 6, 10, 18, 0, 0));
+        mLunchInApi.setLunchOut();
+        assertEquals(2, mLunchInApi.getLunchTotal());
+        assertEquals(1, mLunchInApi.getNumberOfLunchIns());
+        assertEquals(1, mLunchInApi.getNumberOfLunchInsThisYear());
+
+        Mockito.when(mClock.getNow()).thenReturn(new DateTime(2016, 6, 10, 18, 0, 0));
+        assertEquals(2, mLunchInApi.getLunchTotal());
+        assertEquals(1, mLunchInApi.getNumberOfLunchIns());
+        assertEquals(0, mLunchInApi.getNumberOfLunchInsThisYear());
+
+        mLunchInApi.setLunchIn();
+        assertEquals(3, mLunchInApi.getLunchTotal());
+        assertEquals(2, mLunchInApi.getNumberOfLunchIns());
+        assertEquals(1, mLunchInApi.getNumberOfLunchInsThisYear());
+    }
+
+    public void testLunchOutsThisYear() {
+        assertEquals(0, mLunchInApi.getLunchTotal());
+
+        Mockito.when(mClock.getNow()).thenReturn(
+                new DateTime(2015, 6, 1, 0, 0, 0));
+        mLunchInApi.setLunchOut();
+
+        Mockito.when(mClock.getNow()).thenReturn(new DateTime(2015, 6, 9, 18, 0, 0));
+        assertEquals(1, mLunchInApi.getLunchTotal());
+        assertEquals(1, mLunchInApi.getNumberOfLunchOuts());
+        assertEquals(1, mLunchInApi.getNumberOfLunchOutsThisYear());
+
+        Mockito.when(mClock.getNow()).thenReturn(new DateTime(2015, 6, 10, 18, 0, 0));
+        mLunchInApi.setLunchOut();
+        assertEquals(2, mLunchInApi.getLunchTotal());
+        assertEquals(2, mLunchInApi.getNumberOfLunchOuts());
+        assertEquals(2, mLunchInApi.getNumberOfLunchOutsThisYear());
+
+        Mockito.when(mClock.getNow()).thenReturn(new DateTime(2016, 6, 10, 18, 0, 0));
+        assertEquals(2, mLunchInApi.getLunchTotal());
+        assertEquals(2, mLunchInApi.getNumberOfLunchOuts());
+        assertEquals(0, mLunchInApi.getNumberOfLunchOutsThisYear());
+
+        mLunchInApi.setLunchOut();
+        assertEquals(3, mLunchInApi.getLunchTotal());
+        assertEquals(3, mLunchInApi.getNumberOfLunchOuts());
+        assertEquals(1, mLunchInApi.getNumberOfLunchOutsThisYear());
+
+    }
+
     @Override
     protected void tearDown() throws Exception {
         getInstrumentation().getTargetContext().deleteDatabase(DATABASE_NAME);

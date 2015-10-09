@@ -2,6 +2,7 @@ package com.androidatelier.lunchin.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import org.joda.time.DateTime;
 
@@ -60,6 +61,9 @@ public class LunchInApi {
         return getNumberOfLunchsThisMonth(false);
     }
 
+    public int getNumberOfLunchInsThisYear() {return getNumberOfLunchsThisYear(true);}
+    public int getNumberOfLunchOutsThisYear() {return getNumberOfLunchsThisYear(false);}
+
     public boolean didUserLunchOutToday() {
         DateTime now = mClock.getNow();
         DateTime start = now.withTimeAtStartOfDay();
@@ -101,9 +105,23 @@ public class LunchInApi {
         DateTime end = start.plusMonths(1);
         return cupboard().withDatabase(mDb)
                 .query(MealItem.class)
-                .withSelection("timestamp >= ? AND timestamp < ? AND success = ?",
+                .withSelection("timestamp >= ? AND timestamp <= ? AND success = ?",
                         String.valueOf(start.getMillis()),
                         String.valueOf(end.getMillis()),
+                        success ? "1" : "0")
+                .getCursor()
+                .getCount();
+    }
+
+    public int getNumberOfLunchsThisYear(boolean success) {
+        DateTime now = mClock.getNow();
+        DateTime start = now.withDayOfYear(1).withTimeAtStartOfDay();
+
+        return cupboard().withDatabase(mDb)
+                .query(MealItem.class)
+                .withSelection("timestamp >= ? AND timestamp <= ? AND success = ?",
+                        String.valueOf(start.getMillis()),
+                        String.valueOf(now.getMillis()),
                         success ? "1" : "0")
                 .getCursor()
                 .getCount();

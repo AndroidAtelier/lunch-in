@@ -37,6 +37,16 @@
             android:id="@+id/lunch_outs_this_month"
             android:title="@string/lunch_outs_this_month"/>
 
+        <com.androidatelier.lunchin.widget.StatsRow
+            style="@style/StatsRow"
+            android:id="@+id/lunch_ins_this_year"
+            android:title="@string/lunch_ins_this_year"/>
+
+        <com.androidatelier.lunchin.widget.StatsRow
+            style="@style/StatsRow"
+            android:id="@+id/lunch_outs_this_year"
+            android:title="@string/lunch_outs_this_year"/>
+
         <TextView
             android:id="@+id/fragment_stats_tv2"
             android:layout_width="wrap_content"
